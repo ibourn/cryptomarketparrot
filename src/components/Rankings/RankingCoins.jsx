@@ -12,7 +12,7 @@ export default function RankingCoins(props) {
   //const { isAuth } = useContext(UserContext);
 
   return (
-    <Table className="table table-primary table-bordered">
+    <table className="table table-primary table-bordered">
       <thead>
         <tr>
           <th>Name</th>
@@ -26,7 +26,7 @@ export default function RankingCoins(props) {
     
         
       </tbody>
-    </Table>
+    </table>
   )
 
 }

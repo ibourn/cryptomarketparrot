@@ -13,8 +13,8 @@ export default function CoinRow(props) {
             <td>
                 name
             </td>
-            <Td>ticker</Td>
-            <Td>price</Td> 
+            <td>ticker</td>
+            <td>price</td> 
         
         </tr>
         {/* // <Route path="/coin/:id" component={CoinPage} /> */}
