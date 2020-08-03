@@ -1,22 +1,43 @@
 import React from 'react';
-import './NotFound.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import RankingCoinsPage from "./rankings/RankingCoinsPage.jsx";
 
+/************************************
+ * 
+ * RankingCoinsPage
+ * 
+ * ******************************** */
 
-export default function NotFound(props) {
+export default function RankingsPage(props) {
     return (
-        <div id="notfoundContainer">
-            <div id="notfoundDiv">
-                <p id="notfound" title="404">404</p>
-                <p className="notfoundComment">
-                    it seems you are lost, this page does not exist
-                  </p>
+        <div className="container">
+            The MainPage
+        
+        <header>Header main page</header>
+        <nav>navbar</nav>
+        <div className="row">main container
+            <div className="column">main
+                <div>pub hori</div>
+                <div>tableau
+                <BrowserRouter>
+
+            <Switch>
+             <title>top100coins</title>
+             <nav>navtable</nav>
+              <Route exact strict path="/" component={RankingCoinsPage} />
+
+              
+            </Switch>
+         
+      </BrowserRouter>
+                </div>
             </div>
-            <div>
-                <p className="notfoundComment">
-                    (following an example from Piotr Galor : Clean CSS Glitch)
-                </p>
-            </div>
+            <div className="column">pub vertical</div>
+
+
+
+        </div>
         </div>
     );
 

@@ -13,7 +13,7 @@ import { GlobalStyle } from './themes/Global';
 import './App.css';
 
 import MainPage from './pages/MainPage';
-import NotFound from './pages/NotFound';
+import NotFoundPage from './pages/NotFoundPage';
 
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         {/* <UserContext.Provider value={{ isAuth, setIsAuth }} > */}
 
-          <div className="container mt-2" style={}>
+          <div className="container mt-2" >
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
@@ -46,7 +46,7 @@ function App() {
 
               <Route exact path="(|/coin-exchange)/coin/:id" component={CoinPage} /> */}
 
-              <Route path="*" component={NotFound} />
+              <Route path="*" component={NotFoundPage} />
             </Switch>
 
           </div>
