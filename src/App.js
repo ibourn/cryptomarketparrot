@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+//import { UserContext } from "./components/UserContext/UserContext";
 
 import { ThemeProvider } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,8 +10,11 @@ import ThemeToggler from './components/ThemeToggler/ThemeToggler';
 import { lightTheme, darkTheme } from './themes/Theme';
 import { GlobalStyle } from './themes/Global';
 
-
 import './App.css';
+
+import MainPage from './pages/MainPage';
+import NotFound from './pages/NotFound';
+
 
 function App() {
   /*
@@ -19,16 +24,36 @@ function App() {
   const globalThemeToProvide = theme === 'light' ? lightTheme : darkTheme;
 
 
-  
+  //        <UserContext.Provider value={{ isAuth, setIsAuth }} >
 
+  // <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
   return (
     <ThemeProvider theme={globalThemeToProvide}>
-        <GlobalStyle />
+      <GlobalStyle />
+      <BrowserRouter>
+        {/* <UserContext.Provider value={{ isAuth, setIsAuth }} > */}
 
+          <div className="container mt-2" style={}>
+            <Switch>
+              
+              <Route exact strict path="/" component={MainPage} />
 
-        <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
+              {/* <Route exact path="/about" component={About} />
 
-     
+              <AuthRoute exact path="/profile" component={Profile} />
+
+              <Route exact path="/signup" component={SignUp} />
+
+              <Route exact path="(|/coin-exchange)/coin/:id" component={CoinPage} /> */}
+
+              <Route path="*" component={NotFound} />
+            </Switch>
+
+          </div>
+        {/* </UserContext.Provider> */}
+      </BrowserRouter>
+
+      <footer></footer>
     </ThemeProvider>
   );
 }

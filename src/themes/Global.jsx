@@ -1,5 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
+/************************************
+ * 
+ * reset of default style and setting of the global style of the App
+ * 
+ * ******************************** */
+
 export const GlobalStyle = createGlobalStyle`
   *,
   *::after,
@@ -13,4 +19,6 @@ export const GlobalStyle = createGlobalStyle`
     background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
     transition: all 0.25s linear;
+
+    min-heigth: 100vh;
   }`;
