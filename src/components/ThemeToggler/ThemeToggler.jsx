@@ -49,8 +49,8 @@ const ThemeToggler = () => {
   const isLight = theme === 'light';
   return (
     <ThemeTogglerContainer lightTheme={isLight} onClick={toggleTheme} >
-      <i class="fas fa-moon"></i>
-      <i class="far fa-sun"></i>     
+      <i className="fas fa-moon"></i>
+      <i className="far fa-sun"></i>     
     </ThemeTogglerContainer>
   );
 };

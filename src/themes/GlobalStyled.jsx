@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 /************************************
  * 
@@ -23,6 +23,7 @@ export const GlobalStyle = createGlobalStyle`
     transition: all 0.25s linear;
 
     min-heigth: 100vh;
+    min-width: 750px;
   }
   
  
@@ -31,22 +32,31 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
 
     min-heigth: 100vh;
-    //background: red;
-    
+    //background: red; 
   }
   
 
   .colMainPage{
     min-height: 100vh;
-
-
   }
   .colPub{
     min-height: 100vh;
   }
 
-  .rowPub{
-    max-height: 20vh;
-  }
+  // .rowPub{
+  //   max-height: 20vh;
+  // }
  
   `;
+
+  /**
+   * wrappers for banner elements layout
+   */
+  export const BannerContentDiv = styled.div`
+    min-width: 90%;
+  `;
+
+ export  const BannerOptionDiv = styled.div`
+    padding-right: 1rem;
+  `;
+  

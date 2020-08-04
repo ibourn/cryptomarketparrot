@@ -11,7 +11,7 @@ import '@fortawesome/fontawesome-free/js/all';
 import { useTheme } from './components/ThemeToggler/useTheme';
 import ThemeToggler from './components/ThemeToggler/ThemeToggler';
 import { lightTheme, darkTheme } from './themes/Theme';
-import { GlobalStyle } from './themes/Global';
+import { GlobalStyle } from './themes/GlobalStyled';
 
 
 import MainPage from './pages/MainPage';
