@@ -1,4 +1,6 @@
 import React from 'react';
+import ComingSoon from "./ComingSoonPage";
+
 
 /************************************
  * 
@@ -8,9 +10,7 @@ import React from 'react';
 
 export default function SignUpPage(props) {
     return (
-        <div>
-            The sign up page
-        </div>
+        <ComingSoon name="Sign Up Page"/>
     );
 
 }

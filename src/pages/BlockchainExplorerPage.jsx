@@ -1,4 +1,5 @@
 import React from 'react';
+import ComingSoon from "./ComingSoonPage";
 
 /************************************
  * 
@@ -6,11 +7,10 @@ import React from 'react';
  * 
  * ******************************** */
 
+
 export default function BlockchainExplorerPage(props) {
     return (
-        <div>
-            The BlockchainExplorerPage
-        </div>
+        <ComingSoon name="Blockchain Explorer Page"/>
     );
 
 }

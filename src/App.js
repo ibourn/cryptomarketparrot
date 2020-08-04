@@ -15,6 +15,11 @@ import { GlobalStyle } from './themes/GlobalStyled';
 
 import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
+import HeadlinesPage from './pages/HeadlinesPage';
+import InterestPage from './pages/InterestPage';
+import SignUpPage from './pages/SignUpPage';
+import BlockchainExplorerPage from './pages/BlockchainExplorerPage';
+
 
 // const containerStyle = {
 //   width: 100vw
@@ -46,13 +51,11 @@ function App() {
               
               <Route exact strict path="/" component={MainPage} />
 
-              {/* <Route exact path="/about" component={About} />
-
-              <AuthRoute exact path="/profile" component={Profile} />
-
-              <Route exact path="/signup" component={SignUp} />
-
-              <Route exact path="(|/coin-exchange)/coin/:id" component={CoinPage} /> */}
+              <Route exact path="/headlines" component={HeadlinesPage} />
+              <Route exact path="/interest" component={InterestPage} />
+              <Route exact path="/signup" component={SignUpPage} />
+              <Route exact path="/blockchainexplorer" component={BlockchainExplorerPage} />
+  
 
               <Route path="*" component={NotFoundPage} />
             </Switch>

@@ -1,0 +1,60 @@
+.app {
+    height: 100vh;
+    background-color: rgba(0,0,0,.05);
+    display: grid;
+    grid-template-rows: 1fr 100px 100px 1fr 1fr;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.title {
+    font-size: 64px;
+    color: #ff420e;
+    grid-row: 2 / 3;
+    grid-column: 3 / 7;
+}
+
+.subtitle {
+    font-size: 32px;
+    color: #f98866;
+    grid-row: 3 / 4;
+    grid-column: 3 / 7;
+}
+
+.soon {
+    font-size: 48px;
+    color: #89da59;
+    justify-self: flex-end;
+    align-self: flex-end;
+    grid-row: 4 / 5;
+    grid-column: 7 / 10;
+}
+
+@media only screen and (max-width: 1120px) {
+    .soon {
+        grid-column: 5 / 10;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .app {
+        grid-template-columns: 10% 1fr 10%;
+    }
+
+    .title, .subtitle, .soon {
+        grid-column: 2 / 3;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .title {
+        font-size: 40px;
+    }
+
+    .subtitle {
+        font-size: 24px;
+    }
+
+    .soon {
+        font-size: 32px;
+    }
+}

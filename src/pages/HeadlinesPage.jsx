@@ -1,4 +1,6 @@
 import React from 'react';
+import ComingSoon from "./ComingSoonPage";
+
 
 /************************************
  * 
@@ -6,11 +8,10 @@ import React from 'react';
  * 
  * ******************************** */
 
+
 export default function HeadlinesPage(props) {
     return (
-        <div>
-            The HeadlinesPage
-        </div>
+        <ComingSoon name="Headlines Page"/>
     );
 
 }

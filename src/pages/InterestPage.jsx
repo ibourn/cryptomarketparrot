@@ -1,4 +1,6 @@
 import React from 'react';
+import ComingSoon from "./ComingSoonPage";
+
 
 /************************************
  * 
@@ -6,11 +8,9 @@ import React from 'react';
  * 
  * ******************************** */
 
-export default function InterestPage(props) {
+export default function SignUpPage(props) {
     return (
-        <div>
-            The InterestPage
-        </div>
+        <ComingSoon name="Interest Page"/>
     );
 
 }

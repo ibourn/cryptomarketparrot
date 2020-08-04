@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { LoginContext } from "../AuthRoute/LoginContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
+import ParrotBlack from "../../assets/parrot-colored-bird-mk-woodcut.svg";
+import ParrotGray from "../../assets/Parrot-Remix-Grayscale-Request-2014110544.svg";
 
 import styled from 'styled-components';
 import Logo from "../../assets/Webpnet-livewebinar.png";
@@ -76,13 +78,13 @@ const linkStyle = {
 const activeLink = {
     color: `${textLinkColor}`
 };
-
+const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
     return (
         <Nav className={navClass} role="navigation" aria-label="main navigation">
             <DivContainer className="container">
             <NavLink to="/" exact className="navbar-brand" style={linkStyle} activeStyle={activeLink} >
 
-             <img src={Logo} width="30" height="30" class="d-inline-block align-top" alt=""/>
+             <img src={parrotLogo} width="50px" height="50px" class="d-inline-block align-top" alt=""/>
              CryptoMarketParrot
               </NavLink>
 
@@ -127,10 +129,12 @@ const activeLink = {
                     </ul>
                     {/* <div className="navbar"> */}
                     <div className="navbar-item">
-                        <div className="buttons">
-                            <button className="btn" onClick={loginUser}>
-                                Search
-                </button>
+                        <div className="buttons d-flex flex-row">
+                            <div>
+                        <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+  </form></div>
                             {!isAuth ? (
                                 <ButtonLogIn className={btnLoginClass} onClick={loginUser}>
                                     Log in
