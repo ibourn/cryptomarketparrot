@@ -11,7 +11,7 @@ import RankingCoins from "./../../components/Rankings/RankingCoins";
 
 export default function RankingsPage(props) {
     return (
-        <div className="container">
+        <div className="tableContainer container">
             Ttableau
                 <title>top100coins</title>
              <nav>navtable</nav>

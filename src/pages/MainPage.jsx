@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import HeaderMainPage from "../components/Headers/HeaderMainPage.jsx"
 import RankingsPage from "./mainpages/RankingsPage.jsx";
 
 /************************************
@@ -11,14 +12,14 @@ import RankingsPage from "./mainpages/RankingsPage.jsx";
 
 export default function MainPage(props) {
     return (
-        <div className="container">
-            The MainPage
+        <div className="globalContainer container-fluid">
+          
         
-        <header>Header main page</header>
+        <HeaderMainPage/>
         <nav>navbar</nav>
-        <div className="row">main container
-            <div className="column">main column
-                <div>pub horizontal</div>
+        <div className="row no-gutters">
+            <div className="colMainPage col-10 ">main column
+                <div className="rowPub">pub horizontal</div>
                 <div>tableau
                 <BrowserRouter>
 
@@ -32,7 +33,7 @@ export default function MainPage(props) {
       </BrowserRouter>
                 </div>
             </div>
-            <div className="column">pub vertical</div>
+            <div className="colPub col-2">pub vertical</div>
 
 
 

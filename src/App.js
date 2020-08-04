@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 //import { UserContext } from "./components/UserContext/UserContext";
 
+import './App.css';
+
 import { ThemeProvider } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all';
@@ -10,11 +12,13 @@ import ThemeToggler from './components/ThemeToggler/ThemeToggler';
 import { lightTheme, darkTheme } from './themes/Theme';
 import { GlobalStyle } from './themes/Global';
 
-import './App.css';
 
 import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+// const containerStyle = {
+//   width: 100vw
+// };
 
 function App() {
   /*
@@ -33,7 +37,7 @@ function App() {
       <BrowserRouter>
         {/* <UserContext.Provider value={{ isAuth, setIsAuth }} > */}
 
-          <div className="container mt-2" >
+          <div className="globalContainer container-fluid"  >
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
@@ -49,11 +53,12 @@ function App() {
               <Route path="*" component={NotFoundPage} />
             </Switch>
 
+            <footer>Footer</footer>
           </div>
         {/* </UserContext.Provider> */}
       </BrowserRouter>
 
-      <footer></footer>
+      
     </ThemeProvider>
   );
 }

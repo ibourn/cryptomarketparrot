@@ -23,4 +23,30 @@ export const GlobalStyle = createGlobalStyle`
     transition: all 0.25s linear;
 
     min-heigth: 100vh;
-  }`;
+  }
+  
+ 
+  .globalContainer{
+    padding: 0;
+    margin: 0;
+
+    min-heigth: 100vh;
+    background: red;
+    
+  }
+  
+
+  .colMainPage{
+    min-height: 100vh;
+
+
+  }
+  .colPub{
+    min-height: 100vh;
+  }
+
+  .rowPub{
+    max-height: 20vh;
+  }
+ 
+  `;
