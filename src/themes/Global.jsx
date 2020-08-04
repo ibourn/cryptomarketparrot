@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
 
     min-heigth: 100vh;
-    background: red;
+    //background: red;
     
   }
   

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-//import paprikaLogo from "./coinpaprika.svg"
 import styled from 'styled-components';
 
 import PubBannerMainPage from "../Banners/PubBannerMainPage";
 import InfoBannerMainPage from "../Banners/InfoBannerMainPage";
-
+import MarketBannerMainPage from "../Banners/MarketBannerMainPage";
 
 export default function ExchangeHeader(props) {
 
@@ -12,10 +11,7 @@ export default function ExchangeHeader(props) {
             <header>
                 <PubBannerMainPage/>
                 <InfoBannerMainPage/>
-             
-                  <div>market banner</div> 
-                
-                
+                <MarketBannerMainPage/>
             </header>
         );
 }

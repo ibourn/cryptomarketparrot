@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 //import { UserContext } from "./components/UserContext/UserContext";
 
 import './App.css';
+import { ThemeContext } from "./components/ThemeToggler/ThemeContext";
 
 import { ThemeProvider } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +33,8 @@ function App() {
 
   // <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
   return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }} >
+
     <ThemeProvider theme={globalThemeToProvide}>
       <GlobalStyle />
       <BrowserRouter>
@@ -60,6 +63,8 @@ function App() {
 
       
     </ThemeProvider>
+    </ThemeContext.Provider>
+
   );
 }
 

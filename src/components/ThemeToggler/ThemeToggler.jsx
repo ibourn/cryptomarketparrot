@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { func, string } from 'prop-types';
 import styled from 'styled-components';
+
+import { ThemeContext } from "./ThemeContext";
 
 /************************************
  * 
  * The theme toggler button
+ * 
+ * use ThemeContext to get the context anywhere in the tree
+ * and useTheme to switch via a theme state
  * 
  * ******************************** */
 
@@ -38,7 +43,9 @@ const ThemeTogglerContainer = styled.button`
 /* 
  * Return the styled component as a button and passing the theme params
  */
-const ThemeToggler = ({ theme, toggleTheme }) => {
+const ThemeToggler = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  //const ThemeToggler = ({ theme, toggleTheme }) => {
   const isLight = theme === 'light';
   return (
     <ThemeTogglerContainer lightTheme={isLight} onClick={toggleTheme} >
