@@ -16,6 +16,10 @@ import VertPubBanner from "../components/Banners/VerticalPubBanner";
 export default function MainPage(props) {
     const [isOpened, setIsOpened] = useState(true);
 
+    /*
+    * function passed to Pub compenent, thus the bannercloser can forward 
+    * the change to set the corresonpding col class
+    */
     const closePub = () => {
         setIsOpened(false);
     }

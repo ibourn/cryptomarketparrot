@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { LoginContext } from "../AuthRoute/LoginContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
@@ -9,6 +9,29 @@ import styled from 'styled-components';
 
 
 const CoinRankingNavBar = () => {
+    const [isDownCrypto, setIsDownCrypto] = useState(false);
+    const [isDownExchange, setIsDownExchanges] = useState(false);
+    const [isDownWatchlist, setIsDownWatchlist] = useState(false);
+ 
+    //TO DO find a way to close menus when another click outside the nav
+    const toggleDropDownCrypto = () => {
+        setIsDownCrypto(oldValue => !oldValue);
+        setIsDownExchanges(false);
+        setIsDownWatchlist(false);
+
+    }
+    const toggleDropDownExchange = () => {
+        setIsDownExchanges(oldValue => !oldValue);
+        setIsDownCrypto(false);
+        setIsDownWatchlist(false);
+    }  
+      const toggleDropDownWatchlist = () => {
+        setIsDownWatchlist(oldValue => !oldValue);
+        setIsDownCrypto(false);
+        setIsDownExchanges(false);
+    }
+
+
 
    // const targetClass = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
 //    const triggerClass = isOpen ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
@@ -21,28 +44,66 @@ const CoinRankingNavBar = () => {
     const btnLoginClass = "btn btn-sm btn-light";
     const btnSignUpClass = "btn btn-sm btn-primary";
 
+    const liDropdown = "nav-item dropdown active";
+    const triggerMenu = "nav-link dropdown-toggle";
+    const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show active" : "");
+    const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show" : "");
+    const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show" : "");
+    const menuItemClass = "dropdown-item";
    return (
+       <div className="d-flex justify-content-between">
     <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="#">Active</a>
+    <li class={liDropdown}>
+      <a class={triggerMenu} onClick={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div class={menuCryptoClass}>
+        <NavLink to="/" className={menuItemClass}>Top100</NavLink>
+        <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>       
+        <NavLink to="/" className={menuItemClass}>Defi</NavLink>  
+               </div>
     </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
+    <li class={liDropdown}>
+      <a class={triggerMenu} onClick={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div class={menuExchangeClass}>
+      <NavLink to="/" className={menuItemClass}>Spot Exchanges</NavLink>  
+      <NavLink to="/" className={menuItemClass}>Derivative Exchanges</NavLink>        </div>
+    </li>
+    <li class={liDropdown}>
+      <a class={triggerMenu}  onClick={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div class={menuWatchlistClass}>
+      <NavLink to="/" className={menuItemClass}>Action</NavLink>  
+      <NavLink to="/" className={menuItemClass}>Action</NavLink>  
+      <NavLink to="/" className={menuItemClass}>Action</NavLink>  
       </div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
-    </li>
   </ul>
+  <div className="d-flex justify-content-end">
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <i class="fas fa-filter"></i>Fliters
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+    devises
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+<button>
+    next100
+</button>
+</div>
+
+  </div>
     );
 }
 

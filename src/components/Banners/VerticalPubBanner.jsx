@@ -32,6 +32,9 @@ const BannerOption = styled.div`
 export default function PubBannerMainPage(props) {
     const [showBanner, closeBanner] = useClose();
 
+    /*
+    *  called if showBanner changes, lift up closing to main page
+    */
     useEffect(() => {
         if(!showBanner) {
             props.closePub();
