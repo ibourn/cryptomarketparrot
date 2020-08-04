@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import MainPagePubBanner from "../Banners/MainPagePubBanner";
+import MainPagePubBanner from "../Banners/HorizontalPubBanner";
 import MainPageInfoBanner from "../Banners/MainPageInfoBanner";
 import MainPageMarketBanner from "../Banners/MainPageMarketBanner";
 

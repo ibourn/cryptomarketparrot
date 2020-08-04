@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
 import RankingsPage from "./mainpages/RankingsPage";
+import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
+import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
 /************************************
  * 
@@ -19,9 +21,9 @@ export default function MainPage(props) {
             <MainPageHeader />
             <MainPageNavBar />
             <div className="row no-gutters">
-                <div className="colMainPage col-10 ">main column
-                <div className="rowPub">pub horizontal</div>
-                    <div>tableau
+                <div className="colMainPage col-10 ">
+                <HorzPubBanner/>
+                    <div>
                 <BrowserRouter>
 
                             <Switch>
@@ -34,9 +36,9 @@ export default function MainPage(props) {
                         </BrowserRouter>
                     </div>
                 </div>
-                <div className="colPub col-2">pub vertical</div>
-
-
+                <div className="col-2">
+                <VertPubBanner/>
+                </div>
 
             </div>
         </div>
