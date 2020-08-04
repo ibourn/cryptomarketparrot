@@ -13,24 +13,15 @@ const CoinRankingNavBar = () => {
     const [isDownExchange, setIsDownExchanges] = useState(false);
     const [isDownWatchlist, setIsDownWatchlist] = useState(false);
  
-    //TO DO find a way to close menus when another click outside the nav
     const toggleDropDownCrypto = () => {
         setIsDownCrypto(oldValue => !oldValue);
-        setIsDownExchanges(false);
-        setIsDownWatchlist(false);
-
     }
     const toggleDropDownExchange = () => {
         setIsDownExchanges(oldValue => !oldValue);
-        setIsDownCrypto(false);
-        setIsDownWatchlist(false);
-    }  
+   }  
       const toggleDropDownWatchlist = () => {
         setIsDownWatchlist(oldValue => !oldValue);
-        setIsDownCrypto(false);
-        setIsDownExchanges(false);
-    }
-
+   }
 
 
    // const targetClass = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
@@ -54,7 +45,7 @@ const CoinRankingNavBar = () => {
        <div className="d-flex justify-content-between">
     <ul class="nav nav-tabs">
     <li class={liDropdown}>
-      <a class={triggerMenu} onClick={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <a class={triggerMenu} onClick={toggleDropDownCrypto} onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
       <div class={menuCryptoClass}>
         <NavLink to="/" className={menuItemClass}>Top100</NavLink>
         <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>       
@@ -62,13 +53,13 @@ const CoinRankingNavBar = () => {
                </div>
     </li>
     <li class={liDropdown}>
-      <a class={triggerMenu} onClick={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <a class={triggerMenu} onClick={toggleDropDownExchange} onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
       <div class={menuExchangeClass}>
       <NavLink to="/" className={menuItemClass}>Spot Exchanges</NavLink>  
       <NavLink to="/" className={menuItemClass}>Derivative Exchanges</NavLink>        </div>
     </li>
     <li class={liDropdown}>
-      <a class={triggerMenu}  onClick={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <a class={triggerMenu}  onClick={toggleDropDownWatchlist} onBlur={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
       <div class={menuWatchlistClass}>
       <NavLink to="/" className={menuItemClass}>Action</NavLink>  
       <NavLink to="/" className={menuItemClass}>Action</NavLink>  
