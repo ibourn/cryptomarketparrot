@@ -28,7 +28,7 @@ export default function MarketBannerMainPage(props) {
 
     return (
         <>
-        <div className={divClass}>>
+        <div className={divClass}>
             <ul className={divClass}>
                 <li><span>Cryptocurrencies :</span><span>val</span></li>
                 <li><span>Markets :</span><span>val</span></li>
