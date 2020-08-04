@@ -5,8 +5,8 @@ import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
 
 import styled from 'styled-components';
 
-import { useClose } from "./useClose.jsx";
-import BannerCloser from "./BannerCloser.jsx";
+import { useClose } from "./useClose";
+import BannerCloser from "./BannerCloser";
 
 /************************************
  * 

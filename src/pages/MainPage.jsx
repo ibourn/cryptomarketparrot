@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import MainPageHeader from "../components/Headers/MainPageHeader.jsx"
-import RankingsPage from "./mainpages/RankingsPage.jsx";
+import MainPageHeader from "../components/Headers/MainPageHeader"
+import MainPageNavBar from "../components/NavBars/MainPageNavBar"
+import RankingsPage from "./mainpages/RankingsPage";
 
 /************************************
  * 
@@ -16,7 +17,7 @@ export default function MainPage(props) {
 
 
             <MainPageHeader />
-            <nav>navbar</nav>
+            <MainPageNavBar />
             <div className="row no-gutters">
                 <div className="colMainPage col-10 ">main column
                 <div className="rowPub">pub horizontal</div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-//import { UserContext } from "./components/UserContext/UserContext";
-
+import { LoginContext } from "./components/AuthRoute/LoginContext";
 import './App.css';
 import { ThemeContext } from "./components/ThemeToggler/ThemeContext";
 
@@ -27,18 +26,20 @@ function App() {
   */
   const [theme, toggleTheme] = useTheme();
   const globalThemeToProvide = theme === 'light' ? lightTheme : darkTheme;
+  /*
+  * set the user as not login
+  */
+  const [isAuth, setIsAuth] = useState(false);
 
 
-  //        <UserContext.Provider value={{ isAuth, setIsAuth }} >
-
-  // <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }} >
 
     <ThemeProvider theme={globalThemeToProvide}>
+      <LoginContext.Provider value={{ isAuth, setIsAuth }} >
+
       <GlobalStyle />
       <BrowserRouter>
-        {/* <UserContext.Provider value={{ isAuth, setIsAuth }} > */}
 
           <div className="globalContainer container-fluid"  >
             <Switch>
@@ -58,9 +59,9 @@ function App() {
 
             <footer>Footer</footer>
           </div>
-        {/* </UserContext.Provider> */}
+        
       </BrowserRouter>
-
+      </LoginContext.Provider>
       
     </ThemeProvider>
     </ThemeContext.Provider>

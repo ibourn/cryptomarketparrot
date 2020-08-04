@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
 import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
 
-import { useClose } from "./useClose.jsx";
-import BannerCloser from "./BannerCloser.jsx";
+import { useClose } from "./useClose";
+import BannerCloser from "./BannerCloser";
 import livewebinar from "../../assets/Webpnet-livewebinar.png";
 import IoTacademy from "../../assets/Webpnet-IoTacademy.png";
 
