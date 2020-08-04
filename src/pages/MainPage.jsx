@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import MainPageHeader from "../components/Headers/MainPageHeader"
@@ -14,6 +14,14 @@ import VertPubBanner from "../components/Banners/VerticalPubBanner";
  * ******************************** */
 
 export default function MainPage(props) {
+    const [isOpened, setIsOpened] = useState(true);
+
+    const closePub = () => {
+        setIsOpened(false);
+    }
+    const colMainClass = "colMainPage" + (isOpened ? " col-10" : " col-12");
+    const colPubClass =  (isOpened ? " col-2" : " col-0");
+
     return (
         <div className="globalContainer container-fluid">
 
@@ -21,7 +29,7 @@ export default function MainPage(props) {
             <MainPageHeader />
             <MainPageNavBar />
             <div className="row no-gutters">
-                <div className="colMainPage col-10 ">
+                <div className={colMainClass}>
                 <HorzPubBanner/>
                     <div>
                 <BrowserRouter>
@@ -36,8 +44,8 @@ export default function MainPage(props) {
                         </BrowserRouter>
                     </div>
                 </div>
-                <div className="col-2">
-                <VertPubBanner/>
+                <div className={colPubClass}>
+                <VertPubBanner closePub={closePub}/>
                 </div>
 
             </div>

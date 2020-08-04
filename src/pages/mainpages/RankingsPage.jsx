@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import RankingCoins from "./../../components/Rankings/RankingCoins";
+import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
 
 /************************************
  * 
@@ -12,21 +13,21 @@ import RankingCoins from "./../../components/Rankings/RankingCoins";
 export default function RankingsPage(props) {
     return (
         <div className="tableContainer container">
-            Ttableau
-                <title>top100coins</title>
-             <nav>navtable</nav>
-                <BrowserRouter>
 
-            <Switch>
-           
-              <Route exact strict path="/" component={RankingCoins} />
+            <h1>top100coins</h1>
+            <CoinRankingNavbar />
+            <BrowserRouter>
 
-              
-            </Switch>
-         
-      </BrowserRouter>
-                </div>
-            
+                <Switch>
+
+                    <Route exact strict path="/" component={RankingCoins} />
+
+
+                </Switch>
+
+            </BrowserRouter>
+        </div>
+
     );
 
 }

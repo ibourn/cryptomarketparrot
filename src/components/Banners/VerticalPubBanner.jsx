@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
@@ -31,6 +31,13 @@ const BannerOption = styled.div`
 
 export default function PubBannerMainPage(props) {
     const [showBanner, closeBanner] = useClose();
+
+    useEffect(() => {
+        if(!showBanner) {
+            props.closePub();
+        }
+       
+    }, )
 
     const divBannerClass = "d-flex flex-column justify-content-between  ";
 

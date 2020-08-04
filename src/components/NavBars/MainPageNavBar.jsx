@@ -19,10 +19,6 @@ const DivContainer = styled.div`
   `;
 
 const ButtonLogIn = styled.button`
-
-    height: 25px;
-    width: 60px;
-    padding: 0;
     :hover {
       font-weight: bold;
     }
@@ -84,7 +80,7 @@ const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
             <DivContainer className="container">
             <NavLink to="/" exact className="navbar-brand" style={linkStyle} activeStyle={activeLink} >
 
-             <img src={parrotLogo} width="50px" height="50px" class="d-inline-block align-top" alt=""/>
+             <img src={parrotLogo} width="45px" height="45px" class="d-inline-block align-top" alt=""/>
              CryptoMarketParrot
               </NavLink>
 
