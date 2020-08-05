@@ -37,7 +37,7 @@ export const GlobalStyle = createGlobalStyle`
   
 
   .colMainPage{
-    min-height: 100vh;
+    min-height: 1000vh;
   }
   .colPub{
     min-height: 100vh;

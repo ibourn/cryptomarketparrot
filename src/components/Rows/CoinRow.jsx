@@ -10,12 +10,10 @@ export default function CoinRow(props) {
     return (
         <>
         <tr>
-            <td>
-                name
-            </td>
-            <td>ticker</td>
-            <td>price</td> 
-        
+        <td>{props.id}</td> 
+            <td>{props.name}</td> 
+            <td>{props.symbol}</td>  
+            <td>{props.rank}</td> 
         </tr>
         {/* // <Route path="/coin/:id" component={CoinPage} /> */}
     </>

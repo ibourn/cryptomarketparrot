@@ -24,16 +24,16 @@ const CoinRankingNavBar = () => {
    }
 
 
-   // const targetClass = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
-//    const triggerClass = isOpen ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
+   // const targetclassName = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
+//    const triggerclassName = isOpen ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
-    const navClass = "navbar navbar-expand-lg navbar-light sticky-top";
-    const ulClass = "navbar-nav mr-auto";
-    const liClass = "nav-item mr-3";
-    const linkClass = "navbar-link";
+    const navclassName = "navbar navbar-expand-lg navbar-light sticky-top";
+    const ulclassName = "navbar-nav mr-auto";
+    const liclassName = "nav-item mr-3";
+    const linkclassName = "navbar-link";
 
-    const btnLoginClass = "btn btn-sm btn-light";
-    const btnSignUpClass = "btn btn-sm btn-primary";
+    const btnLoginclassName = "btn btn-sm btn-light";
+    const btnSignUpclassName = "btn btn-sm btn-primary";
 
     const liDropdown = "nav-item dropdown active";
     const triggerMenu = "nav-link dropdown-toggle";
@@ -43,10 +43,10 @@ const CoinRankingNavBar = () => {
     const menuItemClass = "dropdown-item";
    return (
        <div className="d-flex justify-content-between">
-    <ul class="nav nav-tabs">
-    <li class={liDropdown}>
-      <a class={triggerMenu} onClick={toggleDropDownCrypto} onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-      <div class={menuCryptoClass}>
+    <ul className="nav nav-tabs">
+    <li className={liDropdown}>
+      <a className={triggerMenu} onClick={toggleDropDownCrypto} onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+      <div className={menuCryptoClass}>
         <NavLink to="/" className={menuItemClass}>Top100</NavLink>
         <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>       
         <NavLink to="/" className={menuItemClass}>Defi</NavLink>  
@@ -83,10 +83,10 @@ const CoinRankingNavBar = () => {
     
     devises
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a className="dropdown-item" href="#">Action</a>
+    <a className="dropdown-item" href="#">Another action</a>
+    <a className="dropdown-item" href="#">Something else here</a>
   </div>
 </div>
 <button>
