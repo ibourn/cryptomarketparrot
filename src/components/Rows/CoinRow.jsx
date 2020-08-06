@@ -15,23 +15,20 @@ const Td = styled.td`
 export default function CoinRow(props) {
     console.log(props);
 
-    function iconAvailable() {
-
+    function getAvailableIcon() {
         try {
             var foo = require(`../../assets/coloredsvg/${props.svg}`);
             return foo;
         }
         catch (e) {
             if (e instanceof Error && e.code === "MODULE_NOT_FOUND"){
-                console.log("Can't load foo!");
-                console.log(props.svg);
-
                 return require('../../assets/coloredsvg/generic.svg');
              } else{
                 throw e;}
         }
     }
-    const icon = iconAvailable();
+    const icon = getAvailableIcon();
+    
     return (
         <>
         <tr>

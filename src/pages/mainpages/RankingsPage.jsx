@@ -97,7 +97,23 @@ const response = await  DataProvider.getCoinsData();
       }
 
 
+const handleClickSort = async (key, order) => {
+  const response = await  DataProvider.getCoinsData();
 
+  switch(key) {
+    case 'rank':
+    case 'name':
+    case 'circulating_supply':
+      response.data.sort(Compare.byKey(key, order));
+      break;
+    default:
+      response.data.sort(Compare.quotesByKey(key, order));
+      break;
+  }  
+        const newCoinsData = response.data.slice(0, COIN_COUNT);
+    
+        setCoinsData(newCoinsData);
+}
 
 
 
@@ -119,7 +135,7 @@ const response = await  DataProvider.getCoinsData();
                 <Switch>
 
                     <Route exact strict path="/">
-                    <RankingCoins coinsData={coinsData} coinsList={coinsList}/>
+                    <RankingCoins coinsData={coinsData} coinsList={coinsList} handleClickSort={handleClickSort}/>
                         </Route> 
 
 
