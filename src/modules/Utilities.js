@@ -12,7 +12,7 @@ export var Format = {
  * 
  * @param {*} price 
  */
-    Price: price => {parseFloat(Number(price).toFixed(4));}
+    price: price => {parseFloat(Number(price).toFixed(4));}
 }
 
 export var Compare = {
@@ -22,7 +22,7 @@ export var Compare = {
      * compare by key in asc or desc order
      * 
      */
-    ByKey: (key, order = 'asc') => {
+    byKey: (key, order = 'asc') => {
             return function compare(a, b) {
                 let comparison = a[key] == b[key] ? 0 : a[key] > b[key] ? 1 : -1;
                 return ( (order === 'desc') ? (comparison * -1) : comparison  );

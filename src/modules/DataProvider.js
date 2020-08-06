@@ -98,7 +98,7 @@ function buildCoinsListGeckoUrl(){
                     is_new: coin.is_new,
                     is_active: coin.is_active,
                     type: coin.type,
-                    svg_url: "../assets/coloredsvg/" + key + ".png"
+                    svg: key + ".svg"
                 }
              });
             /* GET ID AND INFOS FROM COINGEKO */
@@ -117,7 +117,7 @@ function buildCoinsListGeckoUrl(){
      * Get the coins data (for top N display)
      * 
      */
-    getCoinsData : axios.get("https://api.coinpaprika.com/v1/tickers")
+    getCoinsData : async () => {return await axios.get("https://api.coinpaprika.com/v1/tickers");}
       
     }
  

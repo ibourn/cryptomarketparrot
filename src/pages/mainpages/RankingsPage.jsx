@@ -38,13 +38,13 @@ const coinsTickers = "https://api.coinpaprika.com/v1/tickers";//{coin_id}
 
 //PAS SURE RECEPTION TIMING POUR SUITE
 //const p = async () => {return await DataProvider.getCoinList();};
-const coinsList = DataProvider.getCoinList();
 
-console.log(coinsList,"\n\n\nREADY");
+
+
 
 export default function RankingsPage(props) {
   const [coinsData, setCoinsData] = useState([]);
- 
+  const [coinsList, setCoinsList] = useState([]);
 
 
     useEffect(function () {
@@ -74,18 +74,25 @@ export default function RankingsPage(props) {
 
       const componentDidMount = async () => {
         //const response = await axios.get(coinsTickers);
-    
-const response = await DataProvider.getCoinsData;
+        const coinsList = await DataProvider.getCoinList();
 
-        response.data.sort(Compare.ByKey('rank', 'asc'));
+    
+const response = await  DataProvider.getCoinsData();
+
+        response.data.sort(Compare.byKey('rank', 'asc'));
        
        
-        const coinsList = response.data.slice(0, COIN_COUNT);
+        const newCoinsData = response.data.slice(0, COIN_COUNT);
+
+          //otbenir les donnees OHCL pour les mini graph
+          //100 coins / page => 6 apple possible => 1/10sec
+          //afin de ne pas bloquer si autre suivant => 2/min => timer 30sec
+
 
        
-     
+          setCoinsList(coinsList);
     
-        setCoinsData(coinsList);
+        setCoinsData(newCoinsData);
        
       }
 
@@ -100,8 +107,9 @@ const response = await DataProvider.getCoinsData;
 //                    <Route exact strict path="/" component={RankingCoins} />
 
 
-
+{ console.log(coinsList,"\n\n\nREADY")};
     return (
+     
         <div className="tableContainer container">
 
             <h1>top100coins</h1>
@@ -111,7 +119,7 @@ const response = await DataProvider.getCoinsData;
                 <Switch>
 
                     <Route exact strict path="/">
-                    <RankingCoins coinsData={coinsData}/>
+                    <RankingCoins coinsData={coinsData} coinsList={coinsList}/>
                         </Route> 
 
 
