@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { DataContext } from '../../components/NavBars/DataContext';
 
 import RankingCoins from "./../../components/Rankings/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
@@ -47,6 +48,9 @@ export default function RankingsPage(props) {
   const [coinsList, setCoinsList] = useState([]);
   const [priceSetData, setPriceSetData] = useState([]);
 
+  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+
+
     useEffect(function () {
         if (coinsData.length === 0) {
           // component did mount
@@ -74,8 +78,39 @@ export default function RankingsPage(props) {
 
       const componentDidMount = async () => {
         //const response = await axios.get(coinsTickers);
-        const coinsList = await DataProvider.getCoinList();
 
+
+        ///ATTENTION LIMITER APPEL API => test state == []
+
+        const dictionary =[]
+
+        const coinsList = await DataProvider.getCoinList().then((datas)=>{
+          console.log(datas,"dats2");
+          for (const [key,val] of datas) {
+          dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
+          console.log(val.name.toLowerCase() + " " + val.symbol.toLowerCase(), "dats");  
+        }
+          
+          console.log(dictionary, "dictionary");
+
+          //props.loadCoinsInfos(dictionary,datas);
+
+          setCoinsInfos(()=>{
+            const infos = {
+              dictionary: dictionary,
+            list: datas
+            }
+            return infos;
+          })
+          return datas;
+        }
+
+
+        );
+
+
+
+       
     
 const response = await  DataProvider.getCoinsData();
 
@@ -98,9 +133,10 @@ const response = await  DataProvider.getCoinsData();
                 y: quote.price
               }
             });*/
-            if (coinsList[coin.symbol.toLowerCase()].gecko_id != undefined){
-            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsList[coin.symbol.toLowerCase()].gecko_id);
-           
+            if (coinsList.get(coin.symbol.toLowerCase()).gecko_id != undefined){
+            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsList.get(coin.symbol.toLowerCase()).gecko_id);
+            //DataProvider.testgek+=1;
+           // console.log(DataProvider.testgek, "appel gek");
             return coinResponse;
             }
           });

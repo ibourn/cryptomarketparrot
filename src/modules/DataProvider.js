@@ -105,7 +105,8 @@ return url;
 
 //export default async function DataProvider() {
 
- export var DataProvider = {
+ export var DataProvider =  {
+
     /**
      * Create a map : id => {identity infos}, where id is lowercapped symbol
      * to have :
@@ -113,14 +114,19 @@ return url;
      * 
      * TODO : rank shouldn't be there as it can change during display
      * 
+     * 
      */
     getCoinList : async () => {
             let coinList = new Map();
             /* GET ID AND INFOS FROM COINAPRIKA */
             const responseP =  await axios.get(buildCoinsListPaprikaUrl());
+
+            
+
             responseP.data.forEach((coin) => {
                 let key = coin.symbol.toLowerCase();
-                coinList[key] = {
+               // coinList[key] = {
+                coinList.set(key, {
                     paprika_id: coin.id,
                     gecko_id: "",
                     name: coin.name,
@@ -130,15 +136,22 @@ return url;
                     is_active: coin.is_active,
                     type: coin.type,
                     svg: key + ".svg"
-                }
+                });
              });
             /* GET ID AND INFOS FROM COINGEKO */
             const responseC = await axios.get(buildCoinsListGeckoUrl());
+
+            DataProvider.testgek+=1;
+            console.log(DataProvider.testgek, "appel gek");
+            
+
             /* SET COINGECKO ID IN THE MAP */
             responseC.data.forEach((coin) => {
                 console.log(coin);
-                if (coinList[coin.symbol]) {
-                  coinList[coin.symbol].gecko_id = coin.id;}
+                if (coinList.get(coin.symbol)) {
+                  const newset = coinList.get(coin.symbol);
+                  newset.gecko_id = coin.id;
+                  coinList.set(coin.symbol,newset);}
                   console.log(coin);
                   console.log(coinList[coin.symbol]);
             });
@@ -168,5 +181,5 @@ return url;
     }
 
   }
- 
+
  

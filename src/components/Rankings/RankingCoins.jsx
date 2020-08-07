@@ -128,8 +128,8 @@ const thClass="";//"position-absolute sticky-top";
               key={symbol}
               rank={rank}
               symbol={symbol}
-              svg={ (props.coinsList[symbol.toLowerCase()]) ?
-                props.coinsList[symbol.toLowerCase()].svg
+              svg={ (props.coinsList.get(symbol.toLowerCase())) ?
+                props.coinsList.get(symbol.toLowerCase()).svg
                 : "generic.svg"
               }
               name={name}

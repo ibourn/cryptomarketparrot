@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { LoginContext } from "./components/AuthRoute/LoginContext";
+import { DataContext } from "./components/NavBars/DataContext";
 import './App.css';
 import { ThemeContext } from "./components/ThemeToggler/ThemeContext";
 
@@ -35,6 +36,10 @@ function App() {
   * set the user as not login
   */
   const [isAuth, setIsAuth] = useState(false);
+  const [coinsInfos, setCoinsInfos] = useState({
+    dictionary: [],
+    list: []
+  });
 
 
   return (
@@ -42,7 +47,7 @@ function App() {
 
     <ThemeProvider theme={globalThemeToProvide}>
       <LoginContext.Provider value={{ isAuth, setIsAuth }} >
-
+      <DataContext.Provider value={{coinsInfos, setCoinsInfos}} >
       <GlobalStyle />
       <BrowserRouter>
 
@@ -64,6 +69,7 @@ function App() {
           </div>
         
       </BrowserRouter>
+     </DataContext.Provider>
       </LoginContext.Provider>
       
     </ThemeProvider>

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { LoginContext } from "../AuthRoute/LoginContext";
+import { DataContext } from "../NavBars/DataContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import ParrotBlack from "../../assets/parrot-colored-bird-mk-woodcut.svg";
 import ParrotGray from "../../assets/Parrot-Remix-Grayscale-Request-2014110544.svg";
@@ -38,9 +39,11 @@ const SpanToggler = styled.span`
 
 
 
-const MainPageNavBar = () => {
-
-
+const MainPageNavBar = (props) => {
+    const [optionsList, setOptionsList] = useState();
+    const [isDownSearch, setIsDownSearch] = useState(false);
+  //props.dictionary props.coinsList (map)
+  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
     const { isAuth, setIsAuth } = useContext(LoginContext);
 
     const [isOpen, setOpen] = useState(true);
@@ -52,6 +55,8 @@ const MainPageNavBar = () => {
     const logoutUser = () => {
         setIsAuth(false);
     };
+
+    console.log(coinsInfos, "dico from navbar");
 
     const targetClass = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const triggerClass = isOpen ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
@@ -75,6 +80,51 @@ const activeLink = {
     color: `${textLinkColor}`
 };
 const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
+
+
+const handleKeyUp = () => {
+    let list;
+    if(!isDownSearch){
+        setIsDownSearch(true);
+    }
+    console.log("SEARCH DEMANDE");
+    let input, filter, value;
+    let counter = 0;
+    let maxCounter = 10;
+    let sample =[];
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+   // ul = document.getElementById("myUL");
+    //li = ul.getElementsByTagName("li");
+
+    //coinsInfos.dictionary.forEach((value) => {
+    for(let i=0; i<coinsInfos.dictionary.length; i++){
+        let val =coinsInfos.dictionary[i];
+        if (val.toUpperCase().indexOf(filter) > -1) {
+            sample.push(val);
+            counter+=1;
+            list += <option value={val}/>
+        } 
+        if (counter === maxCounter){
+            break;
+        }
+
+    };
+    console.log(sample, "echantillon dico");
+setOptionsList(sample);
+console.log(list, "echantillon dico");
+}
+
+const toggleSearchDropDown = () => {
+    setIsDownSearch(false);
+}
+
+const searchDropdown = "nav-item dropdown active ";
+    const searchTriggerMenu = "nav-link dropdown-toggle  mr-sm-2";
+    const searchMenu = "dropdown-menu" + (isDownSearch ? " show active" : "");
+    const menuItemClass = "dropdown-item";
+
+
     return (
         <Nav className={navClass} role="navigation" aria-label="main navigation">
             <DivContainer className="container">
@@ -126,11 +176,25 @@ const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
                     {/* <div className="navbar"> */}
                     <div className="navbar-item">
                         <div className="buttons d-flex flex-row">
-                            <div>
-                        <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-  </form></div>
+                            <div className={searchDropdown}>
+                        
+    <input className={searchTriggerMenu} type="search" list="coinSuggest" placeholder="Search for names.." aria-label="Search"
+     id="searchInput" onKeyUp={handleKeyUp}  onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name"/>
+   <datalist id="coinSuggest">
+    {
+    optionsList ?
+        optionsList.map((val) => {
+            return <option value={val}/>
+        })
+    : null
+    }
+</datalist>
+  </div>
+
+  
+
+ 
+
                             {!isAuth ? (
                                 <ButtonLogIn className={btnLoginClass} onClick={loginUser}>
                                     Log in

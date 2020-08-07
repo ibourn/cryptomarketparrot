@@ -5,7 +5,7 @@
  * ******************************** */
 
 export const lightTheme = {
-    body: '#E2E2E2',
+    body: '#F5F5F5',
     text: '#252525',
   }
   
@@ -13,3 +13,4 @@ export const lightTheme = {
     body: '#353535',
     text: '#F9F9F9',
   }
+  
