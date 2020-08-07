@@ -1,11 +1,13 @@
+import React from 'react';
 import axios from 'axios';
+import { Time } from './Utilities';
 
  /**
   * 
   * QTITY PARAMs
   * 
   * */
-const DISPLAY_COINS_PER_PAGE = 100;
+const DISPLAY_COINS_PER_PAGE = 50;//100;
 const REQUESTED_COINS_PER_PAGE = 250;
 const REQUESTED_PAGE = 30;
 
@@ -39,7 +41,11 @@ const paprikaQuotes = ['USD', 'BTC'];
  const GECKO_BASEURL = 'https://api.coingecko.com/api/v3';
  const GECKO_ENDPOINT_COINS = '/coins';
  const GECKO_OPTION_LIST = '/list';
- 
+ const GECKO_OPTION_MARKET_CHART = '/market_chart';
+ const GECKO_PARAM_VSCUR = 'vs_currency=';
+ const GECKO_PARAM_START = 'days=';
+ //https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7
+
 //const GECKO_URL_BASE_CURRENCY = 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies';
 /*[
   "btc",
@@ -67,8 +73,33 @@ const paprikaQuotes = ['USD', 'BTC'];
 function buildCoinsListPaprikaUrl(){
   return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS;
 }
+function buildTickersListPaprikaUrl(){
+  return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS;
+}
+function buildPricesSetPaprikaUrl(coinId, days){
+  let url ="";
+  if(days > 0){
+  url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "/" + coinId + 
+  PAPRIKA_OPTION_HISTO + "?" +
+  PAPRIKA_PARAM_START + Time.getPastDateByDay(days) + "&" +
+  PAPRIKA_PARAM_INTERVAL + "12h";
+} /*else {
+  url = BASE_URL + COIN_ENDPOINT + coinId + OPTION_TODAY;
+}*/
+  return url;
+}
 function buildCoinsListGeckoUrl(){
   return GECKO_BASEURL + GECKO_ENDPOINT_COINS + GECKO_OPTION_LIST;
+}
+function buildPricesSetGeckoUrl(coinId, days){
+  let url ="";
+  if(days > 0){
+  url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId + 
+  GECKO_OPTION_MARKET_CHART + "?" +
+  GECKO_PARAM_VSCUR + "usd" + "&" +
+  GECKO_PARAM_START + "7";
+}
+return url;
 }
 
 
@@ -108,6 +139,8 @@ function buildCoinsListGeckoUrl(){
                 console.log(coin);
                 if (coinList[coin.symbol]) {
                   coinList[coin.symbol].gecko_id = coin.id;}
+                  console.log(coin);
+                  console.log(coinList[coin.symbol]);
             });
             return coinList;
     },
@@ -117,7 +150,23 @@ function buildCoinsListGeckoUrl(){
      * Get the coins data (for top N display)
      * 
      */
-    getCoinsData : async () => {return await axios.get("https://api.coinpaprika.com/v1/tickers");}
+    getCoinsData : async () => {
+      return await axios.get(buildTickersListPaprikaUrl());
+    },
       
+   /**
+     * 
+     * Get the coin prices for 7 last days to draw te mini graph
+     * 
+     */
+    getCoinsPriceSetD7 : async (id) => {
+      return await axios.get(buildPricesSetPaprikaUrl(id, 7));
+    },
+    getCoinsPriceSetGecko : async (id) => {
+      console.log(id, buildPricesSetGeckoUrl(id, 7));
+      return await axios.get(buildPricesSetGeckoUrl(id, 7));
     }
+
+  }
+ 
  

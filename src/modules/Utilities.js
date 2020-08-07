@@ -38,3 +38,15 @@ export var Compare = {
 
 }
 
+export var Time = {
+    getPastDateByDay: (days) => {
+        let day = new Date();
+        day.setDate(day.getDate() - days);
+      
+        let j = day.getDate().toString().padStart(2, "0");
+        let m = (day.getMonth() + 1).toString().padStart(2, "0");
+        let y = day.getFullYear();
+       return j + "-" + m + "-" + y;
+      }
+}
+

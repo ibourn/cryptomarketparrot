@@ -25,8 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     min-heigth: 100vh;
     min-width: 750px;
   }
-  
- 
+ .chart{
+   width: 100px;
+   height: 20px;
+ }
   .globalContainer{
     padding: 0;
     margin: 0;

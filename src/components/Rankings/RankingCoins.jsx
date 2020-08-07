@@ -5,13 +5,17 @@ import styled from 'styled-components';
 
 
 const Table = styled.table`
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     `;
 const Th = styled.th`
-    width: 1vw;
+    width: 5vw;
     :hover{
       text-decoration: underline;
       cursor: pointer;
+    }
+    `;
+    const ThG = styled.th`
+    width: 130px;
     }
     `;
 export default function RankingCoins(props) {
@@ -93,10 +97,9 @@ const handleClickVolumeh24 = () => {
 const thClass="";//"position-absolute sticky-top";
 
 
-
+//<Table className="table table-primary table-bordered"></Table>
   return (
-    <Table className="table table-primary table-bordered">
-      <link rel="stylesheet" href=""/>
+    <Table >
       <thead className="" >
         <tr className="">
           <Th className={thClass} onClick={handleClickRank}>Rank</Th>
@@ -105,7 +108,8 @@ const thClass="";//"position-absolute sticky-top";
           <Th className={thClass} onClick={handleClickChangeh1}>%(1h)</Th>
           <Th className={thClass} onClick={handleClickChangeh24}>%(24h)</Th>         
           <Th className={thClass} onClick={handleClickChanged7}>%(7d)</Th> 
-          <Th className={thClass} >evolution graph</Th>          
+          <ThG  > <span style={{minWidth: 150}}>graph</span>
+            </ThG>          
           <Th className={thClass} onClick={handleClickChanged30}>%(30d)</Th>
           <Th className={thClass} onClick={handleClickChangeAth}>% from ATh</Th> 
           <Th className={thClass} onClick={handleClickVolumeh24}>Volume</Th>
@@ -119,7 +123,7 @@ const thClass="";//"position-absolute sticky-top";
       <tbody>
     
       {
-          props.coinsData.map(({rank, symbol, name, circulating_supply, quotes }) =>
+          props.coinsData.map(({rank, symbol, name, circulating_supply, quotes }, index) =>
             <CoinRow
               key={symbol}
               rank={rank}
@@ -140,7 +144,7 @@ const thClass="";//"position-absolute sticky-top";
               volume_24h={quotes["USD"].volume_24h}
               market_cap={quotes["USD"].market_cap}            
               circulating_supply={circulating_supply} 
-                 
+              priceSet={props.priceSetData[index]}
  
             />
           )

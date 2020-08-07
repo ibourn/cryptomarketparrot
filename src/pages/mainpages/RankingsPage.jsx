@@ -16,7 +16,7 @@ import axios from 'axios';
  * 
  * ******************************** */
 
-const COIN_COUNT = 100;
+const COIN_COUNT = 50;//100;
 const coinsUrl = 'https://api.coinpaprika.com/v1/coins';
 const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
 
@@ -45,7 +45,7 @@ const coinsTickers = "https://api.coinpaprika.com/v1/tickers";//{coin_id}
 export default function RankingsPage(props) {
   const [coinsData, setCoinsData] = useState([]);
   const [coinsList, setCoinsList] = useState([]);
-
+  const [priceSetData, setPriceSetData] = useState([]);
 
     useEffect(function () {
         if (coinsData.length === 0) {
@@ -88,7 +88,25 @@ const response = await  DataProvider.getCoinsData();
           //100 coins / page => 6 apple possible => 1/10sec
           //afin de ne pas bloquer si autre suivant => 2/min => timer 30sec
 
+          const priceSetPromise = newCoinsData.map(async coin => {
 
+            /*const coinResponse = await DataProvider.getCoinsPriceSetD7(coin.id);
+            console.log(coinResponse.data);
+            const priceSet = coinResponse.data.map((quote, index) => {
+              return {
+                x: index,
+                y: quote.price
+              }
+            });*/
+            if (coinsList[coin.symbol.toLowerCase()].gecko_id != undefined){
+            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsList[coin.symbol.toLowerCase()].gecko_id);
+           
+            return coinResponse;
+            }
+          });
+          const priceSetData = await Promise.all(priceSetPromise);
+      console.log(priceSetData);
+          setPriceSetData(priceSetData);
        
           setCoinsList(coinsList);
     
@@ -112,6 +130,28 @@ const handleClickSort = async (key, order) => {
   }  
         const newCoinsData = response.data.slice(0, COIN_COUNT);
     
+
+      /*  const priceSetPromise = newCoinsData.map(async coin => {
+
+         */ /*const coinResponse = await DataProvider.getCoinsPriceSetD7(coin.id);
+          console.log(coinResponse.data);
+          const priceSet = coinResponse.data.map((quote, index) => {
+            return {
+              x: index,
+              y: quote.price
+            }
+          });*/
+      /*    if (coinsList[coin.symbol.toLowerCase()].gecko_id != undefined){
+          const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsList[coin.symbol.toLowerCase()].gecko_id);
+         
+          return coinResponse;
+          }
+        });
+        const priceSetData = await Promise.all(priceSetPromise);
+    console.log(priceSetData);
+        setPriceSetData(priceSetData);*/
+
+
         setCoinsData(newCoinsData);
 }
 
@@ -135,8 +175,9 @@ const handleClickSort = async (key, order) => {
                 <Switch>
 
                     <Route exact strict path="/">
-                    <RankingCoins coinsData={coinsData} coinsList={coinsList} handleClickSort={handleClickSort}/>
-                        </Route> 
+                      <RankingCoins coinsData={coinsData} coinsList={coinsList} priceSetData={priceSetData}
+                          handleClickSort={handleClickSort}/>
+                    </Route> 
 
 
                 </Switch>
