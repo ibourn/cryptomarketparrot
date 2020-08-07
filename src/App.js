@@ -13,7 +13,7 @@ import ThemeToggler from './components/ThemeToggler/ThemeToggler';
 import { lightTheme, darkTheme } from './themes/Theme';
 import { GlobalStyle } from './themes/GlobalStyled';
 
-
+import CoinsPage from "./pages/mainpages/CoinsPage";
 import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
 import HeadlinesPage from './pages/HeadlinesPage';
@@ -55,6 +55,7 @@ function App() {
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
+              <Route  path="/coin/:id" component={MainPage} />
 
               <Route exact path="/headlines" component={HeadlinesPage} />
               <Route exact path="/interest" component={InterestPage} />

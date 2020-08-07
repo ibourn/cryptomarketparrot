@@ -4,6 +4,8 @@ import { DataContext } from "../components/NavBars/DataContext";
 import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
 import RankingsPage from "./mainpages/RankingsPage";
+import CoinsPage from "./mainpages/CoinsPage";
+
 import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
 import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
@@ -57,10 +59,12 @@ export default function MainPage(props) {
 
                             <Switch>
 
-                                <Route exact strict path="/" >
-                                <RankingsPage  />
+                                <Route exact strict path="/" 
+                                component={RankingsPage}  />
+                                
+                                <Route exact  path="/coin/:id" >
+                                <CoinsPage  />
                                 </Route>
-
 
                             </Switch>
 

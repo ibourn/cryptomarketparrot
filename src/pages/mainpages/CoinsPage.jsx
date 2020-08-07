@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useParams } from "react-router-dom";
 
 /************************************
  * 
@@ -7,10 +8,23 @@ import React from 'react';
  * ******************************** */
 
 export default function CoinsPage(props) {
-    return (
+    const history = useHistory();
+    const { id } = useParams()
+
+    alert(id);
+    return (<>
         <div>
             The CoinsPage
         </div>
+         <div>
+         The CoinsPage
+     </div>
+      <div>
+      The CoinsPage
+  </div>
+   <div>
+   The CoinsPage
+</div></>
     );
 
 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, useHistory } from "react-router-dom";
 import { LoginContext } from "../AuthRoute/LoginContext";
 import { DataContext } from "../NavBars/DataContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
@@ -40,6 +40,8 @@ const SpanToggler = styled.span`
 
 
 const MainPageNavBar = (props) => {
+    const history = useHistory();
+
     const [optionsList, setOptionsList] = useState();
     const [isDownSearch, setIsDownSearch] = useState(false);
   //props.dictionary props.coinsList (map)
@@ -103,7 +105,7 @@ const handleKeyUp = () => {
         if (val.toUpperCase().indexOf(filter) > -1) {
             sample.push(val);
             counter+=1;
-            list += <option value={val}/>
+            list += <option value={val} onClick={handleClickOption}/>
         } 
         if (counter === maxCounter){
             break;
@@ -119,6 +121,38 @@ const toggleSearchDropDown = () => {
     setIsDownSearch(false);
 }
 
+const handleClickOption = () => {
+    console.log(document.getElementById("searchInput").value, "input");
+    
+   // console.log(document.getElementById("coinSuggest").value, "input");
+   var sel = document.getElementById('searchInput');
+   var opt = sel.options[sel.selectedIndex];
+   console.log( opt.value , "essai");
+
+}
+const handleClickOption2 = () => {
+    console.log(document.getElementById("searchInput").value, "input");
+    
+   // console.log(document.getElementById("coinSuggest").value, "input");
+
+}
+const  HandleOnInput = () => {
+    var val = document.getElementById("searchInput").value;
+    var opts = document.getElementById('coinSuggest').childNodes;
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].value === val) {
+        // An item was selected from the list!
+        // yourCallbackHere()
+        const target = opts[i].value
+        alert(target);
+        const res = target.split(" ");
+        history.push(`/coin/${res[res.length-1]}`);
+        break;
+      }
+    }
+   
+  }
+//TODO clean search bar => no more a dropdown
 const searchDropdown = "nav-item dropdown active ";
     const searchTriggerMenu = "nav-link dropdown-toggle  mr-sm-2";
     const searchMenu = "dropdown-menu" + (isDownSearch ? " show active" : "");
@@ -179,12 +213,12 @@ const searchDropdown = "nav-item dropdown active ";
                             <div className={searchDropdown}>
                         
     <input className={searchTriggerMenu} type="search" list="coinSuggest" placeholder="Search for names.." aria-label="Search"
-     id="searchInput" onKeyUp={handleKeyUp}  onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name"/>
+     id="searchInput" onInput={HandleOnInput} onKeyUp={handleKeyUp}  onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name"/>
    <datalist id="coinSuggest">
     {
     optionsList ?
         optionsList.map((val) => {
-            return <option value={val}/>
+            return <option value={val} onClick={handleClickOption}/>
         })
     : null
     }
