@@ -28,14 +28,41 @@ export var Compare = {
             return ((order === 'desc') ? (comparison * -1) : comparison);
         };
     },
-    quotesByKey: (key, order = 'asc') => {
+    quotesByKey: (devise, key, order = 'asc') => {
         return function compare(a, b) {
-            console.log(a.quotes["USD"][key]);
-            let comparison = a.quotes["USD"][key] == b.quotes["USD"][key] ? 0 : a.quotes["USD"][key] > b.quotes["USD"][key] ? 1 : -1;
+            console.log(a.quotes[devise][key]);
+            let comparison = a.quotes[devise][key] == b.quotes[devise][key] ? 0 : a.quotes[devise][key] > b.quotes[devise][key] ? 1 : -1;
             return ((order === 'desc') ? (comparison * -1) : comparison);
         };
     }
 
+}
+/*
+ const [filter, setFilter] = useState({
+    devise: "USD",
+    minCap: 0,
+    maxCap: 999999999999,
+    minVarh1: -100,
+    maxVarh1: 100
+  })
+  */
+export var Filter = {
+    byRange: (data, filter) => {
+        function isInRange(value) {
+            return (value.quotes[filter.devise]["market_cap"] >= filter.minCap &&
+            value.quotes[filter.devise]["market_cap"] <= filter.maxCap &&
+            value.circulating_supply >= filter.minSup &&
+            value.circulating_supply <= filter.maxSup &&
+            value.quotes[filter.devise]["percent_change_24h"] >= filter.minVarD &&
+            value.quotes[filter.devise]["percent_change_24h"] <= filter.maxVarD &&
+            value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth &&
+            value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth &&
+            value.quotes[filter.devise]["price"] >= filter.minPrice &&
+            value.quotes[filter.devise]["price"] <= filter.maxPrice);
+        }
+        return data.filter(isInRange)
+
+    }
 }
 
 export var Time = {

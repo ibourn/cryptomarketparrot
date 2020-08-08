@@ -54,25 +54,31 @@ const toggleDropDownFilter = () => {
   
    const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
    const triggerBtnMenu = "btn btn-secondary dropdown-toggle"
-   let itemUSDClass = "dropdown-item";
-   let itemBTCClass = "dropdown-item";
+   const itemUSDClass = "dropdown-item" + (props.devise == "USD" ? " active" : "");
+   const itemBTCClass = "dropdown-item" + (props.devise == "BTC" ? " active" : "");
 
    //RECUPERER PROP DE FILTRE
    const toggleDeviseUSD = () => {
     props.toggleDevise("USD");
-    itemUSDClass = itemUSDClass + " active";
 
    }
    const toggleDeviseBTC = () => {
      props.toggleDevise("BTC");
-     itemBTCClass = itemBTCClass + " active";
 
    }
 
    const changeFilter = () => {
     props.changeFilter(
-      document.getElementById("minCapInput").value,
-      document.getElementById("maxCapInput").value,
+      document.getElementById("minCapInput").value ? document.getElementById("minCapInput").value : 0,
+      document.getElementById("maxCapInput").value ? document.getElementById("maxCapInput").value : 999999999999,
+      document.getElementById("minSupInput").value ? document.getElementById("minSupInput").value : 0,
+      document.getElementById("maxSupInput").value ? document.getElementById("maxSupInput").value : 999999999999,
+      document.getElementById("minVarDayInput").value ? document.getElementById("minVarDayInput").value : -100,
+      document.getElementById("maxVarDayInput").value ? document.getElementById("maxVarDayInput").value : 10000,
+      document.getElementById("minVarAthInput").value ? document.getElementById("minVarAthInput").value : -100,
+      document.getElementById("maxVarAthInput").value ? document.getElementById("maxVarAthInput").value : 10000,
+      document.getElementById("minPriceInput").value ? document.getElementById("minPriceInput").value : 0,
+      document.getElementById("maxPriceInput").value ? document.getElementById("maxPriceInput").value : 999999999999,
     );
    }
 
@@ -108,12 +114,41 @@ const toggleDropDownFilter = () => {
   <i class="fas fa-filter"></i>Fliters
   </button>
   <div class={menuFilterClass} aria-labelledby="dropdownMenuButton">
-  <label for="minCapInput">Last name:</label>
-  <input id="minCapInput" type="number" placeholder={0} min={0} max={99999999999} name="minCapInput"/>
-  <label for="maxCapInput">Last name:</label>
-  <input id="maxCapInput" type="number" placeholder={99999999999}  min={0} max={99999999999} name="maxCapInput"/>
+    <div className="container-fluid row" style={{width: 1000, marginLeft: -700, backgroundColor: 'white'}}>
+      <div className="col-2">
+  <label for="minCapInput">Min Cap :</label>
+  <input id="minCapInput" type="number" placeholder={0} min={0} max={999999999999} name="minCapInput"/>
+  <label for="maxCapInput">Max Cap :</label>
+  <input id="maxCapInput" type="number" placeholder={999999999999}  min={0} max={99999999999} name="maxCapInput"/>
+  </div>
+  <div className="col-2">
+  <label for="minSupInput">Min Supply :</label>
+  <input id="minSupInput" type="number" placeholder={0} min={0} max={999999999999} name="minSupInput"/>
+  <label for="maxSupInput">Max Supply :</label>
+  <input id="maxSupInput" type="number" placeholder={999999999999}  min={0} max={99999999999} name="maxSupInput"/>
+  </div>
+  <div className="col-2">
+  <label for="minVarDayInput">Min Var(h24) :</label>
+  <input id="minVarDayInput" type="number" placeholder={-100} min={-100} max={10000} name="minVarDayInput"/>
+  <label for="maxVarDayInput">Max Var(h24) :</label>
+  <input id="maxVarDayInput" type="number" placeholder={10000}  min={-100} max={10000} name="maxVarDayInput"/>
+  </div>
+  <div className="col-2">
+  <label for="minVarAthInput">Min Var(ath) :</label>
+  <input id="minVarAthInput" type="number" placeholder={-100} min={-100} max={10000} name="minVarAthInput"/>
+  <label for="maxVarAthInput">Max Var(ath) :</label>
+  <input id="maxVarAthInput" type="number" placeholder={10000}  min={-100} max={10000} name="maxVarAthInput"/>
+  </div>
+  <div className="col-2">
+  <label for="minPriceInput">Min price :</label>
+  <input id="minPriceInput" type="number" placeholder={0} min={0} max={999999999999} name="minPriceInput"/>
+  <label for="maxPriceInput">Max price :</label>
+  <input id="maxPriceInput" type="number" placeholder={999999999999}  min={0} max={99999999999} name="maxPriceInput"/>
+  </div>
+  <div className="col-2">
   <button class="btn btn-secondary"  onClick={changeFilter} type="button" >Filter</button>
-
+  </div>
+  </div>
   </div>
 </div>
 <div class="dropdown">

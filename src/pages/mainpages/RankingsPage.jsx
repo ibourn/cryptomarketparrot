@@ -5,7 +5,7 @@ import { DataContext } from '../../components/NavBars/DataContext';
 import RankingCoins from "./../../components/Rankings/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
 
-import { Format, Compare } from "../../modules/Utilities";
+import { Format, Compare, Filter } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 import axios from 'axios';
 
@@ -52,14 +52,22 @@ export default function RankingsPage(props) {
     devise: "USD",
     minCap: 0,
     maxCap: 999999999999,
-    minVarh1: -100,
-    maxVarh1: 100
+    minSup: 0,
+    maxSup: 999999999999,
+    minVarD: -100,
+   maxVarD: 10000,
+    minVarAth: -100,
+     maxVarAth: 10000, 
+     minPrice: 0,
+      maxPrice: 999999999999
   })
 
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
   const [DataSet, setDataSet] = useState({
     coinsData: [],
+    coinsFiltered : [],
+    snapshot: [],
     priceSetData: []
   })
 
@@ -129,17 +137,20 @@ export default function RankingsPage(props) {
      // }
      */
     
-const response = await  DataProvider.getCoinsData();
+const response = await  DataProvider.getCoinsDataAllCur();
 
         response.data.sort(Compare.byKey('rank', 'asc'));
        
-       
-        const newCoinsData = response.data.slice(0, COIN_COUNT);
+       const dataFiltered = Filter.byRange(response.data, filter);
+
+        const newCoinsData = dataFiltered.slice(0, COIN_COUNT);
+//        const newCoinsData = response.data.slice(0, COIN_COUNT);
 
           //otbenir les donnees OHCL pour les mini graph
           //100 coins / page => 6 apple possible => 1/10sec
           //afin de ne pas bloquer si autre suivant => 2/min => timer 30sec
 console.log(coinsInfos.list, "AVANTBUG");
+console.log(newCoinsData, "AVANTBUG");
           const priceSetPromise = newCoinsData.map(async coin => {
 
             /*const coinResponse = await DataProvider.getCoinsPriceSetD7(coin.id);
@@ -164,26 +175,29 @@ console.log(coinsInfos.list, "AVANTBUG");
         // setCoinsData(newCoinsData);
        
         setDataSet({
-          coinsData: newCoinsData,
+          coinsData: response.data,
+          coinsFiltered: dataFiltered,
+          snapshot: newCoinsData,
           priceSetData: priceSetData
         })
       }
 
 //TRIER DATA PAS APPEL API
 const handleClickSort = async (key, order) => {
-  const response = await  DataProvider.getCoinsData();
+  const response = DataSet.coinsFiltered;
+  //const response = await  DataProvider.getCoinsData();
 
   switch(key) {
     case 'rank':
     case 'name':
     case 'circulating_supply':
-      response.data.sort(Compare.byKey(key, order));
+      response.sort(Compare.byKey(key, order));
       break;
     default:
-      response.data.sort(Compare.quotesByKey(key, order));
+      response.sort(Compare.quotesByKey(filter.devise, key, order));
       break;
   }  
-        const newCoinsData = response.data.slice(0, COIN_COUNT);
+        const newCoinsData = response.slice(0, COIN_COUNT);
     
 
       /*  const priceSetPromise = newCoinsData.map(async coin => {
@@ -208,29 +222,78 @@ const handleClickSort = async (key, order) => {
 
 
         setCoinsData(newCoinsData);
+        setDataSet((oldSet) => {
+          const newSet = {
+          coinsData: oldSet.coinsData,
+          coinsFiltered: oldSet.coinsFiltered,
+          snapshot: newCoinsData,
+          priceSetData: oldSet.priceSetData
+          }
+          return newSet;
+        })
 }
 
 
 
-const toggleDevise = (devise) => {
-    setFilter(oldFilter => {
-      const newFilter = {...oldFilter};
-      newFilter.devise = devise;
+const toggleDevise = (newdevise) => {
+    setFilter((oldFilter) => {
+      const newFilter = {
+        devise: newdevise,
+    minCap: oldFilter.minCap,
+    maxCap: oldFilter.maxCap,
+    minVarh1: oldFilter.minVarh1,
+    maxVarh1: oldFilter.maxVarh1
+      }
+      
       return newFilter;
     })
-    alert("changedevise en "+devise);
+    alert("changedevise en "+newdevise);
+   /* const dataFiltered = Filter.byRange(DataSet.coinsData, filter);
+
+        const newCoinsData = dataFiltered.slice(0, COIN_COUNT);
+        setDataSet((oldSet) => {
+          const newSet = {
+          coinsData: oldSet.coinsData,
+          coinsFiltered: dataFiltered,
+          snapshot: newCoinsData,
+          priceSetData: oldSet.priceSetData
+          }
+          return newSet;
+        })*/
 }
 
-const changeFilter = (minCap, maxCap) => {
-  setFilter(oldFilter => {
-    const newFilter = {...oldFilter};
-    newFilter.minCap = minCap;
-    newFilter.maxCap = maxCap;
+const changeFilter = (minCap, maxCap, minSup, maxSup, minVarD, maxVarD, minVarAth, maxVarAth, minPrice, maxPrice) => {
+  setFilter((oldFilter) => {
+    const newFilter = {
+      devise: oldFilter.devise,
+      minCap: oldFilter.minCap === minCap ? oldFilter.minCap : minCap,
+      maxCap: oldFilter.maxCap === maxCap ? oldFilter.maxCap : maxCap,
+      minSup: oldFilter.minSup === minSup ? oldFilter.minSup : minSup,
+      maxSup: oldFilter.maxSup === maxSup ? oldFilter.maxSup : maxSup,
+      minVarD: oldFilter.minVarD === minVarD ? oldFilter.minVarD : minVarD,
+     maxVarD: oldFilter.maxVarD === maxVarD ? oldFilter.maxVarD : maxVarD,
+      minVarAth: oldFilter.minVarAth === minVarAth ? oldFilter.minVarAth : minVarAth,
+       maxVarAth: oldFilter.maxVarAth === maxVarAth ? oldFilter.maxVarAth : maxVarAth, 
+       minPrice: oldFilter.minPrice === minPrice ? oldFilter.minPrice : minPrice,
+        maxPrice: oldFilter.maxPrice === maxPrice ? oldFilter.maxPrice : maxPrice
+    }
     return newFilter;
   })
   alert("changedevise en "+minCap);
 
-}
+  const dataFiltered = Filter.byRange(DataSet.coinsData, filter);
+  const newCoinsData = dataFiltered.slice(0, COIN_COUNT);
+        setDataSet((oldSet) => {
+          const newSet = {
+          coinsData: oldSet.coinsData,
+          coinsFiltered: dataFiltered,
+          snapshot: newCoinsData,
+          priceSetData: oldSet.priceSetData
+          }
+          return newSet;
+        });
+  }
+
 
 //                    <Route exact strict path="/" component={RankingCoins} />
 
@@ -240,15 +303,15 @@ const changeFilter = (minCap, maxCap) => {
      
         <div className="tableContainer container">
 
-            <h1>top100coins</h1>
-            <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter}/>
+    <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
+            <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} devise={filter.devise}/>
             <BrowserRouter>
 
                 <Switch>
 
                     <Route exact strict path="/">
-                      <RankingCoins coinsData={DataSet.coinsData} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
-                          handleClickSort={handleClickSort}/>
+                      <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
+                          devise={filter.devise} handleClickSort={handleClickSort}/>
                     </Route> 
 
 

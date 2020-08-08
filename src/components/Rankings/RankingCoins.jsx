@@ -137,16 +137,16 @@ const thClass="";//"position-absolute sticky-top";
                 : "generic.svg"
               }
               name={name}
-              price={quotes['USD'].price}
-              percent_change_1h={quotes["USD"].percent_change_1h}
-              percent_change_24h={quotes["USD"].percent_change_24h}
-              percent_change_7d={quotes["USD"].percent_change_7d}
+              price={quotes[props.devise].price}
+              percent_change_1h={quotes[props.devise].percent_change_1h}
+              percent_change_24h={quotes[props.devise].percent_change_24h}
+              percent_change_7d={quotes[props.devise].percent_change_7d}
               
-              percent_change_30d={quotes["USD"].percent_change_30d} 
+              percent_change_30d={quotes[props.devise].percent_change_30d} 
   
-              percent_from_price_ath={quotes["USD"].percent_from_price_ath}
-              volume_24h={quotes["USD"].volume_24h}
-              market_cap={quotes["USD"].market_cap}            
+              percent_from_price_ath={quotes[props.devise].percent_from_price_ath}
+              volume_24h={quotes[props.devise].volume_24h}
+              market_cap={quotes[props.devise].market_cap}            
               circulating_supply={circulating_supply} 
               priceSet={props.priceSetData[index]}
  

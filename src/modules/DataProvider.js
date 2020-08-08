@@ -29,10 +29,14 @@ const PAPRIKA_OPTION_EVENTS = '/events'; //need start
 const PAPRIKA_OPTION_MARKETS = '/markets'; //need start
 const PAPRIKA_PARAM_START = 'start='; //2020-08-01
 const PAPRIKA_PARAM_INTERVAL = 'interval=';
-const PAPRIKA_PARAM_QUOTE = 'quote=';
+const PAPRIKA_PARAM_QUOTE = 'quotes=';
+
 const paprikaIntervals = ['5m', '15m', '30m', '1h', '6h', '12h', '24h', '7d', '30d', '365d'];
 const paprikaQuotes = ['USD', 'BTC'];
 
+/*PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "?" +
+  PAPRIKA_PARAM_QUOTE + "USD,BTC" ;
+  https://api.coinpaprika.com/v1/tickers?quote=USD,BTC*/
 /**
   * 
   * URLS COINGECKO // limits : 100req/min
@@ -79,6 +83,10 @@ function buildCoinsListPaprikaUrl(){
 }
 function buildTickersListPaprikaUrl(){
   return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS;
+}
+function buildTickersListAllCurPaprikaUrl(){
+  return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "?" +
+  PAPRIKA_PARAM_QUOTE + "USD,BTC" ;
 }
 function buildPricesSetPaprikaUrl(coinId, days){
   let url ="";
@@ -210,7 +218,9 @@ return url;
     getCoinsData : async () => {
       return await axios.get(buildTickersListPaprikaUrl());
     },
-      
+    getCoinsDataAllCur : async () => {
+      return await axios.get(buildTickersListAllCurPaprikaUrl());
+    },   
    /**
      * 
      * Get the coin prices for 7 last days to draw te mini graph
