@@ -16,6 +16,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Td = styled.td`
     width: 2vw;
     `;
+ 
     const TdG = styled.td`
     width: 150px;
     height: 20px;
@@ -111,7 +112,17 @@ const graphStyle = {
     padding: 0,
   };
 
-    return (
+
+ 
+  const styleClassVarH1 = "text-" + (props.percent_change_1h >=0 ? "success" : "danger");
+  const styleClassVarH24 = "text-" + (props.percent_change_24h >=0 ? "success" : "danger");
+  const styleClassVarD7 = "text-" + (props.percent_change_7d >=0 ? "success" : "danger");
+  const styleClassVarD30 = "text-" + (props.percent_change_30d >=0 ? "success" : "danger");
+  const styleClassVarAth = "text-" + (props.percent_from_price_ath >=0 ? "success" : "danger");
+  
+ 
+ 
+  return (
         <>
         <tr>
                         <Td>{props.rank}</Td> 
@@ -120,13 +131,13 @@ const graphStyle = {
                 <span>{props.name}</span>
             </Td>  
             <Td>{props.price}</Td> 
-            <Td>{props.percent_change_1h}</Td> 
-            <Td>{props.percent_change_24h}</Td> 
-            <Td>{props.percent_change_7d}</Td> 
+            <Td className={styleClassVarH1}>{props.percent_change_1h}</Td> 
+            <Td className={styleClassVarH24}>{props.percent_change_24h}</Td> 
+            <Td className={styleClassVarD7}>{props.percent_change_7d}</Td> 
             <TdG><CanvasJSChart className="chart" style={graphStyle} options = {options}/></TdG> 
-            <Td>{props.percent_change_30d}</Td> 
+            <Td className={styleClassVarD30}>{props.percent_change_30d}</Td> 
 
-            <Td>{props.percent_from_price_ath}</Td> 
+            <Td className={styleClassVarAth}>{props.percent_from_price_ath}</Td> 
             <Td>{props.volume_24h}</Td>  
             <Td>{props.market_cap}</Td>          
             <Td>{props.circulating_supply}</Td> 
