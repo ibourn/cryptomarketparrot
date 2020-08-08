@@ -48,11 +48,18 @@ export default function RankingsPage(props) {
   const [coinsList, setCoinsList] = useState([]);
   const [priceSetData, setPriceSetData] = useState([]);
 
+  const [filter, setFilter] = useState({
+    devise: "USD",
+    minCap: 0,
+    maxCap: 999999999999,
+    minVarh1: -100,
+    maxVarh1: 100
+  })
+
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
   const [DataSet, setDataSet] = useState({
     coinsData: [],
-    coinsList: [],
     priceSetData: []
   })
 
@@ -87,7 +94,7 @@ export default function RankingsPage(props) {
 
         ///ATTENTION LIMITER APPEL API => test state == []
 
-        const dictionary =[]
+      /*  const dictionary =[]
         
        // if(coinsInfos.list==0){
 
@@ -120,6 +127,7 @@ export default function RankingsPage(props) {
 
         setCoinsList(coinLISTE);
      // }
+     */
     
 const response = await  DataProvider.getCoinsData();
 
@@ -143,8 +151,8 @@ console.log(coinsInfos.list, "AVANTBUG");
               }
             });*/
             
-            if ((coinLISTE.get(coin.symbol.toLowerCase())).gecko_id != undefined){
-            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinLISTE.get(coin.symbol.toLowerCase()).gecko_id);
+            if ((coinsInfos.list.get(coin.symbol.toLowerCase())).gecko_id != undefined){
+            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsInfos.list.get(coin.symbol.toLowerCase()).gecko_id);
             //DataProvider.testgek+=1;
            // console.log(DataProvider.testgek, "appel gek");
             return coinResponse;
@@ -152,12 +160,13 @@ console.log(coinsInfos.list, "AVANTBUG");
           });
           const priceSetData = await Promise.all(priceSetPromise);
       console.log(priceSetData);
-          setPriceSetData(priceSetData);
+         // setPriceSetData(priceSetData);
+        // setCoinsData(newCoinsData);
        
-          
-    
-        setCoinsData(newCoinsData);
-       
+        setDataSet({
+          coinsData: newCoinsData,
+          priceSetData: priceSetData
+        })
       }
 
 //TRIER DATA PAS APPEL API
@@ -203,8 +212,25 @@ const handleClickSort = async (key, order) => {
 
 
 
+const toggleDevise = (devise) => {
+    setFilter(oldFilter => {
+      const newFilter = {...oldFilter};
+      newFilter.devise = devise;
+      return newFilter;
+    })
+    alert("changedevise en "+devise);
+}
 
+const changeFilter = (minCap, maxCap) => {
+  setFilter(oldFilter => {
+    const newFilter = {...oldFilter};
+    newFilter.minCap = minCap;
+    newFilter.maxCap = maxCap;
+    return newFilter;
+  })
+  alert("changedevise en "+minCap);
 
+}
 
 //                    <Route exact strict path="/" component={RankingCoins} />
 
@@ -215,13 +241,13 @@ const handleClickSort = async (key, order) => {
         <div className="tableContainer container">
 
             <h1>top100coins</h1>
-            <CoinRankingNavbar />
+            <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter}/>
             <BrowserRouter>
 
                 <Switch>
 
                     <Route exact strict path="/">
-                      <RankingCoins coinsData={coinsData} coinsList={coinsList} priceSetData={priceSetData}
+                      <RankingCoins coinsData={DataSet.coinsData} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
                           handleClickSort={handleClickSort}/>
                     </Route> 
 

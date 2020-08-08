@@ -44,8 +44,8 @@ const MainPageNavBar = (props) => {
 
     const [optionsList, setOptionsList] = useState();
     const [isDownSearch, setIsDownSearch] = useState(false);
-  //props.dictionary props.coinsList (map)
-  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+    //props.dictionary props.coinsList (map)
+    const { coinsInfos, setCoinsInfos } = useContext(DataContext);
     const { isAuth, setIsAuth } = useContext(LoginContext);
 
     const [isOpen, setOpen] = useState(true);
@@ -73,87 +73,87 @@ const MainPageNavBar = (props) => {
 
     /* trick to force text color of navlink*/
     const { theme, toggleTheme } = useContext(ThemeContext);
-const textLinkColor = theme === 'light' ? 'black' : 'white';
-const linkStyle = {
-   color: `${textLinkColor}`
+    const textLinkColor = theme === 'light' ? 'black' : 'white';
+    const linkStyle = {
+        color: `${textLinkColor}`
 
-}
-const activeLink = {
-    color: `${textLinkColor}`
-};
-const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
-
-
-const handleKeyUp = () => {
-    let list;
-    if(!isDownSearch){
-        setIsDownSearch(true);
     }
-    console.log("SEARCH DEMANDE");
-    let input, filter, value;
-    let counter = 0;
-    let maxCounter = 10;
-    let sample =[];
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-   // ul = document.getElementById("myUL");
-    //li = ul.getElementsByTagName("li");
+    const activeLink = {
+        color: `${textLinkColor}`
+    };
+    const parrotLogo = theme === 'light' ? ParrotBlack : ParrotGray;
 
-    //coinsInfos.dictionary.forEach((value) => {
-    for(let i=0; i<coinsInfos.dictionary.length; i++){
-        let val =coinsInfos.dictionary[i];
-        if (val.toUpperCase().indexOf(filter) > -1) {
-            sample.push(val);
-            counter+=1;
-            list += <option value={val} onClick={handleClickOption}/>
-        } 
-        if (counter === maxCounter){
-            break;
+
+    const handleKeyUp = () => {
+        let list;
+        if (!isDownSearch) {
+            setIsDownSearch(true);
+        }
+        console.log("SEARCH DEMANDE");
+        let input, filter, value;
+        let counter = 0;
+        let maxCounter = 10;
+        let sample = [];
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        // ul = document.getElementById("myUL");
+        //li = ul.getElementsByTagName("li");
+
+        //coinsInfos.dictionary.forEach((value) => {
+        for (let i = 0; i < coinsInfos.dictionary.length; i++) {
+            let val = coinsInfos.dictionary[i];
+            if (val.toUpperCase().indexOf(filter) > -1) {
+                sample.push(val);
+                counter += 1;
+                list += <option value={val} onClick={handleClickOption} />
+            }
+            if (counter === maxCounter) {
+                break;
+            }
+
+        };
+        console.log(sample, "echantillon dico");
+        setOptionsList(sample);
+        console.log(list, "echantillon dico");
+    }
+
+    const toggleSearchDropDown = () => {
+        setIsDownSearch(false);
+    }
+
+    const handleClickOption = () => {
+        console.log(document.getElementById("searchInput").value, "input");
+
+        // console.log(document.getElementById("coinSuggest").value, "input");
+        var sel = document.getElementById('searchInput');
+        var opt = sel.options[sel.selectedIndex];
+        console.log(opt.value, "essai");
+
+    }
+    const handleClickOption2 = () => {
+        console.log(document.getElementById("searchInput").value, "input");
+
+        // console.log(document.getElementById("coinSuggest").value, "input");
+
+    }
+    const HandleOnInput = () => {
+        var val = document.getElementById("searchInput").value;
+        var opts = document.getElementById('coinSuggest').childNodes;
+        for (var i = 0; i < opts.length; i++) {
+            if (opts[i].value === val) {
+                // An item was selected from the list!
+                // yourCallbackHere()
+                const target = opts[i].value
+                alert(target + " RAGET DE SEARCH3");
+                const res = target.split(" ");
+                history.push(`/coin/${res[res.length - 1]}/chart`);
+                break;
+            }
         }
 
-    };
-    console.log(sample, "echantillon dico");
-setOptionsList(sample);
-console.log(list, "echantillon dico");
-}
-
-const toggleSearchDropDown = () => {
-    setIsDownSearch(false);
-}
-
-const handleClickOption = () => {
-    console.log(document.getElementById("searchInput").value, "input");
-    
-   // console.log(document.getElementById("coinSuggest").value, "input");
-   var sel = document.getElementById('searchInput');
-   var opt = sel.options[sel.selectedIndex];
-   console.log( opt.value , "essai");
-
-}
-const handleClickOption2 = () => {
-    console.log(document.getElementById("searchInput").value, "input");
-    
-   // console.log(document.getElementById("coinSuggest").value, "input");
-
-}
-const  HandleOnInput = () => {
-    var val = document.getElementById("searchInput").value;
-    var opts = document.getElementById('coinSuggest').childNodes;
-    for (var i = 0; i < opts.length; i++) {
-      if (opts[i].value === val) {
-        // An item was selected from the list!
-        // yourCallbackHere()
-        const target = opts[i].value
-        alert(target + " RAGET DE SEARCH3");
-        const res = target.split(" ");
-        history.push(`/coin/${res[res.length-1]}/chart`);
-        break;
-      }
     }
-   
-  }
-//TODO clean search bar => no more a dropdown
-const searchDropdown = "nav-item dropdown active ";
+    //TODO clean search bar => no more a dropdown
+    const searchDropdown = "nav-item dropdown active ";
     const searchTriggerMenu = "nav-link dropdown-toggle  mr-sm-2";
     const searchMenu = "dropdown-menu" + (isDownSearch ? " show active" : "");
     const menuItemClass = "dropdown-item";
@@ -162,9 +162,9 @@ const searchDropdown = "nav-item dropdown active ";
     return (
         <Nav className={navClass} role="navigation" aria-label="main navigation">
             <DivContainer className="container">
-            <NavLink to="/" exact className="navbar-brand" style={linkStyle} activeStyle={activeLink} >
+                <NavLink to="/" exact className="navbar-brand" style={linkStyle} activeStyle={activeLink} >
 
-             <img src={parrotLogo} width="45px" height="45px" class="d-inline-block align-top" alt=""/>
+                    <img src={parrotLogo} width="45px" height="45px" class="d-inline-block align-top" alt="" />
              CryptoMarketParrot
               </NavLink>
 
@@ -211,23 +211,23 @@ const searchDropdown = "nav-item dropdown active ";
                     <div className="navbar-item">
                         <div className="buttons d-flex flex-row">
                             <div className={searchDropdown}>
-                        
-    <input className={searchTriggerMenu} type="search" list="coinSuggest" placeholder="Search for names.." aria-label="Search"
-     id="searchInput" onInput={HandleOnInput} onKeyUp={handleKeyUp}  onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name"/>
-   <datalist id="coinSuggest">
-    {
-    optionsList ?
-        optionsList.map((val) => {
-            return <option value={val} onClick={handleClickOption}/>
-        })
-    : null
-    }
-</datalist>
-  </div>
 
-  
+                                <input className={searchTriggerMenu} type="search" list="coinSuggest" placeholder="Search for names.." aria-label="Search"
+                                    id="searchInput" onInput={HandleOnInput} onKeyUp={handleKeyUp} onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name" />
+                                <datalist id="coinSuggest">
+                                    {
+                                        optionsList ?
+                                            optionsList.map((val) => {
+                                                return <option value={val} onClick={handleClickOption} />
+                                            })
+                                            : null
+                                    }
+                                </datalist>
+                            </div>
 
- 
+
+
+
 
                             {!isAuth ? (
                                 <ButtonLogIn className={btnLoginClass} onClick={loginUser}>

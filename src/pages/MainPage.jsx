@@ -100,6 +100,7 @@ export default function MainPage(props) {
 
    // console.log(coinsInfos.dictionary, "dico from main page avant render");
     return (
+        <BrowserRouter>
         <div className="globalContainer container-fluid">
 
 
@@ -110,7 +111,6 @@ export default function MainPage(props) {
                 <HorzPubBanner/>
                     <div>
                         {essai == "" ? 
-                <BrowserRouter>
 
                             <Switch>
 
@@ -125,7 +125,6 @@ export default function MainPage(props) {
                                 </Route>
                             </Switch>
 
-                        </BrowserRouter>
                         : essai }
                     </div>
                 </div>
@@ -135,6 +134,8 @@ export default function MainPage(props) {
 
             </div>
         </div>
+        </BrowserRouter>
+
     );
 
 }
