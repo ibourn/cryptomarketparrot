@@ -144,9 +144,9 @@ const  HandleOnInput = () => {
         // An item was selected from the list!
         // yourCallbackHere()
         const target = opts[i].value
-        alert(target);
+        alert(target + " RAGET DE SEARCH3");
         const res = target.split(" ");
-        history.push(`/coin/${res[res.length-1]}`);
+        history.push(`/coin/${res[res.length-1]}/chart`);
         break;
       }
     }

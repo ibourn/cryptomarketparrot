@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-//import { UserContext } from "../UserContext/UserContext";
+import { DataContext } from "../NavBars/DataContext";
 import CoinRow from "../../components/Rows/CoinRow";
 import styled from 'styled-components';
 
@@ -19,6 +19,10 @@ const Th = styled.th`
     }
     `;
 export default function RankingCoins(props) {
+
+  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+
+
  const [orderRank, setOrderRank] = useState('asc');
  const [orderName, setOrderName] = useState('asc');
  const [orderPrice, setOrderPrice] = useState('asc');
@@ -128,8 +132,8 @@ const thClass="";//"position-absolute sticky-top";
               key={symbol}
               rank={rank}
               symbol={symbol}
-              svg={ (props.coinsList.get(symbol.toLowerCase())) ?
-                props.coinsList.get(symbol.toLowerCase()).svg
+              svg={ (coinsInfos.list.get(symbol.toLowerCase())) ?
+                coinsInfos.list.get(symbol.toLowerCase()).svg
                 : "generic.svg"
               }
               name={name}

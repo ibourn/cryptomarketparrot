@@ -50,6 +50,11 @@ export default function RankingsPage(props) {
 
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
+  const [DataSet, setDataSet] = useState({
+    coinsData: [],
+    coinsList: [],
+    priceSetData: []
+  })
 
     useEffect(function () {
         if (coinsData.length === 0) {
@@ -83,8 +88,10 @@ export default function RankingsPage(props) {
         ///ATTENTION LIMITER APPEL API => test state == []
 
         const dictionary =[]
+        
+       // if(coinsInfos.list==0){
 
-        const coinsList = await DataProvider.getCoinList().then((datas)=>{
+        const coinLISTE = await DataProvider.getCoinList().then((datas)=>{
           console.log(datas,"dats2");
           for (const [key,val] of datas) {
           dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
@@ -102,6 +109,8 @@ export default function RankingsPage(props) {
             }
             return infos;
           })
+
+          console.log(coinsInfos,"COINSINFOS");
           return datas;
         }
 
@@ -109,8 +118,8 @@ export default function RankingsPage(props) {
         );
 
 
-
-       
+        setCoinsList(coinLISTE);
+     // }
     
 const response = await  DataProvider.getCoinsData();
 
@@ -122,7 +131,7 @@ const response = await  DataProvider.getCoinsData();
           //otbenir les donnees OHCL pour les mini graph
           //100 coins / page => 6 apple possible => 1/10sec
           //afin de ne pas bloquer si autre suivant => 2/min => timer 30sec
-
+console.log(coinsInfos.list, "AVANTBUG");
           const priceSetPromise = newCoinsData.map(async coin => {
 
             /*const coinResponse = await DataProvider.getCoinsPriceSetD7(coin.id);
@@ -133,8 +142,9 @@ const response = await  DataProvider.getCoinsData();
                 y: quote.price
               }
             });*/
-            if (coinsList.get(coin.symbol.toLowerCase()).gecko_id != undefined){
-            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinsList.get(coin.symbol.toLowerCase()).gecko_id);
+            
+            if ((coinLISTE.get(coin.symbol.toLowerCase())).gecko_id != undefined){
+            const coinResponse = await DataProvider.getCoinsPriceSetGecko(coinLISTE.get(coin.symbol.toLowerCase()).gecko_id);
             //DataProvider.testgek+=1;
            // console.log(DataProvider.testgek, "appel gek");
             return coinResponse;
@@ -144,13 +154,13 @@ const response = await  DataProvider.getCoinsData();
       console.log(priceSetData);
           setPriceSetData(priceSetData);
        
-          setCoinsList(coinsList);
+          
     
         setCoinsData(newCoinsData);
        
       }
 
-
+//TRIER DATA PAS APPEL API
 const handleClickSort = async (key, order) => {
   const response = await  DataProvider.getCoinsData();
 

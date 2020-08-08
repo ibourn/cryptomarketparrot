@@ -55,7 +55,7 @@ function App() {
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
-              <Route  path="/coin/:id" component={MainPage} />
+              <Route  path="/coin/:id/:type" component={MainPage} />
 
               <Route exact path="/headlines" component={HeadlinesPage} />
               <Route exact path="/interest" component={InterestPage} />

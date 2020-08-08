@@ -1,10 +1,13 @@
-import React, {useState, useContext} from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React, {useState, useContext, useEffect} from 'react';
+import { BrowserRouter, Switch, Route, useHistory, useParams } from 'react-router-dom';
 import { DataContext } from "../components/NavBars/DataContext";
+import { DataProvider } from "../modules/DataProvider";
+
 import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
 import RankingsPage from "./mainpages/RankingsPage";
 import CoinsPage from "./mainpages/CoinsPage";
+import Loader from "../components/Loader/Loader";
 
 import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
 import VertPubBanner from "../components/Banners/VerticalPubBanner";
@@ -17,7 +20,11 @@ import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
 export default function MainPage(props) {
     const [isOpened, setIsOpened] = useState(true);
+    const { id, type } = useParams();
 
+    const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+
+    alert("id from main page :" + id + " type : " + type);
   //  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
    /* const [coinsInfos, setCoinsInfos] = useState({
         dictionary: [],
@@ -30,7 +37,54 @@ export default function MainPage(props) {
             coinsList: list
         });
         console.log(dico, "dico from main page");
+
+
+
     }*/
+    useEffect( () => {
+        console.log(coinsInfos.list, "DEMAINPAGEEFFECT");
+        if(coinsInfos.list.length == 0){
+         componentDidMount();
+        }
+        let intervalloading = null;
+
+
+     
+    })
+    const essai = coinsInfos.list.length == 0 ?<div className="container">
+
+    <Loader/>
+    </div> : "";
+    const componentDidMount = async () => {
+        //const response = await axios.get(coinsTickers);
+
+
+        ///ATTENTION LIMITER APPEL API => test state == []
+
+        const dictionary =[];
+
+        await DataProvider.getCoinList().then((datas)=>{
+          console.log(datas,"dats2");
+          for (const [key,val] of datas) {
+          dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
+          console.log(val.name.toLowerCase() + " " + val.symbol.toLowerCase(), "dats");  
+        }
+          
+          //props.loadCoinsInfos(dictionary,datas);
+
+          setCoinsInfos(()=>{
+            const infos = {
+              dictionary: dictionary,
+            list: datas
+            }
+            return infos;
+          });
+
+          console.log(coinsInfos, dictionary,"COINSINFOS");
+        });
+    }
+
+
 
     /*
     * function passed to Pub compenent, thus the bannercloser can forward 
@@ -55,6 +109,7 @@ export default function MainPage(props) {
                 <div className={colMainClass}>
                 <HorzPubBanner/>
                     <div>
+                        {essai == "" ? 
                 <BrowserRouter>
 
                             <Switch>
@@ -62,13 +117,16 @@ export default function MainPage(props) {
                                 <Route exact strict path="/" 
                                 component={RankingsPage}  />
                                 
-                                <Route exact  path="/coin/:id" >
+                                <Route   path="/coin/:id/:type" >
                                 <CoinsPage  />
                                 </Route>
-
+                                <Route   path="/coin/:id/chart" >
+                                <CoinsPage  />
+                                </Route>
                             </Switch>
 
                         </BrowserRouter>
+                        : essai }
                     </div>
                 </div>
                 <div className={colPubClass}>

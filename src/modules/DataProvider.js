@@ -24,6 +24,9 @@ const PAPRIKA_ENDPOINT_TICKERS = '/tickers'; //quotes.usd => all coin now
 //+ coin_id => specifique
 const PAPRIKA_OPTION_OHLCV = '/ohlcv';
 const PAPRIKA_OPTION_HISTO = '/historical'; //need start
+const PAPRIKA_OPTION_TWITTER = '/twitter'; //need start
+const PAPRIKA_OPTION_EVENTS = '/events'; //need start
+const PAPRIKA_OPTION_MARKETS = '/markets'; //need start
 const PAPRIKA_PARAM_START = 'start='; //2020-08-01
 const PAPRIKA_PARAM_INTERVAL = 'interval=';
 const PAPRIKA_PARAM_QUOTE = 'quote=';
@@ -44,6 +47,7 @@ const paprikaQuotes = ['USD', 'BTC'];
  const GECKO_OPTION_MARKET_CHART = '/market_chart';
  const GECKO_PARAM_VSCUR = 'vs_currency=';
  const GECKO_PARAM_START = 'days=';
+ const GECKO_PARAM_INFO = "localization=flase&tickers=false&market_data=false";
  //https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7
 
 //const GECKO_URL_BASE_CURRENCY = 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies';
@@ -88,6 +92,38 @@ function buildPricesSetPaprikaUrl(coinId, days){
 }*/
   return url;
 }
+
+function buildCoinInfoPaprikaUrl(coinId){
+  
+  let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId;
+
+return url;
+}
+function buildCoinTwitterPaprikaUrl(coinId){
+  
+  let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
+  PAPRIKA_OPTION_TWITTER;
+
+return url;
+}
+function buildCoinEventsPaprikaUrl(coinId){
+  
+  let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
+  PAPRIKA_OPTION_EVENTS;
+
+return url;
+}
+function buildCoinMarketsPaprikaUrl(coinId){
+  
+  let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
+  PAPRIKA_OPTION_MARKETS;
+
+return url;
+}
+
+
+
+
 function buildCoinsListGeckoUrl(){
   return GECKO_BASEURL + GECKO_ENDPOINT_COINS + GECKO_OPTION_LIST;
 }
@@ -101,6 +137,14 @@ function buildPricesSetGeckoUrl(coinId, days){
 }
 return url;
 }
+function buildCoinInfoGeckoUrl(coinId){
+  
+  let url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId +  "?" +
+  GECKO_PARAM_INFO;
+
+return url;
+}
+//https://api.coingecko.com/api/v3/coins/bitcoin?localization=flase&tickers=false&market_data=false
 
 
 //export default async function DataProvider() {
@@ -178,8 +222,37 @@ return url;
     getCoinsPriceSetGecko : async (id) => {
       console.log(id, buildPricesSetGeckoUrl(id, 7));
       return await axios.get(buildPricesSetGeckoUrl(id, 7));
-    }
+    },
+    /**
+     * 
+     * 
+     * 
+     */
+    getCoinInfoPaprika : async (id) => {
+      return await axios.get(buildCoinInfoPaprikaUrl());
+    },
 
+    getCoinTwitterPaprika : async (id) => {
+      return await axios.get(buildCoinTwitterPaprikaUrl());
+    },
+
+    getCoinEventsPaprika : async (id) => {
+      return await axios.get(buildCoinEventsPaprikaUrl());
+    },
+
+    getCoinMarketsPaprika : async (id) => {
+      return await axios.get(buildCoinMarketsPaprikaUrl());
+    },
+
+    getCoinInfoGecko : async (id) => {
+      return await axios.get(buildCoinInfoGeckoUrl());
+    },
+
+    getCoinInfoPriceSetTODO : async (id) => {
+      return await axios.get(buildPricesSetPaprikaUrl(id, 7));
+    },
+
+    
   }
 
  
