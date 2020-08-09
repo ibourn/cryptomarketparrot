@@ -24,6 +24,8 @@ const PAPRIKA_BASEURL = 'https://api.coinpaprika.com/v1';
 const PAPRIKA_ENDPOINT_COINS = '/coins'; //liste coin
 const PAPRIKA_ENDPOINT_TICKERS = '/tickers'; //quotes.usd => all coin now
 //+ coin_id => specifique
+const PAPRIKA_ENDPOINT_GLOBAL = '/global';
+
 const PAPRIKA_OPTION_OHLCV = '/ohlcv';
 const PAPRIKA_OPTION_HISTO = '/historical'; //need start
 const PAPRIKA_OPTION_TWITTER = '/twitter'; //need start
@@ -49,6 +51,7 @@ const paprikaQuotes = ['USD', 'BTC'];
 // https://api.coingecko.com/api/v3/coins/list
  const GECKO_BASEURL = 'https://api.coingecko.com/api/v3';
  const GECKO_ENDPOINT_COINS = '/coins';
+ const GECKO_ENDPOINT_GLOBAL = '/global';
  const GECKO_OPTION_LIST = '/list';
  const GECKO_OPTION_MARKET_CHART = '/market_chart';
  const GECKO_PARAM_VSCUR = 'vs_currency=';
@@ -137,6 +140,13 @@ return url;
 function buildCoinsListGeckoUrl(){
   return GECKO_BASEURL + GECKO_ENDPOINT_COINS + GECKO_OPTION_LIST;
 }
+function buildGlobalInfoGeckoUrl(){
+  return GECKO_BASEURL +GECKO_ENDPOINT_GLOBAL;
+}
+function buildGlobalInfoPaprikaUrl(){
+  return PAPRIKA_BASEURL +PAPRIKA_ENDPOINT_GLOBAL;
+}
+
 function buildPricesSetGeckoUrl(coinId, days){
   let url ="";
   if(days > 0){
@@ -212,6 +222,14 @@ return url;
             });
             return coinList;
     },
+
+    
+    getGlobalInfosFromGecko : async () => {
+        return await axios.get(buildGlobalInfoGeckoUrl());
+      },
+      getGlobalInfosFromPaprika : async () => {
+        return await axios.get(buildGlobalInfoPaprikaUrl());
+      },
    
     /**
      * 

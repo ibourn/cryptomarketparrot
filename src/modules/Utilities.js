@@ -83,7 +83,18 @@ export var Time = {
         let m = (day.getMonth() + 1).toString().padStart(2, "0");
         let y = day.getFullYear();
        return y + "-" + m + "-" + j;
-      }
+      },
+      fromTimestamp: (t) => {
+        const dt = new Date(t*1000);
+        const y = dt.getFullYear();
+const m = (dt.getMonth() + 1).toString();
+const d = dt.getDate().toString();
+const hr = dt.getHours().toString();
+const min = dt.getMinutes().toString();
+const s = dt.getSeconds().toString();
+return y + ':' + m.padStart(2,"0")  + ':' + d.padStart(2,"0")  + ':' + hr.padStart(2,"0") + ':' + min.padStart(2,"0")  + ':' + s.padStart(2,"0") ;  
+}
+
 
 
 }

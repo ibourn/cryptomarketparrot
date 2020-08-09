@@ -11,6 +11,8 @@ import CoinAbout from '../../components/CoinPageContent/CoinAbout';
 import CoinChart from '../../components/CoinPageContent/CoinChart';
 import CoinMarkets from '../../components/CoinPageContent/CoinMarkets';
 import CoinMedias from '../../components/CoinPageContent/CoinMedias';
+import Loader from "../../components/Loader/Loader";
+
 /************************************
  * 
  * CoinsPage
@@ -123,8 +125,15 @@ function testHorsEffect(id_tview) {
 console.log("FROM coinpagE", coinInfo);
     return (<>
      <BrowserRouter>
+     { coinInfo == undefined  ? <div className="container">
+
+<Loader/>
+</div> : coinInfo.length == 0 ? <div className="container">
+
+<Loader/>
+</div> : 
         <div className="container">
-<CoinPageHeader/> 
+<CoinPageHeader coinInfo={coinInfo} coin={coinsInfos.list.get(id)}/> 
 <CoinPageNavBar coin={id}/>
  
 
@@ -139,7 +148,7 @@ console.log("FROM coinpagE", coinInfo);
 
 <Switch>
               <Route  exact path={`/coin/${id}/about`}>
-               <CoinAbout coinInfo={coinInfo} coinEvents={coinEvents}/>
+               <CoinAbout coinInfo={coinInfo} coinEvents={coinEvents} ident={coinsInfos.list.get(id)}/>
                </Route>
                <Route  exact path={`/coin/${id}/chart`}>
                <CoinChart coin={id_tview}/>
@@ -153,6 +162,7 @@ console.log("FROM coinpagE", coinInfo);
 
             </Switch>
 </div>
+}
 </BrowserRouter>
    </>
     );

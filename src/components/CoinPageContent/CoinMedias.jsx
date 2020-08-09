@@ -15,7 +15,7 @@ export default function CoinsPage(props) {
 return(
 <div className="row"> 
 
-<ul> Twitter
+<ul> From Twitter :
 {
 props.coinTwitter.map(res => {
    return (

@@ -13,10 +13,11 @@ export default function CoinsAbout(props) {
 console.log("FROM ABOUT",props.coinInfo);
 ///APIcalls
 return(
-<main className="row">    
-<div className="row">
-    <div className='col-6'>
-<ul>Next events
+<section className="container">
+<main className="row">
+    <div className="row">
+<div className="col-6">
+<ul><span>Next events :</span>
 {
     props.coinEvents.map((res) => {
         return (
@@ -29,40 +30,26 @@ return(
     })
 }
 </ul>
+<article><span>Links :</span>
+<ul><span>Homepage :</span>
+    {props.coinInfo.links.homepage.map((link, index) =>{
+ return link != "" ? <li key={index}><Link>{link}</Link></li> : null
+}) }</ul>
+<ul><span>Sites :</span>
+   {props.coinInfo.links.blockchain_site.map((link,index) =>{
+ return link != "" ? <li key={index}><Link>{link}</Link></li> : null
+}) }</ul>
+   <ul><span>Forum :</span>
+   {props.coinInfo.links.official_forum_url.map((link, index) =>{
+ return link != "" ? <li key={index}><Link>{link}</Link></li> : null
+}) }</ul>
 
-<article>
-<p><span>Block time(min) :</span><span>{props.coinInfo.block_time_in_minutes}</span></p>
 
-
-<p><span>Hash Algorithm :</span><span>{props.coinInfo.hashing_algorithm}</span></p>
-<p><span></span><span>{props.coinInfo.categories}</span></p> //a mapper car tableau
-
-<p><span></span><span>{props.coinInfo["description"].en}</span></p>
 </article>
-</div>
-<div className='col-6'>
-<article>Links :
-<ul>Homepage :
-    {props.coinInfo.links.homepage.map((link) =>{
- return <li key={link}><Link>{link}</Link></li>
-}) }</ul>
-<ul>Sites :
-   {props.coinInfo.links.blockchain_site.map((link) =>{
- return <li key={link}><Link>{link}</Link></li>
-}) }</ul>
-   <ul>Forum :
-   {props.coinInfo.links.official_forum_url.map((link) =>{
- return <li key={link}><Link>{link}</Link></li>
-}) }</ul>
 
-<p><img src={props.coinInfo.image.large} alt=""/></p>
-</article>
 </div>
-</div>
-<div className="row">
-
 <div className="col-6">
-<article>Market data :
+<article><span>Market data :</span>
 <p><span>Current price (usd):</span><span>{props.coinInfo.market_data.current_price.usd}</span></p>
 
 <p><span>Current price (btc) :</span><span>{props.coinInfo.market_data.current_price.btc }</span></p>
@@ -73,31 +60,37 @@ return(
 <p><span>Ath date :</span><span>{props.coinInfo.market_data.ath_date.usd}</span></p>
 
 <p><span>Market cap :</span><span>{props.coinInfo.market_data.market_cap.usd}</span></p>
-<p><span>Market cap rank :</span><span>{props.coinInfo.market_data.market_cap_rank}</span></p>
 
-<p><span>Total volume :</span><span>{props.coinInfo.market_data.total_volume.usd}</span></p>
 
-<p><span>High (24h)</span><span>{props.coinInfo.market_data.high_24h.usd}</span></p>
-<p><span>Low (24h)></span><span>{props.coinInfo.market_data.low_24h.usd}</span></p>
-<p><span>Change price (24h)</span><span>{props.coinInfo.market_data.price_change_24h}</span></p>
-<p><span>Change % (24h)</span><span>{props.coinInfo.market_data.price_change_percentage_24h}</span></p>
-   <p><span>Price change (24h)</span><span>{ props.coinInfo.market_data.price_change_percentage_7d}</span></p>
-    <p><span>Price change (7d)</span><span>{props.coinInfo.market_data.price_change_percentage_14d}</span></p>
-    <p><span>Price change (14d)</span><span>{props.coinInfo.market_data.price_change_percentage_30d}</span></p>
-    <p><span>Price change (30d)</span><span>{props.coinInfo.market_data.price_change_percentage_60d}</span></p>
-    <p><span>Price change (200d)</span><span>{props.coinInfo.market_data.price_change_percentage_200d}</span></p>
-    <p><span>Price change (1y)</span><span>{props.coinInfo.market_data.price_change_percentage_1y}</span></p>
+<p><span>Price change (24h)</span><span>{props.coinInfo.market_data.price_change_24h}</span></p>
+   <p><span>Price change %(24h)</span><span>{ props.coinInfo.market_data.price_change_percentage_7d}</span></p>
+    <p><span>Price change %(7d)</span><span>{props.coinInfo.market_data.price_change_percentage_14d}</span></p>
+    <p><span>Price change %(14d)</span><span>{props.coinInfo.market_data.price_change_percentage_30d}</span></p>
+    <p><span>Price change %(30d)</span><span>{props.coinInfo.market_data.price_change_percentage_60d}</span></p>
+    <p><span>Price change %(200d)</span><span>{props.coinInfo.market_data.price_change_percentage_200d}</span></p>
+    <p><span>Price change %(1y)</span><span>{props.coinInfo.market_data.price_change_percentage_1y}</span></p>
 
     <p><span>Market change (24h)</span><span>{props.coinInfo.market_data.market_cap_change_24h}</span></p>
 <p><span>Market change % (24h)</span><span>{props.coinInfo.market_data.market_cap_change_percentage_24h}</span></p>
 
-<p><span>Total supply :</span><span>{props.coinInfo.market_data.total_supply}</span></p>
-<p><span>Circulating supply</span><span>{props.coinInfo.market_data.circulating_supply}</span></p>
 {/* <p><span></span><span>{props.coinInfo.market_data.last_updated}</span></p> */}
 </article>
+
+
+
 </div>
-<div className='col-6'>
-<article>Rankings :
+</div>
+<article className="row"> <span>About :</span>
+
+
+
+{props.coinInfo["description"].en}
+
+
+</article>
+<div className="row">
+<div className="col-4">
+<article><span>Rankings :</span>
 <p><span>Genesis date :</span><span>{props.coinInfo.genesis_date}</span></p>
 <p><span>Sentiment up :</span><span>{props.coinInfo.sentiment_votes_up_percentage}</span></p>
 <p><span>Sentiment down :</span><span>{props.coinInfo.sentiment_votes_down_percentage}</span></p>
@@ -108,7 +101,14 @@ return(
 <p><span>Community score :</span><span>{props.coinInfo.community_score}</span></p>
 <p><span>Liquidity score :</span><span>{props.coinInfo.liquidity_score}</span></p>
 <p><span>Public interest score :</span><span>{props.coinInfo.public_interest_score}</span></p>
-</article>Community infos :<article>
+</article>
+</div>
+<div className="col-4">
+<article><span>Public interest :</span>
+    <p><span>Bing matches :</span><span>{props.coinInfo.public_interest_stats.bing_matches}</span></p>
+<p><span>Alexa rank :</span><span>{props.coinInfo.public_interest_stats.alexa_rank }</span></p>
+    </article>
+    <article><span>Community infos :</span>
 <p><span>Facebook likes :</span><span>{props.coinInfo.community_data.facebook_likes}</span></p>
 <p><span>Twitter followers :</span><span>{props.coinInfo.community_data.twitter_followers}</span></p>
 <p><span>Reddit post/48h :</span><span>{props.coinInfo.community_data.reddit_average_posts_48h}</span></p>
@@ -117,7 +117,9 @@ return(
 <p><span></span><span>{props.coinInfo.community_data.reddit_accounts_active_48h}</span></p> */}
 <p><span>Telegram channel users :</span><span>{props.coinInfo.community_data.telegram_channel_user_count}</span></p>
 </article>
-<article>Developer infos :
+</div>
+<div className="col-4">
+<article><span>Developer infos :</span>
 <p><span></span><span>{props.coinInfo.developer_data.forks}</span></p>
     <p><span>Forks :</span><span>{props.coinInfo.developer_data.stars}</span></p>
     <p><span>Subscribers :</span><span>{props.coinInfo.developer_data.subscribers}</span></p>
@@ -125,14 +127,14 @@ return(
     <p><span>Closed issues :</span><span>{props.coinInfo.developer_data.closed_issues}</span></p>
     <p><span>Pull request contributors :</span><span>{props.coinInfo.developer_data.pull_request_contributors}</span></p>
     <p><span>Pull request merger :</span><span>{props.coinInfo.developer_data.pull_requests_merged}</span></p>
-    </article>Public interest :<article>
-    <p><span>Bing matches :</span><span>{props.coinInfo.public_interest_stats.bing_matches}</span></p>
-<p><span>Alexa rank :</span><span>{props.coinInfo.public_interest_stats.alexa_rank }</span></p>
     </article>
+</div>
 
-    </div>
-    </div>
-ABOUT</main>
+</div>
+
+</main>
+</section>
+
 
 
 )
