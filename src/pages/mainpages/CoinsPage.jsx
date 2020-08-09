@@ -17,7 +17,7 @@ import CoinMedias from '../../components/CoinPageContent/CoinMedias';
  * 
  * ******************************** */
 
-export default function CoinsPage(props) {
+const CoinsPage = (props) => {
     const history = useHistory();
     const { id, type} = useParams()
     const [u,v] = useState();
@@ -27,20 +27,41 @@ export default function CoinsPage(props) {
     const [coinMarkets,setCoinMarkets] = useState([]);
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
+
+    console.log("HEHO JE SUIS APPELE coinpage");
 //TODO
     //LOAD coinsInfos ds mainpage to make it available 
-    const id_paprika = "btc-bitcoin";//coinsInfos.list ? coinsInfos.list.get(id).id_paprika : "";
-    const id_gecko = "bitcoin";//coinsInfos.list ? coinsInfos.list.get(id).id_gecko : "";
-console.log(coinsInfos, "DECOINPAGE");
-    alert("id et type de coinpage " + id + " " +type);
+    //const id_paprika = "btc-bitcoin";//coinsInfos.list ? coinsInfos.list.get(id).id_paprika : "";
+    //const id_gecko = "bitcoin";//coinsInfos.list ? coinsInfos.list.get(id).id_gecko : "";
+
+
+    //TODO load file with tickers from exchange (https://github.com/pouet2/tvlists 
+    //https://gist.github.com/cryppadotta)
+    //=> associate list to coinsInfos
+    //check if symbol exist fot TV (to try USD USDT... then BTC ETH)
+    console.log(id, type, "PATH3");
+   //const id_tview = props.coin.toUpperCase() + "USD";
+     const id_tview = id.toUpperCase() + "USD";
+
+    console.log(coinsInfos, "DECOINPAGE");
+   // alert("id et type de coinpage " + id + " " +type);
+
+    console.log(coinsInfos.list);
+    console.log(id);
+    console.log(coinsInfos.list.get(id).paprika_id);
+    const id_paprika = coinsInfos.list.get(id).paprika_id;
+        const id_gecko = coinsInfos.list.get(id).gecko_id;
+        console.log(coinInfo, "AU DEBUT");
 
 ///APIcalls
 useEffect(() => {
-    if (coinInfo == [] && id_paprika){
+   // console.log(coinInfo, "DS USEEFFECT", "res de test : " + (coinInfo ==  []));
+   /* if (coinInfo == [] && id_paprika){
         let resp = DataProvider.getCoinInfoGecko(id_gecko);
         let infos = resp.data.map((val) => {return val;});
         setCoinInfo(infos);
     }
+
     if (coinTwitter == [] && id_paprika){
         let resp = DataProvider.getCoinTwitterPaprika(id_paprika);
         let infos = resp.data.map((val) => {return val;});
@@ -55,46 +76,86 @@ useEffect(() => {
         let resp = DataProvider.getCoinMarketsPaprika(id_paprika);
         let infos = resp.data.map((val) => {return val;});
         setCoinMarkets(infos);
-    }
+    }*/
+console.log("useeffectcoinspage");
+testHorsEffect(id_tview);
     
- 
-})
+//});
+},[id_tview]);
     
+function testHorsEffect(id_tview) {
+    if(coinInfo != undefined){
+    if(coinInfo.length == 0){
+        console.log("useeffect qd sis mount"); 
+    
+        let respInfos = DataProvider.getCoinInfoGecko(id_gecko).then((response) => {
+            if(response.status == 200) {
+                return response.data;
+                console.log(response.data);
+            } else {
+                console.log("unavailable");
+                return "unavailable";
+                console.log("unavailable");
+            }
+        });
+        let respTwitter = DataProvider.getCoinTwitterPaprika(id_paprika);
+        let respEvents= DataProvider.getCoinEventsPaprika(id_paprika);
+        let respMarkets = DataProvider.getCoinMarketsPaprika(id_paprika);
 
+
+        Promise.all([respInfos,respTwitter,respEvents,respMarkets]).then((responses) => {
+            setCoinInfo(responses[0].data);
+            setCoinTwitter(responses[1].data);
+            setCoinEvents(responses[2].data);
+            setCoinMarkets(responses[3].data);
+            console.log(responses[1].data, "DEPROMISEALL");
+        }
+
+        )
+
+    }
+    }
+
+
+}
 
 
     return (<>
+     <BrowserRouter>
         <div className="container">
 <CoinPageHeader/> 
-<CoinPageNavBar/>
+<CoinPageNavBar coin={id}/>
  
-  
-      {
-         type === 'about' ? <CoinAbout /> :
-         type === 'chart' ? <CoinChart /> :
-         type === 'medias' ? <CoinMedias /> :
-         type === 'markets' ? <CoinMarkets /> : null
-      }
 
-{/* <BrowserRouter>
+  
+      {/* {
+         type === 'about' ? <CoinAbout coinInfo={coinInfo} coinEvents={coinEvents}/> :
+         type === 'chart' ? <CoinChart coin={id_tview} /> :
+         type === 'medias' ? <CoinMedias coinTwitter={coinTwitter}/> :
+         type === 'markets' ? <CoinMarkets coinMarkets={coinMarkets}/> : null
+      } */}
+
+
 <Switch>
               <Route  exact path="(/coin/:id)(/about)">
-               <CoinAbout />
+               <CoinAbout coinInfo={coinInfo} coinEvents={coinEvents}/>
                </Route>
                <Route  exact path={`/coin/${id}/chart`}>
-               <CoinChart />
+               <CoinChart coin={id_tview}/>
                </Route>
                <Route exact path={`/coin/${id}/medias`}>
-               <CoinMedias />
+               <CoinMedias coinTwitter={coinTwitter}/>
                </Route>
                <Route exact path={`(/coin/${id})(/markets)`}>
-               <CoinMarkets />
+               <CoinMarkets coinMarkets={coinMarkets} />
                </Route>
 
             </Switch>
-            </BrowserRouter> */}
 </div>
+</BrowserRouter>
    </>
     );
 
 }
+
+export default withRouter(CoinsPage);

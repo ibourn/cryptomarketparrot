@@ -41,6 +41,7 @@ function App() {
     list: []
   });
 
+  console.log("HEHO JE SUIS APPELE APP");
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }} >

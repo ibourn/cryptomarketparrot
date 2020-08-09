@@ -21,6 +21,7 @@ height: 500px;
     `;
 export default function CoinsPage(props) {
  //   const myRef = React.createRef();
+ 
 
  
 ///APIcalls
@@ -30,7 +31,7 @@ return(
     <>
 <div className="row"> 
 <TradingViewWidget
-    symbol="BTCUSD"
+    symbol={props.coin}
     hide_side_toolbar={false}
     locale="fr"
     autosize

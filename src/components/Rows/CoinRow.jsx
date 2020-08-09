@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
+import { BrowserRouter, Switch, Route, Link, NavLink, withRouter, useHistory, useParams } from "react-router-dom";
+
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import {lightTheme, darkTheme} from '../../themes/Theme';
 import styled, { keyframes } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
+import CoinsPage from '../../pages/mainpages/CoinsPage';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -58,7 +61,7 @@ const blinkingRed = keyframes`
     CanvasJS.addColorSet("lightThemeColor", [ lightTheme.text ]);
     CanvasJS.addColorSet("darkThemeColor", [ darkTheme.text ]);
   
-export default function CoinRow(props) {
+const  CoinRow = (props) => {
     const { theme, toggleTheme } = useContext(ThemeContext);
 
 
@@ -153,15 +156,32 @@ const graphStyle = {
   const styleClassVarD30 = "text-" + (props.percent_change_30d >=0 ? "success" : "danger");
   const styleClassVarAth = "text-" + (props.percent_from_price_ath >=0 ? "success" : "danger");
   
- 
- 
+ const link = "/coin/" + props.symbol.toLowerCase() + "/chart";
+ const trysymbol = props.symbol.toLowerCase();
+
+ const { id, type} = useParams();
+ const history = useHistory();
+ /*const handleClickLink = () => {
+   //  history.push(link);
+     alert("click sur " + trysymbol + " mis sur " + link)
+ }*/
+
+ /*
+  <NavLink to={link} exact >
+
+                <span><img src={icon} alt={props.symbol} width={"15px"}/></span>
+                <span onClick={handleClickLink}>{props.name}</span>
+                </NavLink>
+                */
   return (
         <>
         <tr>
                         <Td>{props.rank}</Td> 
             <Td> 
+<Link to={link} exact>
                 <span><img src={icon} alt={props.symbol} width={"15px"}/></span>
-                <span>{props.name}</span>
+                <span >{props.name}</span>
+                </Link>
             </Td>  
             {
 props.snapshotChange === 'unchanged' ?
@@ -186,8 +206,14 @@ props.snapshotChange === 'up' ?
            
  
         </tr>
-        {/* // <Route path="/coin/:id" component={CoinPage} /> */}
+
+        <Route  exact  path={link} >
+                                <CoinsPage coin={trysymbol}  />
+                                </Route>
+    
     </>
     );
 
 }
+
+export default withRouter(CoinRow);

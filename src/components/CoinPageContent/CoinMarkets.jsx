@@ -14,22 +14,58 @@ export default function CoinsPage(props) {
 ///APIcalls
 return(
 <div className="row">    
-CHART
+
 <table>
     <thead>
     <tr>
         <th>
-CELLHEAD
+Exchange
+        </th>
+        <th>
+Pair
+        </th>
+        <th>
+Price
+        </th>
+        <th>
+Confidence
+        </th>
+        <th>
+Volume (24h)
         </th>
     </tr>
     </thead>
     <tbody>
-CORPS
-        <tr>
-            <td>
-CELLBODY
-            </td>
-        </tr>
+{
+
+props.coinMarkets.map( (data) => {
+<tr>
+<td>
+{data.exchange_name}
+</td>
+<td>
+{data.pair}  
+</td>
+<td>
+{data.quotes["USD"].price}
+</td>
+<td>
+{data.quotes["USD"].volume_24h}
+</td>
+<td>
+{data.trust_score}
+</td>
+
+
+</tr>
+
+
+
+})
+
+}
+    
+        
     </tbody>
 </table>
 

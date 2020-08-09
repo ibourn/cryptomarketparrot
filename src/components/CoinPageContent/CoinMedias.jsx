@@ -13,7 +13,13 @@ export default function CoinsPage(props) {
 
 ///APIcalls
 return(
-<div className="row">    
+<div className="row">   
+{
+props.coinTwitter.map(res => {
+   return <div className="row">{res.status}</div>
+})
+
+} 
 MEDIAS</div>
 
 

@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Time } from './Utilities';
 
+//TODO GERER LES 404 429 50.. et cross origin
+
  /**
   * 
   * QTITY PARAMs
@@ -251,23 +253,23 @@ getCoinsPriceSetPaprikaACAO : async (id) => {
      * 
      */
     getCoinInfoPaprika : async (id) => {
-      return await axios.get(buildCoinInfoPaprikaUrl());
+      return await axios.get(buildCoinInfoPaprikaUrl(id));
     },
 
     getCoinTwitterPaprika : async (id) => {
-      return await axios.get(buildCoinTwitterPaprikaUrl());
+      return await axios.get(buildCoinTwitterPaprikaUrl(id));
     },
 
     getCoinEventsPaprika : async (id) => {
-      return await axios.get(buildCoinEventsPaprikaUrl());
+      return await axios.get(buildCoinEventsPaprikaUrl(id));
     },
 
     getCoinMarketsPaprika : async (id) => {
-      return await axios.get(buildCoinMarketsPaprikaUrl());
+      return await axios.get(buildCoinMarketsPaprikaUrl(id));
     },
 
     getCoinInfoGecko : async (id) => {
-      return await axios.get(buildCoinInfoGeckoUrl());
+      return await axios.get(buildCoinInfoGeckoUrl(id));
     },
 
     getCoinInfoPriceSetTODO : async (id) => {

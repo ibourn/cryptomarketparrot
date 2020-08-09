@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useHistory, useParams, useLocation } from 'react-router-dom';
 import { DataContext } from '../../components/NavBars/DataContext';
 
 import RankingCoins from "./../../components/Rankings/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
+import CoinsPage from './CoinsPage';
 
 import { Format, Compare, Filter } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
@@ -414,14 +415,28 @@ componentDidMount();
 }
 
 //alert("pageavantaffichage : "+page.current);
+const { id, type} = useParams();
+/*
+const history = useHistory();
+    const { id, type} = useParams();
+console.log(id, type, "DE RANKINGPAGE");
+console.log(history.path);
+let location = useLocation();
+console.log(location.pathname);
+
+const {path} = props.location;
+console.log(path);
+*/
+const { match, location, history } = props;
+console.log("Rankingpahe",match, location, history );
     return (
-     
+      <BrowserRouter>
         <div className="tableContainer container">
 
     <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
             <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
             devise={filter.devise} page={page}/>
-            <BrowserRouter>
+           
 
                 <Switch>
 
@@ -430,14 +445,15 @@ componentDidMount();
                           devise={filter.devise} snapshotChange={DataSet.snapshotChange}
                            handleClickSort={handleClickSort}/>
                     </Route> 
-
+                    <Route  exact  path="/coin/:id/:chart">
+                                <CoinsPage coin={id}  />
+                                </Route>
 
                 </Switch>
 
-            </BrowserRouter>
         </div>
 
-
+        </BrowserRouter>
 
 
     );

@@ -147,6 +147,8 @@ const MainPageNavBar = (props) => {
                 alert(target + " RAGET DE SEARCH3");
                 const res = target.split(" ");
                 history.push(`/coin/${res[res.length - 1]}/chart`);
+                alert(`/coin/${res[res.length - 1]}/chart` + " URL ENVOYEE DE SEARCH3");
+
                 break;
             }
         }
@@ -218,7 +220,7 @@ const MainPageNavBar = (props) => {
                                     {
                                         optionsList ?
                                             optionsList.map((val) => {
-                                                return <option value={val} onClick={handleClickOption} />
+                                                return <option key={val} value={val} onClick={handleClickOption} />
                                             })
                                             : null
                                     }

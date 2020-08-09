@@ -12,7 +12,7 @@ import { useHistory, useParams } from "react-router-dom";
  * 
  * ******************************** */
 
-export default function CoinsPage(props) {
+const CoinsPage = (props) => {
     const history = useHistory();
     const { id, type } = useParams();
 
@@ -25,17 +25,17 @@ return(
 <div  className="row">
 <ul class="nav nav-tabs">
   <li className={itemClass}>
-  <NavLink to={`/coin/${id}/chart`} className={linkclassName}>Chart</NavLink>        
+  <NavLink to={`/coin/${props.coin}/chart`} className={linkclassName}>Chart</NavLink>        
   </li>
   <li className={itemClass}>
-  <NavLink to={`/coin/${id}/markets`} className={linkclassName}>Markets</NavLink>        
+  <NavLink to={`/coin/${props.coin}/markets`} className={linkclassName}>Markets</NavLink>        
   </li>
   <li className={itemClass}>
-            <NavLink to={`/coin/${id}/about`} className={linkclassName}>About</NavLink>        
+            <NavLink to={`/coin/${props.coin}/about`} className={linkclassName}>About</NavLink>        
 
   </li>
   <li className={itemClass}>
-            <NavLink to={`/coin/${id}/medias`} className={linkclassName}>Medias</NavLink>        
+            <NavLink to={`/coin/${props.coin}/medias`} className={linkclassName}>Medias</NavLink>        
   </li>
 </ul>
  </div>
@@ -44,3 +44,4 @@ return(
 )
 
 }
+export default withRouter(CoinsPage);

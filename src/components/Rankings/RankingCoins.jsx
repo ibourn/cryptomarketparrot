@@ -1,4 +1,8 @@
 import React, { useState, useContext } from 'react';
+import { BrowserRouter, Route, Switch, Link, NavLink, withRouter, useHistory, useParams } from "react-router-dom";
+
+import CoinsPage from '../../pages/mainpages/CoinsPage';
+
 import { DataContext } from "../NavBars/DataContext";
 import CoinRow from "../../components/Rows/CoinRow";
 import styled from 'styled-components';
@@ -18,7 +22,7 @@ const Th = styled.th`
     width: 130px;
     }
     `;
-export default function RankingCoins(props) {
+const RankingCoins = (props) => {
 
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
@@ -130,7 +134,7 @@ const thClass="";//"position-absolute sticky-top";
     
       {
           props.coinsData.map(({rank, symbol, name, circulating_supply, quotes }, index) =>
-            <CoinRow
+           <CoinRow
               key={symbol}
               rank={rank}
               symbol={symbol}
@@ -157,7 +161,11 @@ const thClass="";//"position-absolute sticky-top";
           )
         }
       </tbody>
+
     </Table>
   )
 
 }
+
+
+export default withRouter(RankingCoins);

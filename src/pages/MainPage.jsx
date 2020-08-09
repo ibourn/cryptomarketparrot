@@ -40,6 +40,12 @@ export default function MainPage(props) {
 
 
     }*/
+
+    console.log("HEHO JE SUIS APPELE MAINAPAGE");
+
+
+
+
     useEffect( () => {
         if(coinsInfos.list.length == 0){
          componentDidMount();
@@ -113,10 +119,10 @@ export default function MainPage(props) {
                                 component={RankingsPage}  />
                                 
                                 <Route   path="/coin/:id/:type" >
-                                <CoinsPage  />
+                                <CoinsPage coin={id}  />
                                 </Route>
                                 <Route   path="/coin/:id/chart" >
-                                <CoinsPage  />
+                                <CoinsPage coin={id}  />
                                 </Route>
                             </Switch>
 
