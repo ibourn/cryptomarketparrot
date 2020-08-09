@@ -24,7 +24,6 @@ export default function MainPage(props) {
 
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
-    alert("id from main page :" + id + " type : " + type);
   //  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
    /* const [coinsInfos, setCoinsInfos] = useState({
         dictionary: [],
@@ -42,7 +41,6 @@ export default function MainPage(props) {
 
     }*/
     useEffect( () => {
-        console.log(coinsInfos.list, "DEMAINPAGEEFFECT");
         if(coinsInfos.list.length == 0){
          componentDidMount();
         }
@@ -64,10 +62,8 @@ export default function MainPage(props) {
         const dictionary =[];
 
         await DataProvider.getCoinList().then((datas)=>{
-          console.log(datas,"dats2");
           for (const [key,val] of datas) {
           dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
-          console.log(val.name.toLowerCase() + " " + val.symbol.toLowerCase(), "dats");  
         }
           
           //props.loadCoinsInfos(dictionary,datas);
@@ -80,7 +76,6 @@ export default function MainPage(props) {
             return infos;
           });
 
-          console.log(coinsInfos, dictionary,"COINSINFOS");
         });
     }
 

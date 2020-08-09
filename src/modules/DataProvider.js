@@ -93,7 +93,7 @@ function buildPricesSetPaprikaUrl(coinId, days){
   if(days > 0){
   url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "/" + coinId + 
   PAPRIKA_OPTION_HISTO + "?" +
-  PAPRIKA_PARAM_START + Time.getPastDateByDay(days) + "&" +
+  PAPRIKA_PARAM_START + Time.getPastDateByDayInverse(days) + "&" +
   PAPRIKA_PARAM_INTERVAL + "12h";
 } /*else {
   url = BASE_URL + COIN_ENDPOINT + coinId + OPTION_TODAY;
@@ -193,19 +193,19 @@ return url;
             /* GET ID AND INFOS FROM COINGEKO */
             const responseC = await axios.get(buildCoinsListGeckoUrl());
 
-            DataProvider.testgek+=1;
-            console.log(DataProvider.testgek, "appel gek");
+        //    DataProvider.testgek+=1;
+         //   console.log(DataProvider.testgek, "appel gek");
             
 
             /* SET COINGECKO ID IN THE MAP */
             responseC.data.forEach((coin) => {
-                console.log(coin);
+          //      console.log(coin);
                 if (coinList.get(coin.symbol)) {
                   const newset = coinList.get(coin.symbol);
                   newset.gecko_id = coin.id;
                   coinList.set(coin.symbol,newset);}
-                  console.log(coin);
-                  console.log(coinList[coin.symbol]);
+             //     console.log(coin);
+            //      console.log(coinList[coin.symbol]);
             });
             return coinList;
     },
@@ -229,8 +229,20 @@ return url;
     getCoinsPriceSetD7 : async (id) => {
       return await axios.get(buildPricesSetPaprikaUrl(id, 7));
     },
+
+   
+getCoinsPriceSetPaprikaACAO : async (id) => {
+  const instance = axios.create({
+    baseURL: 'https://api.coinpaprika.com/v1/coins',
+    timeout: 1000,
+    headers: {'Access-Control-Allow-Origin': '*'}
+  });
+      return await instance.get(buildPricesSetPaprikaUrl(id, 7));
+    },
+
+
     getCoinsPriceSetGecko : async (id) => {
-      console.log(id, buildPricesSetGeckoUrl(id, 7));
+     // console.log(id, buildPricesSetGeckoUrl(id, 7));
       return await axios.get(buildPricesSetGeckoUrl(id, 7));
     },
     /**

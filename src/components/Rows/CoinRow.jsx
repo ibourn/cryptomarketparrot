@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import {lightTheme, darkTheme} from '../../themes/Theme';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -16,7 +16,38 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Td = styled.td`
     width: 2vw;
     `;
- 
+
+    /*styling the prices*/
+const blinkingGreen = keyframes` 
+0%{  opacity: 1; }
+25%{ opacity: 0.4; }
+50%{ opacity: 0.8; }
+75%{ opacity: 0.4; }
+100%{opacity: 1; }
+`;
+const blinkingRed = keyframes` 
+0%{  opacity: 1; }
+25%{ opacity: 0.4; }
+50%{ opacity: 0.8; }
+75%{ opacity: 0.4; }
+100%{opacity: 1; } 
+`;
+
+    const TdUnchanged = styled.td`
+    width: 2vw;
+    `;
+    const TdUp = styled.td`
+    width: 2vw;
+     color: green;
+     font-weight: bold;
+    animation: ${blinkingGreen} ease-in-out 2s 5;
+    `;
+    const TdDown = styled.td`
+    width: 2vw;
+    color: red;
+    font-weight: bold;
+    animation: ${blinkingRed} ease-in-out 2s 5;
+    `;
     const TdG = styled.td`
     width: 150px;
     height: 20px;
@@ -30,7 +61,6 @@ const Td = styled.td`
 export default function CoinRow(props) {
     const { theme, toggleTheme } = useContext(ThemeContext);
 
-    console.log(props);
 
     function getAvailableIcon() {
         try {
@@ -48,8 +78,14 @@ export default function CoinRow(props) {
 
     const r = props.priceSet.data.prices.map(set =>{
         return {
+            /*paprika
+            x: set.timestamp,
+            y: set.price
+            */
+            //geko
             x: set[0],
             y: set[1]
+            //*/
         }
     })
 
@@ -57,7 +93,6 @@ export default function CoinRow(props) {
 const lineColor = theme == 'light' ? "lightThemeColor" : "darkThemeColor";
 const bckgrndColor = theme == 'light' ? lightTheme.body : darkTheme.body;
 
-    console.log(lineColor, theme);
     
    
   
@@ -103,9 +138,6 @@ const bckgrndColor = theme == 'light' ? lightTheme.body : darkTheme.body;
          }]
      }
      
-        console.log(options);
-        console.log("priceset",props.priceSet);
-console.log("priceset",props.priceSet.data.prices);
 
 const graphStyle = {
     margin: 0,
@@ -113,7 +145,8 @@ const graphStyle = {
   };
 
 
- 
+  const styleClassPrice = "text-" + (props.percent_from_price_ath >=0 ? "success" : "danger");
+
   const styleClassVarH1 = "text-" + (props.percent_change_1h >=0 ? "success" : "danger");
   const styleClassVarH24 = "text-" + (props.percent_change_24h >=0 ? "success" : "danger");
   const styleClassVarD7 = "text-" + (props.percent_change_7d >=0 ? "success" : "danger");
@@ -130,12 +163,21 @@ const graphStyle = {
                 <span><img src={icon} alt={props.symbol} width={"15px"}/></span>
                 <span>{props.name}</span>
             </Td>  
-            <Td>{props.price}</Td> 
+            {
+props.snapshotChange === 'unchanged' ?
+<TdUnchanged>{props.price}</TdUnchanged> :
+props.snapshotChange === 'up' ?
+<TdUp>{props.price}</TdUp> :
+<TdDown>{props.price}</TdDown> 
+            }
             <Td className={styleClassVarH1}>{props.percent_change_1h}</Td> 
             <Td className={styleClassVarH24}>{props.percent_change_24h}</Td> 
             <Td className={styleClassVarD7}>{props.percent_change_7d}</Td> 
+        {props.priceSet.status == 429 ? null :
+
             <TdG><CanvasJSChart className="chart" style={graphStyle} options = {options}/></TdG> 
-            <Td className={styleClassVarD30}>{props.percent_change_30d}</Td> 
+           }
+              <Td className={styleClassVarD30}>{props.percent_change_30d}</Td> 
 
             <Td className={styleClassVarAth}>{props.percent_from_price_ath}</Td> 
             <Td>{props.volume_24h}</Td>  

@@ -84,6 +84,18 @@ const toggleDropDownFilter = () => {
 
    const menuFilterClass= "dropdown-menu" + (isDownFilter ? " show" : "");
    const triggerFilterMenu= "btn btn-secondary dropdown-toggle"; 
+
+   const handleClickPagePrv = () => {
+    props.handleClickPage(-1);
+   }
+   const btnPagePrvClass= "btn btn-sm btn-light" + (props.page.current == 0 ? " disabled" : "");
+   const handleClickPageNxt = () => {
+     alert("click next page");
+    props.handleClickPage(1);
+   }
+   const btnPageNxtClass= "btn btn-sm btn-light" + (props.page.current == props.page.last-1 ? " disabled" : "");
+
+
     return (
        <div className="d-flex justify-content-between">
     <ul className="nav nav-tabs">
@@ -161,7 +173,10 @@ const toggleDropDownFilter = () => {
     <a className={itemBTCClass} onClick={toggleDeviseBTC}  href="#">BTC</a>
   </div>
 </div>
-<button>
+<button className={btnPagePrvClass} onClick={handleClickPagePrv}>
+    prev100
+</button>
+<button className={btnPageNxtClass} onClick={handleClickPageNxt}>
     next100
 </button>
 </div>

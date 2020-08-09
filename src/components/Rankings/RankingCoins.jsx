@@ -112,8 +112,10 @@ const thClass="";//"position-absolute sticky-top";
           <Th className={thClass} onClick={handleClickChangeh1}>%(1h)</Th>
           <Th className={thClass} onClick={handleClickChangeh24}>%(24h)</Th>         
           <Th className={thClass} onClick={handleClickChanged7}>%(7d)</Th> 
+           { !props.priceSetData ? null:
           <ThG  > <span style={{minWidth: 150}}>graph</span>
-            </ThG>          
+            </ThG>     
+}     
           <Th className={thClass} onClick={handleClickChanged30}>%(30d)</Th>
           <Th className={thClass} onClick={handleClickChangeAth}>% from ATh</Th> 
           <Th className={thClass} onClick={handleClickVolumeh24}>Volume</Th>
@@ -149,6 +151,7 @@ const thClass="";//"position-absolute sticky-top";
               market_cap={quotes[props.devise].market_cap}            
               circulating_supply={circulating_supply} 
               priceSet={props.priceSetData[index]}
+              snapshotChange={props.snapshotChange[index]}
  
             />
           )
