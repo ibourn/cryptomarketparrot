@@ -149,8 +149,9 @@ return url;
 }
 function buildCoinInfoGeckoUrl(coinId){
   
-  let url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId +  "?" +
-  GECKO_PARAM_INFO;
+  let url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId;
+  /* +  "?" +
+  GECKO_PARAM_INFO;*/
 
 return url;
 }
@@ -257,6 +258,8 @@ getCoinsPriceSetPaprikaACAO : async (id) => {
     },
 
     getCoinTwitterPaprika : async (id) => {
+      console.log("FROm PROVIDER twitter ", buildCoinTwitterPaprikaUrl(id));
+
       return await axios.get(buildCoinTwitterPaprikaUrl(id));
     },
 
@@ -269,6 +272,7 @@ getCoinsPriceSetPaprikaACAO : async (id) => {
     },
 
     getCoinInfoGecko : async (id) => {
+      console.log("FROm PROVIDER ", buildCoinInfoGeckoUrl(id));
       return await axios.get(buildCoinInfoGeckoUrl(id));
     },
 

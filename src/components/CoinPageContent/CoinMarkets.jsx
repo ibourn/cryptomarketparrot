@@ -39,7 +39,7 @@ Volume (24h)
 {
 
 props.coinMarkets.map( (data) => {
-<tr>
+return (<tr>
 <td>
 {data.exchange_name}
 </td>
@@ -50,14 +50,15 @@ props.coinMarkets.map( (data) => {
 {data.quotes["USD"].price}
 </td>
 <td>
-{data.quotes["USD"].volume_24h}
-</td>
-<td>
 {data.trust_score}
 </td>
+<td>
+{data.quotes["USD"].volume_24h}
+</td>
 
 
-</tr>
+
+</tr>)
 
 
 

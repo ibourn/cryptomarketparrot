@@ -88,7 +88,8 @@ function testHorsEffect(id_tview) {
     if(coinInfo.length == 0){
         console.log("useeffect qd sis mount"); 
     
-        let respInfos = DataProvider.getCoinInfoGecko(id_gecko).then((response) => {
+        let respInfos = DataProvider.getCoinInfoGecko(id_gecko);
+        /*.then((response) => {
             if(response.status == 200) {
                 return response.data;
                 console.log(response.data);
@@ -97,7 +98,7 @@ function testHorsEffect(id_tview) {
                 return "unavailable";
                 console.log("unavailable");
             }
-        });
+        });*/
         let respTwitter = DataProvider.getCoinTwitterPaprika(id_paprika);
         let respEvents= DataProvider.getCoinEventsPaprika(id_paprika);
         let respMarkets = DataProvider.getCoinMarketsPaprika(id_paprika);
@@ -119,7 +120,7 @@ function testHorsEffect(id_tview) {
 
 }
 
-
+console.log("FROM coinpagE", coinInfo);
     return (<>
      <BrowserRouter>
         <div className="container">
@@ -137,14 +138,14 @@ function testHorsEffect(id_tview) {
 
 
 <Switch>
-              <Route  exact path="(/coin/:id)(/about)">
+              <Route  exact path={`/coin/${id}/about`}>
                <CoinAbout coinInfo={coinInfo} coinEvents={coinEvents}/>
                </Route>
                <Route  exact path={`/coin/${id}/chart`}>
                <CoinChart coin={id_tview}/>
                </Route>
                <Route exact path={`/coin/${id}/medias`}>
-               <CoinMedias coinTwitter={coinTwitter}/>
+               <CoinMedias coinTwitter={coinTwitter} coinsInfos={coinsInfos} coin={id}/>
                </Route>
                <Route exact path={`(/coin/${id})(/markets)`}>
                <CoinMarkets coinMarkets={coinMarkets} />
