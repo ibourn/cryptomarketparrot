@@ -156,14 +156,15 @@ function buildGlobalInfoPaprikaUrl(){
 /**
  * 
  * @param {string} coinId 
+ * @param {string} devise
  * @param {number} days 
  */
-function buildPricesSetGeckoUrl(coinId, days){
+function buildPricesSetGeckoUrl(coinId, devise, days){
   let url ="";
   if(days > 0){
   url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId + 
   GECKO_OPTION_MARKET_CHART + "?" +
-  GECKO_PARAM_VSCUR + "usd" + "&" +
+  GECKO_PARAM_VSCUR + devise.toLowerCase() + "&" +
   GECKO_PARAM_START + "7";
 }
 return url;
@@ -293,13 +294,15 @@ return url;
      * 
      * https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7
      */
-    getCoinsPriceSetGecko : async (id) => {
-      const response = await axios.get(buildPricesSetGeckoUrl(id, 7));
-      if (response.status == 429) {
-        return 'not available';
-      } else {
-        return response.data;
-      }
+    getCoinsPriceSetGecko : async (id, devise) => {
+      const response = await axios.get(buildPricesSetGeckoUrl(id, devise, 7)).then(resp => {
+        return resp.data;
+      })
+    .catch(err => {
+        console.log('not available',err);
+        return { prices: undefined};//{prices: [[0,0]]};
+    })
+      return response;
     }
 /*
  if (coinResponse.status == 429) {

@@ -44,9 +44,9 @@ const RankingCoins = (props) => {
 
 
 const handleClickRank = () => {
-  props.handleClickSort('rank', orderRank);
   const newOrder = orderRank === 'asc' ? 'desc' : 'asc';
   setOrderRank(newOrder);
+  props.handleClickSort('rank', newOrder);
 }
 const handleClickName = () => {
   props.handleClickSort('name', orderName);
@@ -154,7 +154,7 @@ const thClass="";//"position-absolute sticky-top";
               volume_24h={quotes[props.devise].volume_24h}
               market_cap={quotes[props.devise].market_cap}            
               circulating_supply={circulating_supply} 
-              priceSet={props.priceSetData[symbol.toLowerCase()]}
+              priceSet={props.priceSetData[symbol.toLowerCase()][props.devise]}
               snapshotChange={props.snapshotChange[index]}
  
             />

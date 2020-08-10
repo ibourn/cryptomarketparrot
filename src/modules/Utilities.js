@@ -4,6 +4,8 @@
  * 
  */
 
+import { logDOM } from "@testing-library/react";
+
 
 /**
  * 
@@ -51,17 +53,37 @@ export var Compare = {
 export var Filter = {
     byRange: (data, filter) => {
         function isInRange(value) {
+
+            console.log(
+                
+                value.quotes[filter.devise]["market_cap"],
+               ( value.quotes[filter.devise]["market_cap"] >= filter.minCap &&
+                value.quotes[filter.devise]["market_cap"] <= filter.maxCap),
+            value.circulating_supply ,
+            (value.circulating_supply >= filter.minSup &&
+            value.circulating_supply <= filter.maxSup),
+            value.quotes[filter.devise]["percent_change_24h"] ,
+            (value.quotes[filter.devise]["percent_change_24h"] >= filter.minVarD &&
+            value.quotes[filter.devise]["percent_change_24h"] <= filter.maxVarD),
+            value.quotes[filter.devise]["percent_from_price_ath"] ,
+            ((filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth : true) &&
+            (filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth: true)) ,
+            value.quotes[filter.devise]["price"] ,
+           ( value.quotes[filter.devise]["price"] >= filter.minPrice &&
+            value.quotes[filter.devise]["price"] <= filter.maxPrice));
+
             return (value.quotes[filter.devise]["market_cap"] >= filter.minCap &&
                 value.quotes[filter.devise]["market_cap"] <= filter.maxCap &&
                 value.circulating_supply >= filter.minSup &&
                 value.circulating_supply <= filter.maxSup &&
                 value.quotes[filter.devise]["percent_change_24h"] >= filter.minVarD &&
                 value.quotes[filter.devise]["percent_change_24h"] <= filter.maxVarD &&
-                value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth &&
-                value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth &&
+                (filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth : true) &&
+                (filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth: true) &&
                 value.quotes[filter.devise]["price"] >= filter.minPrice &&
                 value.quotes[filter.devise]["price"] <= filter.maxPrice);
         }
+      
         return data.filter(isInRange)
 
     }
