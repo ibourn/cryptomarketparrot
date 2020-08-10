@@ -11,7 +11,7 @@ export default function CoinMarkets(props) {
 
 
     return (
-        <div className="row">
+        <section className="row">
 
             <table>
                 <thead>
@@ -71,7 +71,7 @@ export default function CoinMarkets(props) {
                 </tbody>
             </table>
 
-        </div>
+        </section>
 
 
     )

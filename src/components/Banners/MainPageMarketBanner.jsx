@@ -11,7 +11,9 @@ import { DataProvider } from "../../modules/DataProvider";
 import { useClose } from "./useClose";
 
 
-
+/**
+ * Style
+ */
 const BannerContent = styled(BannerContentDiv)`
     height: 2rem;
 `;
@@ -66,7 +68,7 @@ export default function MarketBannerMainPage(props) {
 
     return (
         <>
-            <div className={GlobalClasses.divBanner}>
+            <aside className={GlobalClasses.divBanner}>
                 <BannerContent>
 
                     {loading ? loader :
@@ -105,7 +107,7 @@ export default function MarketBannerMainPage(props) {
                 <BannerOption >
                     <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
                 </BannerOption>
-            </div>
+            </aside>
 
         </>
     );

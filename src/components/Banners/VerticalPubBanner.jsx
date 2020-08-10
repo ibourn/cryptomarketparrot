@@ -50,7 +50,7 @@ export default function PubBannerMainPage(props) {
     return (
         <>
             {showBanner ?
-                <div className={GlobalClasses.divBanner} >
+                <aside className={GlobalClasses.divBanner} >
                     <BannerContent className={divBannerClass}>
                         <img src={livewebinar} alt="livewebinar" />
                         <img src={IoTacademy} alt="IoTacademy" />
@@ -59,7 +59,7 @@ export default function PubBannerMainPage(props) {
                     <BannerOption >
                         <BannerCloser closePub={closeBanner} />
                     </BannerOption >
-                </div>
+                </aside>
                 : null
             }
         </>

@@ -101,8 +101,70 @@ export var Time = {
         const s = dt.getSeconds().toString();
         return y + ':' + m.padStart(2, "0") + ':' + d.padStart(2, "0") + ':' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
     }
+}
 
 
+/**
+ * Copy helpers
+ */
+export var Copy = {
+    shallow: (element) => {
+        if(typeof element == "object") {
+            return {...element};
+        } else {
+            return element;
+        }
+    },
+    deep: (element) => {
+        if(Array.isArray(element)) {
+            return [...element];
+        } else if(typeof element == "object") {
+            return JSON.parse(JSON.stringify(element));
+        } else {
+            return element;
+        }
+    },
+    nested: (element) => {
+        let deepCopy = (element) => {
+            //If not a object then return
+            if (!element) {
+              return element;
+            }
+            
+            let item;
+            let copy = Array.isArray(element) ? [] : {};
+ 
+            for (const i in element) {
+                item = element[i];
+              copy[i] = (typeof item === "object") ? deepCopy(item) : item;
+            }  
+            return copy;
+          }
+          return deepCopy(element);
+    }
 
 }
 
+/**
+ * Math Helpers
+ */
+export var Maths = {
+
+    getMinOfSerieInSet: (set, item) => {       
+        let min = +1e19;         
+        for(let i in set) {        
+            if(set[i][item] < min)
+                min = set[i][item]; 
+        }
+        return min; 
+    },
+    getMaxOfSerieInSet: (set, item) => {
+        let max = -1e19;         
+        for(let i in set) {      
+            if(set[i][item] > max)
+                max = set[i][item];  
+            }
+            return max; 
+    }
+
+}

@@ -22,12 +22,12 @@ export default function CoinChart(props) {
 
 
   return (
-      <div className="row">
+      <section className="row">
 
         <TradingViewWidget symbol={props.coin} hide_side_toolbar={false}
           locale="fr" autosize/>
 
-      </div>
+      </section>
 )
 
 }

@@ -113,7 +113,7 @@ const CoinRankingNavBar = (props) => {
 
 
   return (
-    <div className="d-flex justify-content-between">
+    <nav className="d-flex justify-content-between">
 
       <ul className="nav nav-tabs">
         <li className={liDropdown}>
@@ -223,7 +223,7 @@ const CoinRankingNavBar = (props) => {
         </button>
       </div>
 
-    </div>
+    </nav>
   );
 }
 

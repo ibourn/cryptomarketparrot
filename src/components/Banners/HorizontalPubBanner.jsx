@@ -22,7 +22,7 @@ export default function PubBannerMainPage(props) {
     return (
         <>
             {showBanner ?
-                <div className={GlobalClasses.divBanner} >
+                <aside className={GlobalClasses.divBanner} >
                     <BannerContentDiv className="d-flex justify-content-between">
                         <img src={livewebinar} alt="livewebinar" />
                         <img src={IoTacademy} alt="IoTacademy" />
@@ -31,7 +31,7 @@ export default function PubBannerMainPage(props) {
                     <BannerOptionDiv >
                         <BannerCloser closePub={closeBanner} />
                     </BannerOptionDiv >
-                </div>
+                </aside>
                 : null
             }
         </>

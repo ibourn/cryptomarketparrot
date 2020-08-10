@@ -9,8 +9,7 @@ import React from 'react';
 export default function CoinPageHeader(props) {
 
     return (
-        <>
-            <div className="row">
+            <header className="row">
                 <div className="col-3">
                     <p><img src={props.coinInfo.image.small} alt="" /></p>
                     <p>
@@ -33,8 +32,10 @@ export default function CoinPageHeader(props) {
                     <div className="row">
                         <div className="col-6">
                             <div className="row">
-                                <span>{props.coinInfo.name}<span>
+                                <h1>
+                                    <span>{props.coinInfo.name}<span>
                                 </span>{props.coinInfo.symbol}</span>
+                                </h1>
                             </div>
                             <div className="row">
                                 <p>
@@ -85,9 +86,7 @@ export default function CoinPageHeader(props) {
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </>
+            </header>
     )
 
 }

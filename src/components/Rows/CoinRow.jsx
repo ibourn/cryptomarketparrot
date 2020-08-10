@@ -5,6 +5,7 @@ import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
 import styled, { keyframes } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
+import { Maths } from '../../modules/Utilities';
 import CoinsPage from '../../pages/mainpages/CoinsPage';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -93,7 +94,9 @@ const CoinRow = (props) => {
     /**
      * chart data
      */
-    const dataSet = props.priceSet.data.prices.map(set => {
+    const dataSet = props.priceSet == undefined ?
+        [[0, 0], [1, 0]]
+        : props.priceSet.map(set => {
         return {
             /*paprika
             x: set.timestamp,
@@ -136,7 +139,7 @@ const CoinRow = (props) => {
                 //autoCalculate: true //change it to false
                 customBreaks: [{
                     startValue: 0,
-                    endValue: dataSet[0].y,
+                    endValue: Maths.getMinOfSerieInSet(dataSet,"y"), //dataSet[0].y,  
                     color: " ",
                     type: " "
                 }]
@@ -190,7 +193,11 @@ const CoinRow = (props) => {
                 <Td className={styleClassVarH24}>{props.percent_change_24h}</Td>
                 <Td className={styleClassVarD7}>{props.percent_change_7d}</Td>
                 {
-                props.priceSet.status == 429 ? null :
+                props.priceSet == undefined ? 
+                <TdG>
+                "no data yet" {/* null */}
+                </TdG>
+                 :
 
                     <TdG>
                         <CanvasJSChart className="chart" style={graphStyle} options={options} />

@@ -154,7 +154,7 @@ const thClass="";//"position-absolute sticky-top";
               volume_24h={quotes[props.devise].volume_24h}
               market_cap={quotes[props.devise].market_cap}            
               circulating_supply={circulating_supply} 
-              priceSet={props.priceSetData[index]}
+              priceSet={props.priceSetData[symbol.toLowerCase()]}
               snapshotChange={props.snapshotChange[index]}
  
             />

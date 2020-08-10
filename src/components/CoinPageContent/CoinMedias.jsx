@@ -13,7 +13,7 @@ export default function CoinMedias(props) {
 
 
     return (
-        <div className="row">
+        <section className="row">
 
             <ul> From Twitter :
 {
@@ -28,7 +28,7 @@ export default function CoinMedias(props) {
 
                 }
             </ul>
-        </div>
+        </section>
 
 
     )

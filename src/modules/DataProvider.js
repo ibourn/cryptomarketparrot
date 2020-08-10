@@ -19,9 +19,14 @@ const DISPLAY_COINS_PER_PAGE = 50;//100;
 const REQUESTED_COINS_PER_PAGE = 250;
 const REQUESTED_PAGE = 30;
 
+/**
+ * STATUS
+ */
+const HISTO_STATUS_GECKO = 200;
+const HISTO_STATUS_PAPRIKA = 200;
  /**
   * 
-  * URLS COINPAPRIKA // limits : 600req/min
+  * URLS COINPAPRIKA // limits : 600req/min OR 10/sec
   * 
   * used for more requests
   * 
@@ -175,6 +180,12 @@ return url;
 
 
 
+
+
+
+
+
+
  export var DataProvider =  {
 
     /**
@@ -237,19 +248,6 @@ return url;
      */
     getCoinsDataAllCur : async () => {
       return await axios.get(buildTickersListAllCurPaprikaUrl());
-    },   
-   /**
-     * Get the coin prices for 7 last days to draw the mini graph from paprika
-     * 
-     */
-    getCoinsPriceSetD7 : async (id) => {
-      return await axios.get(buildPricesSetPaprikaUrl(id, 7));
-    },
-   /**
-     * Get the coin prices for 7 last days to draw the mini graph from gecko
-     */
-    getCoinsPriceSetGecko : async (id) => {
-      return await axios.get(buildPricesSetGeckoUrl(id, 7));
     },
    /**
      * Get data of a coin from paprika
@@ -280,8 +278,36 @@ return url;
      */
     getCoinInfoGecko : async (id) => {
       return await axios.get(buildCoinInfoGeckoUrl(id));
-    }
+    },
 
+    /**
+     * Get the coin prices for 7 last days to draw the mini graph from paprika
+     * 
+     * https://api.coinpaprika.com/v1/tickers/btc-bitcoin/historical?start=2020-08-01&interval=1h
+     */
+    getCoinsPriceSetD7 : async (id) => {
+      return await axios.get(buildPricesSetPaprikaUrl(id, 7));
+    },
+   /**
+     * Get the coin prices for 7 last days to draw the mini graph from gecko
+     * 
+     * https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7
+     */
+    getCoinsPriceSetGecko : async (id) => {
+      const response = await axios.get(buildPricesSetGeckoUrl(id, 7));
+      if (response.status == 429) {
+        return 'not available';
+      } else {
+        return response.data;
+      }
+    }
+/*
+ if (coinResponse.status == 429) {
+          return 'not available';
+        } else {
+          return coinResponse;
+        }
+        */
    /* getCoinInfoPriceSetTODO : async (id) => {
       return await axios.get(buildPricesSetPaprikaUrl(id, 7));
     },*/

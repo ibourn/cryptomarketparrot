@@ -17,7 +17,7 @@ const CoinPageNavBar = (props) => {
 
 
   return (
-    <div className="row">
+    <nav className="row">
       <ul class="nav nav-tabs">
         <li className={itemClass}>
           <NavLink to={`/coin/${props.coin}/chart`} className={linkclassName}>
@@ -37,7 +37,7 @@ const CoinPageNavBar = (props) => {
             Medias</NavLink>
         </li>
       </ul>
-    </div>
+    </nav>
 
 
   )
