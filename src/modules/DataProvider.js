@@ -4,6 +4,12 @@ import { Time } from './Utilities';
 
 //TODO GERER LES 404 429 50.. et cross origin
 
+/**
+ * 
+ * MODULE TO MANAGE URLS AND API CALLS
+ * 
+ */
+
  /**
   * 
   * QTITY PARAMs
@@ -21,26 +27,21 @@ const REQUESTED_PAGE = 30;
   * 
   * */
 const PAPRIKA_BASEURL = 'https://api.coinpaprika.com/v1';
-const PAPRIKA_ENDPOINT_COINS = '/coins'; //liste coin
-const PAPRIKA_ENDPOINT_TICKERS = '/tickers'; //quotes.usd => all coin now
-//+ coin_id => specifique
+const PAPRIKA_ENDPOINT_COINS = '/coins'; 
+const PAPRIKA_ENDPOINT_TICKERS = '/tickers'; 
 const PAPRIKA_ENDPOINT_GLOBAL = '/global';
 
 const PAPRIKA_OPTION_OHLCV = '/ohlcv';
-const PAPRIKA_OPTION_HISTO = '/historical'; //need start
-const PAPRIKA_OPTION_TWITTER = '/twitter'; //need start
-const PAPRIKA_OPTION_EVENTS = '/events'; //need start
-const PAPRIKA_OPTION_MARKETS = '/markets'; //need start
-const PAPRIKA_PARAM_START = 'start='; //2020-08-01
+const PAPRIKA_OPTION_HISTO = '/historical'; 
+const PAPRIKA_OPTION_TWITTER = '/twitter'; 
+const PAPRIKA_OPTION_EVENTS = '/events'; 
+const PAPRIKA_OPTION_MARKETS = '/markets'; 
+const PAPRIKA_PARAM_START = 'start='; 
 const PAPRIKA_PARAM_INTERVAL = 'interval=';
 const PAPRIKA_PARAM_QUOTE = 'quotes=';
+//const paprikaIntervals = ['5m', '15m', '30m', '1h', '6h', '12h', '24h', '7d', '30d', '365d'];
+//const paprikaQuotes = ['USD', 'BTC'];
 
-const paprikaIntervals = ['5m', '15m', '30m', '1h', '6h', '12h', '24h', '7d', '30d', '365d'];
-const paprikaQuotes = ['USD', 'BTC'];
-
-/*PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "?" +
-  PAPRIKA_PARAM_QUOTE + "USD,BTC" ;
-  https://api.coinpaprika.com/v1/tickers?quote=USD,BTC*/
 /**
   * 
   * URLS COINGECKO // limits : 100req/min
@@ -48,7 +49,6 @@ const paprikaQuotes = ['USD', 'BTC'];
   * used for fewer requests
   * 
   * */
-// https://api.coingecko.com/api/v3/coins/list
  const GECKO_BASEURL = 'https://api.coingecko.com/api/v3';
  const GECKO_ENDPOINT_COINS = '/coins';
  const GECKO_ENDPOINT_GLOBAL = '/global';
@@ -57,29 +57,17 @@ const paprikaQuotes = ['USD', 'BTC'];
  const GECKO_PARAM_VSCUR = 'vs_currency=';
  const GECKO_PARAM_START = 'days=';
  const GECKO_PARAM_INFO = "localization=flase&tickers=false&market_data=false";
- //https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7
 
-//const GECKO_URL_BASE_CURRENCY = 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies';
-/*[
-  "btc",
-  "eth",
-  "ltc",*/
-// list coins https://api.coingecko.com/api/v3/coins/list
-/*[
-  {
-    "id": "01coin",
-    "symbol": "zoc",
-    "name": "01coin"
-  },]*/
 
-//const coinsUrl = 'https://api.coinpaprika.com/v1/coins';
-//const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
-
-//const coinsTickers = "https://api.coinpaprika.com/v1/tickers";//{coin_id}
-
-//https://api.coinpaprika.com/v1/tickers/{coin_id}/historical
-//https://api.coinpaprika.com/v1/tickers/btc-bitcoin/historical?start=2020-08-01&interval=6h
-
+/**
+ * 
+ * URL BUILDERS
+ * 
+ * /
+ /** 
+ * @param {string} base 
+ * @param {string} endpoint 
+ */
  function buildUrl(base, endpoint) {
   return base + endpoint;
 }
@@ -93,6 +81,11 @@ function buildTickersListAllCurPaprikaUrl(){
   return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_TICKERS + "?" +
   PAPRIKA_PARAM_QUOTE + "USD,BTC" ;
 }
+/**
+ * 
+ * @param {string} coinId 
+ * @param {number} days 
+ */
 function buildPricesSetPaprikaUrl(coinId, days){
   let url ="";
   if(days > 0){
@@ -105,13 +98,18 @@ function buildPricesSetPaprikaUrl(coinId, days){
 }*/
   return url;
 }
-
+/**
+ * 
+ * @param {string} coinId 
+ */
 function buildCoinInfoPaprikaUrl(coinId){
-  
   let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId;
-
 return url;
 }
+/**
+ * 
+ * @param {string} coinId 
+ */
 function buildCoinTwitterPaprikaUrl(coinId){
   
   let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
@@ -119,6 +117,10 @@ function buildCoinTwitterPaprikaUrl(coinId){
 
 return url;
 }
+/**
+ * 
+ * @param {string} coinId 
+ */
 function buildCoinEventsPaprikaUrl(coinId){
   
   let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
@@ -126,6 +128,10 @@ function buildCoinEventsPaprikaUrl(coinId){
 
 return url;
 }
+/**
+ * 
+ * @param {string} coinId 
+ */
 function buildCoinMarketsPaprikaUrl(coinId){
   
   let url = PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS + "/" + coinId + 
@@ -133,10 +139,6 @@ function buildCoinMarketsPaprikaUrl(coinId){
 
 return url;
 }
-
-
-
-
 function buildCoinsListGeckoUrl(){
   return GECKO_BASEURL + GECKO_ENDPOINT_COINS + GECKO_OPTION_LIST;
 }
@@ -146,7 +148,11 @@ function buildGlobalInfoGeckoUrl(){
 function buildGlobalInfoPaprikaUrl(){
   return PAPRIKA_BASEURL +PAPRIKA_ENDPOINT_GLOBAL;
 }
-
+/**
+ * 
+ * @param {string} coinId 
+ * @param {number} days 
+ */
 function buildPricesSetGeckoUrl(coinId, days){
   let url ="";
   if(days > 0){
@@ -157,28 +163,22 @@ function buildPricesSetGeckoUrl(coinId, days){
 }
 return url;
 }
+/**
+ * 
+ * @param {string} coinId 
+ */
 function buildCoinInfoGeckoUrl(coinId){
   
   let url = GECKO_BASEURL + GECKO_ENDPOINT_COINS + "/" + coinId;
-  /* +  "?" +
-  GECKO_PARAM_INFO;*/
-
 return url;
 }
-//https://api.coingecko.com/api/v3/coins/bitcoin?localization=flase&tickers=false&market_data=false
 
 
-//export default async function DataProvider() {
 
  export var DataProvider =  {
 
     /**
-     * Create a map : id => {identity infos}, where id is lowercapped symbol
-     * to have :
-     * id for coinpaprika and coingecko and url of the icon
-     * 
-     * TODO : rank shouldn't be there as it can change during display
-     * 
+     * Create a map : id => {identity infos}, see DataContext
      * 
      */
     getCoinList : async () => {
@@ -186,11 +186,8 @@ return url;
             /* GET ID AND INFOS FROM COINAPRIKA */
             const responseP =  await axios.get(buildCoinsListPaprikaUrl());
 
-            
-
             responseP.data.forEach((coin) => {
                 let key = coin.symbol.toLowerCase();
-               // coinList[key] = {
                 coinList.set(key, {
                     paprika_id: coin.id,
                     gecko_id: "",
@@ -206,97 +203,88 @@ return url;
             /* GET ID AND INFOS FROM COINGEKO */
             const responseC = await axios.get(buildCoinsListGeckoUrl());
 
-        //    DataProvider.testgek+=1;
-         //   console.log(DataProvider.testgek, "appel gek");
-            
-
             /* SET COINGECKO ID IN THE MAP */
             responseC.data.forEach((coin) => {
-          //      console.log(coin);
                 if (coinList.get(coin.symbol)) {
                   const newset = coinList.get(coin.symbol);
                   newset.gecko_id = coin.id;
                   coinList.set(coin.symbol,newset);}
-             //     console.log(coin);
-            //      console.log(coinList[coin.symbol]);
             });
             return coinList;
     },
 
-    
+    /**
+     * get global market info from coingecko
+     */
     getGlobalInfosFromGecko : async () => {
         return await axios.get(buildGlobalInfoGeckoUrl());
       },
+    /**
+     * get global market info from coinpaprika
+     */
       getGlobalInfosFromPaprika : async () => {
         return await axios.get(buildGlobalInfoPaprikaUrl());
       },
    
     /**
-     * 
-     * Get the coins data (for top N display)
-     * 
+     * Get the coins data (for top N display) in usd
      */
     getCoinsData : async () => {
       return await axios.get(buildTickersListPaprikaUrl());
     },
+    /**
+     * Get the coins data (for top N display) in usd and btc
+     */
     getCoinsDataAllCur : async () => {
       return await axios.get(buildTickersListAllCurPaprikaUrl());
     },   
    /**
-     * 
-     * Get the coin prices for 7 last days to draw te mini graph
+     * Get the coin prices for 7 last days to draw the mini graph from paprika
      * 
      */
     getCoinsPriceSetD7 : async (id) => {
       return await axios.get(buildPricesSetPaprikaUrl(id, 7));
     },
-
-   
-getCoinsPriceSetPaprikaACAO : async (id) => {
-  const instance = axios.create({
-    baseURL: 'https://api.coinpaprika.com/v1/coins',
-    timeout: 1000,
-    headers: {'Access-Control-Allow-Origin': '*'}
-  });
-      return await instance.get(buildPricesSetPaprikaUrl(id, 7));
-    },
-
-
+   /**
+     * Get the coin prices for 7 last days to draw the mini graph from gecko
+     */
     getCoinsPriceSetGecko : async (id) => {
-     // console.log(id, buildPricesSetGeckoUrl(id, 7));
       return await axios.get(buildPricesSetGeckoUrl(id, 7));
     },
-    /**
-     * 
-     * 
-     * 
+   /**
+     * Get data of a coin from paprika
      */
     getCoinInfoPaprika : async (id) => {
       return await axios.get(buildCoinInfoPaprikaUrl(id));
     },
-
+ /**
+     * Get twitter data of a coin
+     */
     getCoinTwitterPaprika : async (id) => {
-      console.log("FROm PROVIDER twitter ", buildCoinTwitterPaprikaUrl(id));
-
       return await axios.get(buildCoinTwitterPaprikaUrl(id));
     },
-
+ /**
+     * Get events data of a coin
+     */
     getCoinEventsPaprika : async (id) => {
       return await axios.get(buildCoinEventsPaprikaUrl(id));
     },
-
+ /**
+     * Get market data of a coin
+     */
     getCoinMarketsPaprika : async (id) => {
       return await axios.get(buildCoinMarketsPaprikaUrl(id));
     },
-
+ /**
+     * Get data of a coin from gecko
+     */
     getCoinInfoGecko : async (id) => {
-      console.log("FROm PROVIDER ", buildCoinInfoGeckoUrl(id));
       return await axios.get(buildCoinInfoGeckoUrl(id));
-    },
+    }
 
-    getCoinInfoPriceSetTODO : async (id) => {
+   /* getCoinInfoPriceSetTODO : async (id) => {
       return await axios.get(buildPricesSetPaprikaUrl(id, 7));
-    },
+    },*/
 
     
   }

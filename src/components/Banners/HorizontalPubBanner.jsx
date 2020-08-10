@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
@@ -11,13 +11,11 @@ import IoTacademy from "../../assets/Webpnet-IoTacademy.png";
 
 /************************************
  * 
- * Pub banner => closable with useClose and BannerClose 
+ * Pub banner => closable with useClose and BannerCloser
  *
  * display horizontal pub in the header of main pages
  * 
  * ******************************** */
-
-
 export default function PubBannerMainPage(props) {
     const [showBanner, closeBanner] = useClose();
 

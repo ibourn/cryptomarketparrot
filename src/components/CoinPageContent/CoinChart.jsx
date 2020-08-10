@@ -1,49 +1,33 @@
-import React, { useEffect, useRef } from 'react';
-import { useHistory, useParams } from "react-router-dom";
-
+import React from 'react';
 import TradingViewWidget from 'react-tradingview-widget';
-import Loader from "../Loader/Loader";
-
 import styled from 'styled-components';
 
-/************************************
- * 
- * CoinsPage
- * 
- * ******************************** */
 
+/**
+ * Style
+ */
 const Div = styled.div`
 width: 800px;
 height: 500px;
   `;
-  const Div2 = styled.div`
+const Div2 = styled.div`
   
     `;
-export default function CoinsPage(props) {
- //   const myRef = React.createRef();
- 
-
- 
-///APIcalls
-
-
-return(
-    <>
-<div className="row"> 
-<TradingViewWidget
-    symbol={props.coin}
-    hide_side_toolbar={false}
-    locale="fr"
-    autosize
-  />   
+/************************************
+* 
+* CoinChart page
+* 
+* ******************************** */
+export default function CoinChart(props) {
 
 
-</div>
-<Div2 className="container">
+  return (
+      <div className="row">
 
-<Loader/>
-</Div2></>
+        <TradingViewWidget symbol={props.coin} hide_side_toolbar={false}
+          locale="fr" autosize/>
 
+      </div>
 )
 
 }

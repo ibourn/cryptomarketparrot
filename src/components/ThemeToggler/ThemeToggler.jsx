@@ -4,14 +4,6 @@ import styled from 'styled-components';
 
 import { ThemeContext } from "./ThemeContext";
 
-/************************************
- * 
- * The theme toggler button
- * 
- * use ThemeContext to get the context anywhere in the tree
- * and useTheme to switch via a theme state
- * 
- * ******************************** */
 
  /*
  * style of the button : animation to switch from moon to sun icon
@@ -40,13 +32,19 @@ const ThemeTogglerContainer = styled.button`
   
 `;
 
-/* 
- * Return the styled component as a button and passing the theme params
- */
+/************************************
+ * 
+ * The theme toggler button
+ * 
+ * use ThemeContext to get the context anywhere in the tree
+ * and useTheme to switch via a theme state
+ * 
+ * ******************************** */
 const ThemeToggler = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  //const ThemeToggler = ({ theme, toggleTheme }) => {
+
   const isLight = theme === 'light';
+
   return (
     <ThemeTogglerContainer lightTheme={isLight} onClick={toggleTheme} >
       <i className="fas fa-moon"></i>
