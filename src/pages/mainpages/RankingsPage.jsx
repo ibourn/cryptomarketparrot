@@ -73,38 +73,38 @@ export default function RankingsPage(props) {
     } else {
       //component did update
     }
-/*Timer to update prices each 35 sec (2*50req/minute max => give time if 429 before)*/
+    /*Timer to update prices each 35 sec (2*50req/minute max => give time if 429 before)*/
     let interval = null;
     interval = setInterval(() => {
       fetchAllData();
       console.log(DataSet.priceSetData);
     }, 35000);
-  
+
 
     return () => clearInterval(interval);
   });
 
 
-/**
- * Fetch all data (intialize the data)
- */
+  /**
+   * Fetch all data (intialize the data)
+   */
   const fetchAllData = async () => {
 
-/*Fetch prices and data of all coins*/
+    /*Fetch prices and data of all coins*/
     const response = await DataProvider.getCoinsDataAllCur();
-/*Sort the result by rank*/
-   const sortedResponse = sortDataSet(response.data, sorting.key, sorting.order);// response.data.sort(Compare.byKey(sorting.key, sorting.order));
-/*Filter the result following user settings*/
+    /*Sort the result by rank*/
+    const sortedResponse = sortDataSet(response.data, sorting.key, sorting.order);// response.data.sort(Compare.byKey(sorting.key, sorting.order));
+    /*Filter the result following user settings*/
     const dataFiltered = Filter.byRange(sortedResponse, filter);
     /*Get the snapshot to display*/
     const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
- /*Get 7days series of price for the snapshot*/
+    /*Get 7days series of price for the snapshot*/
     const newPriceSet = await fetchPriceSet(newCoinsData);
-/*Check changes in price since last snapshot*/
+    /*Check changes in price since last snapshot*/
     const snapChange = getChangeInSnapshot(newCoinsData);
- 
 
-    console.log("NEWDEVISE", filter.devise,"QD UPDATE EPRES CHGT EN BTC",response.data,dataFiltered,newCoinsData,newPriceSet);
+
+    console.log("NEWDEVISE", filter.devise, "QD UPDATE EPRES CHGT EN BTC", response.data, dataFiltered, newCoinsData, newPriceSet);
     setDataSet({
       coinsData: Copy.nested(sortedResponse),
       coinsFiltered: Copy.nested(dataFiltered),
@@ -115,26 +115,26 @@ export default function RankingsPage(props) {
 
   }
 
-/**
- * Fetch prices series for 7 days to draw mini charts
- * 
- * -get the snapshot to display and pass in to ident the coins data to fetch
- * -if gecko and parpika have this coin data then
- * -check if a set already exist for the coin
- * -if not then fetch the price serie and add it to the data stored
- * 
- * using gecko api because of the request limit/min
- * gecko : 100/min
- * paprika : 600/min but 10/sec
- * 
- * @todo set a timer to update price after more than 1 hour (actual update for current hour)
- * 
- * @param {Object} newCoinsData 
- */
+  /**
+   * Fetch prices series for 7 days to draw mini charts
+   * 
+   * -get the snapshot to display and pass in to ident the coins data to fetch
+   * -if gecko and parpika have this coin data then
+   * -check if a set already exist for the coin
+   * -if not then fetch the price serie and add it to the data stored
+   * 
+   * using gecko api because of the request limit/min
+   * gecko : 100/min
+   * paprika : 600/min but 10/sec
+   * 
+   * @todo set a timer to update price after more than 1 hour (actual update for current hour)
+   * 
+   * @param {Object} newCoinsData 
+   */
   const fetchPriceSet = async (newCoinsData) => {
     const priceSetCopy = Copy.nested(DataSet.priceSetData);
 
-/*pass in the snapshot to ident the coins to fetch and create a promise array*/
+    /*pass in the snapshot to ident the coins to fetch and create a promise array*/
     const priceSetPromise = newCoinsData.map(async coin => {
 
       const symbol = coin.symbol.toLowerCase();
@@ -148,8 +148,8 @@ export default function RankingsPage(props) {
         if (priceSetCopy[symbol] == undefined) {
           priceSetCopy[symbol] = {};
         }
-     
-      /*there's no record yet in priceSetData so fetch*/
+
+        /*there's no record yet in priceSetData so fetch*/
         if (priceSetCopy[symbol][filter.devise] == undefined) {
           const coinResponse = await DataProvider.getCoinsPriceSetGecko(geckoId, filter.devise);
           return {
@@ -159,7 +159,7 @@ export default function RankingsPage(props) {
         } else {
           /*update the record with the last price*/
           const updatedSet = priceSetCopy[symbol][filter.devise];
-          updatedSet[updatedSet.length-1][1] = coin.quotes[filter.devise].price
+          updatedSet[updatedSet.length - 1][1] = coin.quotes[filter.devise].price
           return {
             symb: symbol,
             set: updatedSet
@@ -170,7 +170,7 @@ export default function RankingsPage(props) {
     });
 
     const priceSetResponse = await Promise.all(priceSetPromise);
-/*transform the result to get a mapping object of coin => price set (update or create field)*/
+    /*transform the result to get a mapping object of coin => price set (update or create field)*/
     priceSetResponse.map((coinSet) => {
       priceSetCopy[coinSet.symb][filter.devise] = coinSet.set;
     })
@@ -223,67 +223,67 @@ export default function RankingsPage(props) {
 
 
 
-/**
- * Helpers to refresh data after filtering, sorting...
- * @param {boolean} isFilterChanged 
- */
-const refreshData = async (isFilterChanged) => {
-   const dataFiltered = isFilterChanged ?
-     Filter.byRange(DataSet.coinsData, filter) :
-     DataSet.coinsFiltered;
+  /**
+   * Helpers to refresh data after filtering, sorting...
+   * @param {boolean} isFilterChanged 
+   */
+  const refreshData = async (isFilterChanged) => {
+    const dataFiltered = isFilterChanged ?
+      Filter.byRange(DataSet.coinsData, filter) :
+      DataSet.coinsFiltered;
 
-   const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
-   const snapChange = getChangeInSnapshot(newCoinsData);
-   const newPriceSet = await fetchPriceSet(newCoinsData);
+    const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
+    const snapChange = getChangeInSnapshot(newCoinsData);
+    const newPriceSet = await fetchPriceSet(newCoinsData);
 
-   /*update data states*/
-   setDataSet((oldSet) => {
-     const newSet = {
-       coinsData: oldSet.coinsData,
-       coinsFiltered: dataFiltered,
-       snapshot: newCoinsData,
-       snapshotChange: snapChange,
-       priceSetData: newPriceSet
-     }
-     return newSet;
-   });
-}
-
-
-/**
- * sorting function
- * @param {Object} setToSort 
- * @param {string} key 
- * @param {string} order 
- */
-const sortDataSet = (setToSort,key, order) => {
-  const newSet = setToSort;
-
-  switch (key) {
-    case 'rank':
-    case 'name':
-    case 'circulating_supply':
-      newSet.sort(Compare.byKey(key, order));
-      break;
-    default:
-      newSet.sort(Compare.quotesByKey(filter.devise, key, order));
-      break;
+    /*update data states*/
+    setDataSet((oldSet) => {
+      const newSet = {
+        coinsData: oldSet.coinsData,
+        coinsFiltered: dataFiltered,
+        snapshot: newCoinsData,
+        snapshotChange: snapChange,
+        priceSetData: newPriceSet
+      }
+      return newSet;
+    });
   }
-return newSet;
 
-}
 
-/**
- * Manage column sorting
- * 
- * -sort data by key in the filtered dataset
- * -reset the page count to 0
- * -get a new snapshot to display and changes in price
- * -update data states
- * 
- * @param {string} key 
- * @param {string} order 
- */
+  /**
+   * sorting function
+   * @param {Object} setToSort 
+   * @param {string} key 
+   * @param {string} order 
+   */
+  const sortDataSet = (setToSort, key, order) => {
+    const newSet = setToSort;
+
+    switch (key) {
+      case 'rank':
+      case 'name':
+      case 'circulating_supply':
+        newSet.sort(Compare.byKey(key, order));
+        break;
+      default:
+        newSet.sort(Compare.quotesByKey(filter.devise, key, order));
+        break;
+    }
+    return newSet;
+
+  }
+
+  /**
+   * Manage column sorting
+   * 
+   * -sort data by key in the filtered dataset
+   * -reset the page count to 0
+   * -get a new snapshot to display and changes in price
+   * -update data states
+   * 
+   * @param {string} key 
+   * @param {string} order 
+   */
   const handleClickSort = async (key, order) => {
     setSorting({
       key: key,
@@ -374,15 +374,15 @@ return newSet;
  * 
  * @param {string} newdevise 
  */
-const toggleDevise = async (newdevise) => {
-  setFilter((oldFilter) => {
-    const newFilter = Copy.deep(oldFilter);
-    newFilter.devise = newdevise;
-    return newFilter;
-  })
+  const toggleDevise = async (newdevise) => {
+    setFilter((oldFilter) => {
+      const newFilter = Copy.deep(oldFilter);
+      newFilter.devise = newdevise;
+      return newFilter;
+    })
 
-  refreshData(false);
-}
+    refreshData(false);
+  }
 
 
   /**
@@ -398,7 +398,7 @@ const toggleDevise = async (newdevise) => {
       };
       return newCurrent;
     });
-    
+
     refreshData(false);
   }
 
@@ -407,37 +407,17 @@ const toggleDevise = async (newdevise) => {
   const { match, location, history } = props;
   console.log("Rankingpahe", match, location, history);
   return (
-    // <BrowserRouter>
-      <div className="tableContainer container-fluid">
+    <div className="tableContainer container-fluid">
 
-        {/* <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
-        <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
-          devise={filter.devise} page={page} /> */}
+      <Title>{`Top ${COIN_COUNT} cryptocurrencies by market capitalisation (in ${filter.devise})`}</Title>
+      <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
+        devise={filter.devise} page={page} />
 
+      <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
+        devise={filter.devise} snapshotChange={DataSet.snapshotChange}
+        handleClickSort={handleClickSort} pubIsOpen={PushSubscriptionOptions.pubIsOpen}/>
 
-        {/* <Switch> */}
-
-          {/* <Route exact strict path="/"> */}
-
-          <Title>{`Top ${COIN_COUNT} cryptocurrencies by market capitalisation (in ${filter.devise})`}</Title>
-        <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
-          devise={filter.devise} page={page} />
-
-            <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
-              devise={filter.devise} snapshotChange={DataSet.snapshotChange}
-              handleClickSort={handleClickSort} />
-          {/* </Route>
-          <Route exact path="/coin/:id/:chart"> */}
-            {/* <CoinsPage coin={id} /> */}
-          {/* </Route>  */}
-
-        {/* </Switch> */}
-
-      </div>
-
-    // </BrowserRouter>
-
-
+    </div>
   );
 
 }

@@ -42,7 +42,15 @@ const CoinRankingNavBar = (props) => {
    */
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  /**
+  const [isDownCrypto, setIsDownCrypto] = useState(false);
+  const [isDownExchange, setIsDownExchanges] = useState(false);
+  const [isDownWatchlist, setIsDownWatchlist] = useState(false);
+  const [isDownDevise, setIsDownDevise] = useState(false);
+  const [isDownFilter, setIsDownFilter] = useState(false);
+
+
+
+/**
    * style of the dropdown filter
    */
   const Nav = styled.nav`
@@ -93,33 +101,16 @@ const BtnPage = styled(Btn)`
 min-width: 5.5vw;
 `;
 
-
-
-  const [isDownCrypto, setIsDownCrypto] = useState(false);
-  const [isDownExchange, setIsDownExchanges] = useState(false);
-  const [isDownWatchlist, setIsDownWatchlist] = useState(false);
-  const [isDownDevise, setIsDownDevise] = useState(false);
-  const [isDownFilter, setIsDownFilter] = useState(false);
-
   /**
    * Style classNames
+   * 
+   * @todo BUG button market and watchlist => dropdown not opening
    */
-  // const targetclassName = isOpen ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
-  //    const triggerclassName = isOpen ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
-
-  const navclassName = "navbar navbar-expand-lg navbar-light sticky-top";
-  const ulclassName = "navbar-nav mr-auto";
-  const liclassName = "nav-item mr-3";
-  const linkclassName = "navbar-link";
-
-  const btnLoginclassName = "btn btn-sm btn-light";
-  const btnSignUpclassName = "btn btn-sm btn-primary";
-
-  const liDropdown = "nav-item dropdown active";
+  const liDropdown = "nav-item dropdown";
   const triggerMenu = "nav-link dropdown-toggle";
   const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show active" : "");
-  const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show" : "");
-  const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show" : "");
+  const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show active" : "");
+  const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show active" : "");
   const menuItemClass = "dropdown-item";
 
   const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
@@ -197,7 +188,7 @@ min-width: 5.5vw;
   return (
     <Nav className="d-flex justify-content-between">
 
-      <ul className="nav nav-tabs-sm">
+      <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
           <a className={triggerMenu} onClick={toggleDropDownCrypto}
             onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -208,7 +199,7 @@ min-width: 5.5vw;
             <NavLink to="/" className={menuItemClass}>Defi</NavLink>
           </div>
         </LiCrypto>
-        <LiMarkets class={liDropdown + " mr-2"}>
+        <LiMarkets class={liDropdown}>
           <a class={triggerMenu} onClick={toggleDropDownExchange}
             onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Markets</a>

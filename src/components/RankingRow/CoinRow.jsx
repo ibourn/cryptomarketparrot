@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route, Link, NavLink, withRouter, useHistory, useParams } from "react-router-dom";
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
@@ -51,11 +51,18 @@ const TdDown = styled.td`
     animation: ${blinkingRed} ease-in-out 2s 5;
     `;
 const TdG = styled.td`
-    width: 150px;
-    height: 20px;
+
+
     margin: 0;
     padding: 0;
+
+    CanvasJSChart{
+        height: 40px;
+    }
     `;
+
+    //  width: 150px;
+//    height: 20px;
 /**
  * colore set of mini chart
  */
@@ -91,6 +98,29 @@ const CoinRow = (props) => {
         padding: 0,
     };
 
+    var canvas = document.getElementsByClassName('chart');
+var heightRatio = 1;
+canvas.height = canvas.width * heightRatio;
+useEffect(() => {
+    
+  resizeWindow();
+  window.addEventListener("resize", resizeWindow);
+
+  return () => window.removeEventListener("resize", resizeWindow);
+}, []);
+
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowHeight, setWindowHeight] = useState(0);
+    let resizeWindow = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+      if(window.innerWidth <= 920){
+       // props.closePub();
+
+      }
+     // canvasWidth= Math.round(window.innerWidth/6);
+    };
+    const canvasWidth= Math.max(130, Math.round(windowWidth/6));
     /**
      * chart data
      */
@@ -115,8 +145,8 @@ const CoinRow = (props) => {
         title: {
             text: null
         },
-        width: 120,
-        height: 40,
+        width: canvasWidth,
+        height: 45,
         colorSet: lineColor,
         backgroundColor: bckgrndColor,
         toolTip: {

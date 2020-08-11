@@ -8,25 +8,17 @@ import styled from 'styled-components';
 import { lightTheme, darkTheme } from '../../themes/Theme';
 
 
-const Table = styled.table`
-    font-size: 0.7rem;
 
-    `;
-const Th = styled.th`
-    width: 5vw;
-    position: sticky;
-    top: var(--navbar--main-height);
-    background-color: red;
-    opacity: 1;
-    :hover{
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    `;
-    const ThG = styled.th`
-    width: 130px;
-    }
-    `;
+
+       const DivVertPub = styled.div`
+       //  @media (max-width: 1100px) {
+       //     transform: translateX(100px);
+       }
+        `;
+    /**
+     * Component loading the table
+     * @param {*} props 
+     */
 const RankingCoins = (props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -36,9 +28,76 @@ const RankingCoins = (props) => {
    order: 'asc'
  });
 
+ const Table = styled.table`
+ font-size: 0.7rem;
+ `;
+const Thead = styled.thead`
+line-height: 2rem;
+`;
+const Th = styled.th`
+ position: sticky;
+ top: var(--navbar--main-height);
+ min-height: 3rem;
+ opacity: 1;
+ :hover{
+   text-decoration: underline;
+   cursor: pointer;
+ }
+ `;
+ const ThRank = styled(Th)`
+  max-width: ${props.pubIsOpen ? '2rem' : '4rem'};
+  text-align: center;
+ `;
+ const ThName = styled(Th)`
+ min-width: ${props.pubIsOpen ? '6rem' : '8rem'};
+ text-align: left;
+ padding-left: 0.2rem
+ @media (max-width: 1100px) {
+   min-width: 4rem; 
+   } 
+ `;
 
+ const ThChart = styled(Th)`
+ min-width: 130px;
+ max-width: 250px;
+ @media (max-width: 1100px) {
+   min-width: 80px; 
+ `;
+
+ const ThData = styled(Th)`
+ text-align: right;    
+ `;
+ const ThPercent = styled(ThData)`
+ min-width: 5rem;
+ @media (max-width: 1100px) {
+   min-width: 2.5rem; 
+   } 
+ `;
+ const ThNum = styled(ThData)`
+min-width: 8rem; 
+@media (max-width: 1100px) {
+min-width: 5rem; 
+}  
+ `;
+ const ThPrice = styled(ThNum)`
+ min-width: 5.5rem;  
+
+    `;
+ const ThSupply = styled(ThNum)`
+ min-width: 6.5rem; 
+ @media (max-width: 1100px) {
+   min-width: 4.5rem; 
+   }   
+    `;
+
+
+
+
+/**
+ * style and classes
+ */
  const themeColor = theme === 'light' ? 'black' : 'white';
- const thStyle = theme === 'light' ? {backgroundColor: `${lightTheme.body}`} : {backgroundColor: `${darkTheme.body}`}
+ const thColorStyle = theme === 'light' ? {backgroundColor: `${lightTheme.body}`} : {backgroundColor: `${darkTheme.body}`}
 
 
 /**
@@ -102,28 +161,28 @@ const thClass="";//"position-absolute sticky-top";
 
 //<Table className="table table-primary table-bordered"></Table>
   return (
-    <Table >
-      <thead className="" >
+    <Table  className="container-fluid">
+      <Thead className="" >
         <tr className="">
-          <Th className={thClass} style={thStyle} onClick={handleClickRank}>Rank</Th>
-          <Th className={thClass} style={thStyle} onClick={handleClickName}>Name/ticker</Th>
-          <Th className={thClass} onClick={handleClickPrice}>Price</Th>
-          <Th className={thClass} onClick={handleClickChangeh1}>%(1h)</Th>
-          <Th className={thClass} onClick={handleClickChangeh24}>%(24h)</Th>         
-          <Th className={thClass} onClick={handleClickChanged7}>%(7d)</Th> 
+          <ThRank className={thClass} style={thColorStyle} onClick={handleClickRank}>Rank</ThRank>
+          <ThName className={thClass} style={thColorStyle} onClick={handleClickName}>Name</ThName>
+          <ThPrice className={thClass} style={thColorStyle} onClick={handleClickPrice}>Price</ThPrice>
+          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeh1}>%(1h)</ThPercent>
+          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
+          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChanged7}>%(7d)</ThPercent> 
            { !props.priceSetData ? null:
-          <ThG  > <span style={{minWidth: 150}}>graph</span>
-            </ThG>     
+          <ThChart  style={thColorStyle}> <span></span>
+            </ThChart>     
 }     
-          <Th className={thClass} onClick={handleClickChanged30}>%(30d)</Th>
-          <Th className={thClass} onClick={handleClickChangeAth}>% from ATh</Th> 
-          <Th className={thClass} onClick={handleClickVolumeh24}>Volume</Th>
-          <Th className={thClass} onClick={handleClickMarketCap}>Market Cap</Th>  
-          <Th className={thClass} onClick={handleClickSupply}>Circulating Supply</Th>
+          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChanged30}>%(30d)</ThPercent>
+          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
+          <ThNum className={thClass} style={thColorStyle} onClick={handleClickVolumeh24}>Volume</ThNum>
+          <ThNum className={thClass} style={thColorStyle} onClick={handleClickMarketCap}>Market Cap</ThNum>  
+          <ThSupply className={thClass} style={thColorStyle} onClick={handleClickSupply}>Circulating Supply</ThSupply>
                 
  
         </tr>
-      </thead>
+      </Thead>
       
       <tbody>
     

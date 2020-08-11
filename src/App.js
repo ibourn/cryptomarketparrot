@@ -43,6 +43,13 @@ function App() {
 
   console.log("HEHO JE SUIS APPELE APP");
 
+  const handleResize = () => {
+    console.log(viewportWidth);
+  const viewportWidth = document.documentElement.clientWidth;
+  if(viewportWidth<=1000){
+  //closePub();
+  }
+  }
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }} >
 
@@ -52,7 +59,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
 
-          <div className="globalContainer container-fluid"  >
+          <div className="globalContainer container-fluid" onResize={handleResize} >
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />

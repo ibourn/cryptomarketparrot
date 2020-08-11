@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route, useHistory, useParams } from 'react-route
 import { DataContext } from "../components/NavBars/DataContext";
 import { DataProvider } from "../modules/DataProvider";
 
+import styled from 'styled-components';
+
 import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
 import RankingsPage from "./mainpages/RankingsPage";
@@ -12,17 +14,27 @@ import Loader from "../components/Loader/Loader";
 import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
 import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
+import { useClose } from "../components/Banners/useClose";
+
+
+ const DivVertPub = styled.div`
+//  @media (max-width: 1000px) {
+//     transform: translateX(100px);
+}
+ `;
+
+
 /************************************
  * 
  * MainPage
  * 
  * ******************************** */
-
 export default function MainPage(props) {
-    const [isOpened, setIsOpened] = useState(true);
+   // const [isOpened, setIsOpened] = useState(true);
     const { id, type } = useParams();
 
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+     const [showBanner, closeBanner] = useClose(true);
 
   //  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
    /* const [coinsInfos, setCoinsInfos] = useState({
@@ -44,7 +56,7 @@ export default function MainPage(props) {
     console.log("HEHO JE SUIS APPELE MAINAPAGE");
 
 
-
+let a=false;
 
     useEffect( () => {
         if(coinsInfos.list.length == 0){
@@ -52,9 +64,14 @@ export default function MainPage(props) {
         }
         let intervalloading = null;
 
-
+      //  if(!isOpened){
+      //      (a =true);
+        //}
      
     })
+
+
+
     const essai = coinsInfos.list.length == 0 ?<div className="container">
 
     <Loader/>
@@ -85,17 +102,15 @@ export default function MainPage(props) {
         });
     }
 
-
-
     /*
     * function passed to Pub compenent, thus the bannercloser can forward 
     * the change to set the corresonpding col class
     */
     const closePub = () => {
-        setIsOpened(false);
+   //     setIsOpened(false);
     }
-    const colMainClass = "colMainPage" + (isOpened ? " col-10" : " col-12");
-    const colPubClass =  (isOpened ? " col-2" : " col-0");
+    const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
+    const colPubClass =  (showBanner ? " col-2" : " col-0");
 
 
     //                                <Route exact strict path="/" component={RankingsPage} />
@@ -116,8 +131,9 @@ export default function MainPage(props) {
 
                             <Switch>
 
-                                <Route exact strict path="/" 
-                                component={RankingsPage}  />
+                                <Route exact strict path="/" >
+                                <RankingsPage pubIsOpen={showBanner}/> 
+                                </Route>
                                 
                                 <Route   path="/coin/:id/:type" >
                                 <CoinsPage coin={id}  />
@@ -130,9 +146,9 @@ export default function MainPage(props) {
                         : essai }
                     </div>
                 </div>
-                <div className={colPubClass}>
-                <VertPubBanner closePub={closePub}/>
-                </div>
+                <DivVertPub className={colPubClass}>
+                <VertPubBanner closeBanner={closeBanner} showBanner={showBanner}/>
+                </DivVertPub>
 
             </div>
         </div>

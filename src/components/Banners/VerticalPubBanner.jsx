@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
@@ -38,18 +38,34 @@ export default function PubBannerMainPage(props) {
     /*
     *  called if showBanner changes, lift up close state to main page
     */
-    useEffect(() => {
-        if(!showBanner) {
-            props.closePub();
-        }
-       
-    } );
+   useEffect(() => {
+    if(!props.showBanner) {
+       // props.closePub();
+    }
+ resizeWindow();
+  window.addEventListener("resize", resizeWindow);
+
+  return () => window.removeEventListener("resize", resizeWindow);
+}, []);
+
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowHeight, setWindowHeight] = useState(0);
+    let resizeWindow = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+      if(window.innerWidth <= 920){
+       return props.closeBanner;
+
+      }
+    };
+  
+
 
     const divBannerClass = "d-flex flex-column justify-content-between  ";
 
     return (
         <>
-            {showBanner ?
+            {props.showBanner ?
                 <aside className={GlobalClasses.divBanner} >
                     <BannerContent className={divBannerClass}>
                         <img src={livewebinar} alt="livewebinar" />
@@ -57,7 +73,7 @@ export default function PubBannerMainPage(props) {
                         <img src={livewebinar} alt="livewebinar" />
                     </BannerContent>
                     <BannerOption >
-                        <BannerCloser closePub={closeBanner} />
+                        <BannerCloser closePub={props.closeBanner} />
                     </BannerOption >
                 </aside>
                 : null
