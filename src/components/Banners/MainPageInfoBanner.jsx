@@ -12,7 +12,9 @@ import BannerCloser from "./BannerCloser";
  */
 const BannerContent = styled(BannerContentDiv)`
     height: 1.5rem;
-`;
+    padding: 0;
+    overflow: hidden;
+    `;
 const BannerOption = styled(BannerOptionDiv)`
     height: 1.5rem;
 `;

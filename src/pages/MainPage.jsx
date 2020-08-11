@@ -97,6 +97,7 @@ export default function MainPage(props) {
     const colMainClass = "colMainPage" + (isOpened ? " col-10" : " col-12");
     const colPubClass =  (isOpened ? " col-2" : " col-0");
 
+
     //                                <Route exact strict path="/" component={RankingsPage} />
 
    // console.log(coinsInfos.dictionary, "dico from main page avant render");
@@ -109,7 +110,7 @@ export default function MainPage(props) {
             <MainPageNavBar />
             <div className="row no-gutters">
                 <div className={colMainClass}>
-                <HorzPubBanner/>
+                <HorzPubBanner />
                     <div>
                         {essai == "" ? 
 

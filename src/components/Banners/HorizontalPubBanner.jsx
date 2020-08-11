@@ -24,9 +24,9 @@ export default function PubBannerMainPage(props) {
             {showBanner ?
                 <aside className={GlobalClasses.divBanner} >
                     <BannerContentDiv className="d-flex justify-content-between">
-                        <img src={livewebinar} alt="livewebinar" />
-                        <img src={IoTacademy} alt="IoTacademy" />
-                        <img src={livewebinar} alt="livewebinar" />
+                        <img src={livewebinar} height="100" alt="livewebinar" />
+                        <img src={IoTacademy} height="100" alt="IoTacademy" />
+                        <img src={livewebinar} height="100" alt="livewebinar" />
                     </BannerContentDiv>
                     <BannerOptionDiv >
                         <BannerCloser closePub={closeBanner} />

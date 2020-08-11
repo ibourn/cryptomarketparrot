@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route, useHistory, useParams, useLocation } from 'react-router-dom';
 import { DataContext } from '../../components/NavBars/DataContext';
+import styled from 'styled-components';
 
 import RankingCoins from "./../../components/RankingList/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
@@ -9,9 +10,18 @@ import CoinsPage from './CoinsPage';
 import { Format, Compare, Filter, Copy } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 
-
+/*fix the number of coins per page : 50 due to api request limit*/
 const COIN_COUNT = 50;//100;
 
+const Title = styled.h1`
+ font-size: 1.5rem;
+ text-align: center;
+ height: 4rem;
+ padding-top: 1rem;
+ @media (max-width: 900px) {
+  height: 5rem;
+}
+`;
 
 /************************************
  * 
@@ -398,7 +408,7 @@ const toggleDevise = async (newdevise) => {
   console.log("Rankingpahe", match, location, history);
   return (
     // <BrowserRouter>
-      <div className="tableContainer container">
+      <div className="tableContainer container-fluid">
 
         {/* <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
         <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
@@ -409,7 +419,7 @@ const toggleDevise = async (newdevise) => {
 
           {/* <Route exact strict path="/"> */}
 
-          <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
+          <Title>{`Top ${COIN_COUNT} cryptocurrencies by market capitalisation (in ${filter.devise})`}</Title>
         <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
           devise={filter.devise} page={page} />
 

@@ -25,7 +25,8 @@ export const GlobalStyle = createGlobalStyle`
     min-heigth: 100vh;
     min-width: 750px;
 
-    --mainnav-height : 0;
+    // global variables :
+    --navbar--main-height : 4rem;
   }
  .chart{
    width: 100px;
@@ -58,6 +59,7 @@ export const GlobalStyle = createGlobalStyle`
    */
   export const BannerContentDiv = styled.div`
     min-width: 90%;
+    padding: 0.5rem;
   `;
 
  export  const BannerOptionDiv = styled.div`

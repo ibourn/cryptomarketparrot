@@ -10,12 +10,23 @@ import { Time } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 import { useClose } from "./useClose";
 
+import { Format } from "../../modules/Utilities";
+
 
 /**
  * Style
  */
+const Aside = styled.aside`
+@media (max-width: 1150px) {
+    height: 3rem;
+  }
+  @media (max-width: 830px) {
+    height: 4rem;
+  }
+`;
 const BannerContent = styled(BannerContentDiv)`
     height: 2rem;
+    padding: 0;
 `;
 const BannerOption = styled(BannerOptionDiv)`
     height: 2rem;
@@ -66,45 +77,53 @@ export default function MarketBannerMainPage(props) {
     }
 
     const divUlClass = "d-flex flex-row justify-content-between";
-    const divLiClass = "mx-4 justify-content-center";
-
+    const divLiClass = "mx-1 justify-content-center";
+    const content="text-primary";
     const Separator = <i class="fas fa-circle text-muted"></i>;
+
     const loader = !loading ? "" : <span>Fecthing data ... </span>
 
     return (
         <>
-            <aside className={GlobalClasses.divBanner}>
+            <Aside className={GlobalClasses.divBanner}>
                 <BannerContent>
 
                     {loading ? loader :
 
                         <Ul className={divUlClass}>
                             <Li key="MB1" className={divLiClass}>
-                                <span>Cryptocurrencies :</span><span>{globalInfos.paprikaInfos.cryptocurrencies_number}</span>
+                                <span>Cryptocurrencies :</span><span className={content}>{" " + 
+                                globalInfos.paprikaInfos.cryptocurrencies_number}</span>
                             </Li>
                             <Li key="MB2">{Separator}</Li>
                             <Li key="MB3" className={divLiClass}>
-                                <span>Markets :</span><span>{globalInfos.paprikaInfos.cryptocurrencies_number}</span>
+                                <span>Markets :</span><span className={content}>{" " + 
+                                globalInfos.paprikaInfos.cryptocurrencies_number}</span>
                             </Li>
                             <Li key="MB4">{Separator}</Li>
                             <Li key="MB5" className={divLiClass}>
-                                <span>Market Cap :</span><span>{globalInfos.paprikaInfos.market_cap_usd}</span>
+                                <span>Market Cap :</span><span className={content}>{" " + 
+                                Format.toCurrency(globalInfos.paprikaInfos.market_cap_usd, 'USD')}</span>
                             </Li>
                             <Li key="MB6">{Separator}</Li>
                             <Li key="MB7" className={divLiClass}>
-                                <span>Market Cap %(24h):</span><span>{globalInfos.geckoInfos.market_cap_change_percentage_24h_usd}</span>
+                                <span>Market Cap %(24h):</span><span className={content}>{" " + 
+                                Format.toCurrency(globalInfos.geckoInfos.market_cap_change_percentage_24h_usd, 'USD')}</span>
                             </Li>
                             <Li key="MB8">{Separator}</Li>
                             <Li key="MB9" className={divLiClass}>
-                                <span>24h Vol. :</span><span>{globalInfos.paprikaInfos.volume_24h_usd}</span>
+                                <span>24h Vol. :</span><span className={content}>{" " + 
+                                Format.toCurrency(globalInfos.paprikaInfos.volume_24h_usd, 'USD')}</span>
                             </Li>
                             <Li key="MB10">{Separator}</Li>
                             <Li key="MB11" className={divLiClass}>
-                                <span>BTC % dom :</span><span>{globalInfos.paprikaInfos.bitcoin_dominance_percentage}</span>
+                                <span>BTC % dom :</span><span className={content}>{" " + 
+                                globalInfos.paprikaInfos.bitcoin_dominance_percentage + "%"}</span>
                             </Li>
                             <Li key="MB12">{Separator}</Li>
                             <Li key="MB13" className={divLiClass}>
-                                <span>Last update :</span><span>{Time.fromTimestamp(globalInfos.paprikaInfos.last_updated)}</span>
+                                <span>Last update :</span><span className={content}>{" " +  
+                                Time.fromTimestamp(globalInfos.paprikaInfos.last_updated)}</span>
                             </Li>
                         </Ul>
                     }
@@ -112,7 +131,7 @@ export default function MarketBannerMainPage(props) {
                 <BannerOption >
                     <ThemeToggler theme={theme} toggleTheme={toggleTheme} />
                 </BannerOption>
-            </aside>
+            </Aside>
 
         </>
     );

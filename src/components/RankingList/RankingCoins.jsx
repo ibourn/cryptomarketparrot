@@ -15,7 +15,7 @@ const Table = styled.table`
 const Th = styled.th`
     width: 5vw;
     position: sticky;
-    top: var(--mainnav-height);
+    top: var(--navbar--main-height);
     background-color: red;
     opacity: 1;
     :hover{

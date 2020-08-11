@@ -19,7 +19,10 @@ export var Format = {
      * 
      * @param {*} price 
      */
-    price: price => { parseFloat(Number(price).toFixed(4)); }
+    price: price => { parseFloat(Number(price).toFixed(4)); },
+    toCurrency: (price, devise) => { 
+        const newFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: `${devise}` });
+        return newFormat.format(price);}
 }
 
 /**
@@ -121,7 +124,7 @@ export var Time = {
         const hr = dt.getHours().toString();
         const min = dt.getMinutes().toString();
         const s = dt.getSeconds().toString();
-        return y + ':' + m.padStart(2, "0") + ':' + d.padStart(2, "0") + ':' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
+        return y + '/' + m.padStart(2, "0") + '/' + d.padStart(2, "0") + ' ' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
     }
 }
 

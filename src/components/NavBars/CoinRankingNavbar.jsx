@@ -2,8 +2,32 @@ import React, { useState, useEffect, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { LoginContext } from "../AuthRoute/LoginContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
+import { lightTheme, darkTheme } from '../../themes/Theme';
 
-//import styled from 'styled-components';
+import styled from 'styled-components';
+
+
+/**
+ * Styles
+ */
+
+
+const LiTab = styled.li`
+font-size: 0.8rem;
+font-weight: bold;
+height: 1.5rem;
+line-height: 0.2rem;
+`;
+const LiWatchlist = styled(LiTab)`
+min-width: 8vw;
+`;
+const LiMarkets = styled(LiTab)`
+min-width: 8vw;
+`;
+const LiCrypto = styled(LiTab)`
+min-width: 12vw;
+`;
+
 
 
 
@@ -16,6 +40,61 @@ const CoinRankingNavBar = (props) => {
   /**
    * States
    */
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  /**
+   * style of the dropdown filter
+   */
+  const Nav = styled.nav`
+.filter{
+  * {
+    padding:0;
+  margin:0;
+  }
+  background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+  div, input{
+    font-size: 0.7rem;
+    background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+  }
+  label{
+    color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+    padding-top: 0.5rem;
+  }
+  input{
+    margin-bottom: 0.5rem;
+  }
+  .container{
+    width: 600px;
+     margin-left: -70%;
+  }
+  #btn-filter{
+    width: 6vw;
+    margin-top: 2rem;
+    margin-left: 10%;
+  }
+}
+`;
+
+const Btn = styled.button`
+ font-size: 0.7rem;
+ height: 1.5rem;
+ background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+
+`;
+const BtnCur = styled(Btn)`
+min-width: 6vw;
+color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+`;
+const BtnFilter = styled(Btn)`
+min-width: 8vw;
+color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+`;
+const BtnPage = styled(Btn)`
+min-width: 5.5vw;
+`;
+
+
+
   const [isDownCrypto, setIsDownCrypto] = useState(false);
   const [isDownExchange, setIsDownExchanges] = useState(false);
   const [isDownWatchlist, setIsDownWatchlist] = useState(false);
@@ -44,15 +123,19 @@ const CoinRankingNavBar = (props) => {
   const menuItemClass = "dropdown-item";
 
   const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
-  const triggerBtnMenu = "btn btn-secondary dropdown-toggle"
+  const triggerBtnMenu = "btn btn-secondary btn-outline-secondary dropdown-toggle"
   const itemUSDClass = "dropdown-item" + (props.devise == "USD" ? " active" : "");
   const itemBTCClass = "dropdown-item" + (props.devise == "BTC" ? " active" : "");
 
   const menuFilterClass = "dropdown-menu" + (isDownFilter ? " show" : "");
   const triggerFilterMenu = "btn btn-secondary dropdown-toggle";
 
-  const btnPagePrvClass = "btn btn-sm btn-light" + (props.page.current == 0 ? " disabled" : "");
-  const btnPageNxtClass = "btn btn-sm btn-light" + (props.page.current == props.page.last - 1 ? " disabled" : "");
+  const btnPagePrvClass = "btn btn-sm btn-light text-primary" +
+  (props.page.current == 0 ? " disabled" : "");
+  const btnPageNxtClass = "btn btn-sm btn-light text-primary" +
+  (props.page.current == props.page.last - 1 ? " disabled" : "");
+
+  const filterBckgrndColor =  {backgroundColor: `transparent`} ;
 
   /**
    * toggle functions
@@ -112,10 +195,10 @@ const CoinRankingNavBar = (props) => {
 
 
   return (
-    <nav className="d-flex justify-content-between">
+    <Nav className="d-flex justify-content-between">
 
-      <ul className="nav nav-tabs">
-        <li className={liDropdown}>
+      <ul className="nav nav-tabs-sm">
+        <LiCrypto className={liDropdown}>
           <a className={triggerMenu} onClick={toggleDropDownCrypto}
             onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Cryptocurrencies</a>
@@ -124,78 +207,77 @@ const CoinRankingNavBar = (props) => {
             <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>
             <NavLink to="/" className={menuItemClass}>Defi</NavLink>
           </div>
-        </li>
-        <li class={liDropdown}>
+        </LiCrypto>
+        <LiMarkets class={liDropdown + " mr-2"}>
           <a class={triggerMenu} onClick={toggleDropDownExchange}
             onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Markets</a>
           <div class={menuExchangeClass}>
             coming soon...
       </div>
-        </li>
-        <li class={liDropdown}>
+        </LiMarkets>
+        <LiWatchlist class={liDropdown}>
           <a class={triggerMenu} onClick={toggleDropDownWatchlist}
             onBlur={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Watchlist</a>
           <div class={menuWatchlistClass}>
             coming soon...
       </div>
-        </li>
+        </LiWatchlist>
       </ul>
 
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end filter">
 
-        <div class="dropdown">
-          <button class={triggerFilterMenu} onMouseOver={toggleDropDownFilter}
-            onBlur={toggleDropDownFilter} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+        <div class="dropdown filter">
+          <BtnFilter class={triggerFilterMenu} onClick={toggleDropDownFilter}
+            onBlur={toggleDropDownFilter} type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-filter"></i>Filters
-           </button>
-          <div class={menuFilterClass} aria-labelledby="dropdownMenuButton">
-            <div className="container-fluid row"
-              style={{ width: 1000, marginLeft: -700, backgroundColor: 'white' }}>
+           </BtnFilter>
+          <div class={menuFilterClass} style={filterBckgrndColor} aria-labelledby="dropdownFilterButton">
+            <div className="container row" >
               <div className="col-2">
-                <label for="minCapInput">Min Cap :</label>
+                <label for="minCapInput">Min Cap:</label>
                 <input id="minCapInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minCapInput" />
-                <label for="maxCapInput">Max Cap :</label>
+                <label for="maxCapInput">Max Cap:</label>
                 <input id="maxCapInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxCapInput" />
               </div>
               <div className="col-2">
-                <label for="minSupInput">Min Supply :</label>
+                <label for="minSupInput">Min Supply:</label>
                 <input id="minSupInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minSupInput" />
-                <label for="maxSupInput">Max Supply :</label>
+                <label for="maxSupInput">Max Supply:</label>
                 <input id="maxSupInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxSupInput" />
               </div>
               <div className="col-2">
-                <label for="minVarDayInput">Min Var(h24) :</label>
+                <label for="minVarDayInput">Min Var(h24):</label>
                 <input id="minVarDayInput" type="number" placeholder={-100}
                   min={-100} max={1000000} name="minVarDayInput" />
-                <label for="maxVarDayInput">Max Var(h24) :</label>
+                <label for="maxVarDayInput">Max Var(h24):</label>
                 <input id="maxVarDayInput" type="number" placeholder={10000}
                   min={-100} max={1000000} name="maxVarDayInput" />
               </div>
               <div className="col-2">
-                <label for="minVarAthInput">Min Var(ath) :</label>
+                <label for="minVarAthInput">Min Var(ath):</label>
                 <input id="minVarAthInput" type="number" placeholder={-100}
                   min={-100} max={1000000} name="minVarAthInput" />
-                <label for="maxVarAthInput">Max Var(ath) :</label>
+                <label for="maxVarAthInput">Max Var(ath):</label>
                 <input id="maxVarAthInput" type="number" placeholder={10000}
                   min={-100} max={1000000} name="maxVarAthInput" />
               </div>
               <div className="col-2">
-                <label for="minPriceInput">Min price :</label>
+                <label for="minPriceInput">Min price:</label>
                 <input id="minPriceInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minPriceInput" />
-                <label for="maxPriceInput">Max price :</label>
+                <label for="maxPriceInput">Max price:</label>
                 <input id="maxPriceInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxPriceInput" />
               </div>
-              <div className="col-2">
-                <button class="btn btn-secondary" onClick={changeFilter}
+              <div className="col-1">
+                <button class="btn btn-secondary" id="btn-filter" onClick={changeFilter}
                   type="button" >Filter</button>
               </div>
             </div>
@@ -203,26 +285,26 @@ const CoinRankingNavBar = (props) => {
         </div>
 
         <div class="dropdown">
-          <button class={triggerBtnMenu} onMouseOver={toggleDropDownDevise}
-            onBlur={toggleDropDownDevise} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+          <BtnCur class={triggerBtnMenu} onClick={toggleDropDownDevise}
+            onBlur={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             devises
-         </button>
-          <div className={menuDeviseClass} aria-labelledby="dropdownMenuButton">
+         </BtnCur>
+          <div className={menuDeviseClass} aria-labelledby="dropdownCurButton">
             <a className={itemUSDClass} onClick={toggleDeviseUSD} href="#">USD</a>
             <a className={itemBTCClass} onClick={toggleDeviseBTC} href="#">BTC</a>
           </div>
         </div>
 
-        <button className={btnPagePrvClass} onClick={handleClickPagePrv}>
+        <BtnPage className={btnPagePrvClass} onClick={handleClickPagePrv}>
           prev100
-      </button>
-        <button className={btnPageNxtClass} onClick={handleClickPageNxt}>
+      </BtnPage>
+        <BtnPage className={btnPageNxtClass} onClick={handleClickPageNxt}>
           next100
-        </button>
+        </BtnPage>
       </div>
 
-    </nav>
+    </Nav>
   );
 }
 
