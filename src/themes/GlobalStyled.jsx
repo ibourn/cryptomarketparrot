@@ -24,6 +24,8 @@ export const GlobalStyle = createGlobalStyle`
 
     min-heigth: 100vh;
     min-width: 750px;
+
+    --mainnav-height : 0;
   }
  .chart{
    width: 100px;

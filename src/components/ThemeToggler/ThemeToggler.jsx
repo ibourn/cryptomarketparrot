@@ -17,9 +17,9 @@ const ThemeTogglerContainer = styled.button`
   overflow: hidden;
   margin: 0 auto;
   padding: 0.2rem 0 0 0.2rem;
-  width: 1.3rem;
+  width: 1.5rem;
   height: 1.3rem;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   border: none;
 
   .fa-moon{

@@ -107,7 +107,6 @@ const CoinRankingNavBar = (props) => {
     props.handleClickPage(-1);
   }
   const handleClickPageNxt = () => {
-    alert("click next page");
     props.handleClickPage(1);
   }
 
@@ -161,7 +160,7 @@ const CoinRankingNavBar = (props) => {
                   min={0} max={999999999999} name="minCapInput" />
                 <label for="maxCapInput">Max Cap :</label>
                 <input id="maxCapInput" type="number" placeholder={999999999999}
-                  min={0} max={99999999999} name="maxCapInput" />
+                  min={0} max={999999999999} name="maxCapInput" />
               </div>
               <div className="col-2">
                 <label for="minSupInput">Min Supply :</label>
@@ -169,23 +168,23 @@ const CoinRankingNavBar = (props) => {
                   min={0} max={999999999999} name="minSupInput" />
                 <label for="maxSupInput">Max Supply :</label>
                 <input id="maxSupInput" type="number" placeholder={999999999999}
-                  min={0} max={99999999999} name="maxSupInput" />
+                  min={0} max={999999999999} name="maxSupInput" />
               </div>
               <div className="col-2">
                 <label for="minVarDayInput">Min Var(h24) :</label>
                 <input id="minVarDayInput" type="number" placeholder={-100}
-                  min={-100} max={10000} name="minVarDayInput" />
+                  min={-100} max={1000000} name="minVarDayInput" />
                 <label for="maxVarDayInput">Max Var(h24) :</label>
                 <input id="maxVarDayInput" type="number" placeholder={10000}
-                  min={-100} max={10000} name="maxVarDayInput" />
+                  min={-100} max={1000000} name="maxVarDayInput" />
               </div>
               <div className="col-2">
                 <label for="minVarAthInput">Min Var(ath) :</label>
                 <input id="minVarAthInput" type="number" placeholder={-100}
-                  min={-100} max={10000} name="minVarAthInput" />
+                  min={-100} max={1000000} name="minVarAthInput" />
                 <label for="maxVarAthInput">Max Var(ath) :</label>
                 <input id="maxVarAthInput" type="number" placeholder={10000}
-                  min={-100} max={10000} name="maxVarAthInput" />
+                  min={-100} max={1000000} name="maxVarAthInput" />
               </div>
               <div className="col-2">
                 <label for="minPriceInput">Min price :</label>
@@ -193,7 +192,7 @@ const CoinRankingNavBar = (props) => {
                   min={0} max={999999999999} name="minPriceInput" />
                 <label for="maxPriceInput">Max price :</label>
                 <input id="maxPriceInput" type="number" placeholder={999999999999}
-                  min={0} max={99999999999} name="maxPriceInput" />
+                  min={0} max={999999999999} name="maxPriceInput" />
               </div>
               <div className="col-2">
                 <button class="btn btn-secondary" onClick={changeFilter}

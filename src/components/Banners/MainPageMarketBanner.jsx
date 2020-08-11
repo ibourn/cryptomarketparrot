@@ -20,8 +20,12 @@ const BannerContent = styled(BannerContentDiv)`
 const BannerOption = styled(BannerOptionDiv)`
     height: 2rem;
 `;
+const Ul = styled.ul`
+margin-top: 0.3rem;
+`;
 const Li = styled.li`
 list-style: none;
+font-size: 0.7rem;
 `;
 
 
@@ -62,7 +66,7 @@ export default function MarketBannerMainPage(props) {
     }
 
     const divUlClass = "d-flex flex-row justify-content-between";
-    const divLiClass = " justify-content-center";
+    const divLiClass = "mx-4 justify-content-center";
 
     const Separator = <i class="fas fa-circle text-muted"></i>;
     const loader = !loading ? "" : <span>Fecthing data ... </span>
@@ -74,7 +78,7 @@ export default function MarketBannerMainPage(props) {
 
                     {loading ? loader :
 
-                        <ul className={divUlClass}>
+                        <Ul className={divUlClass}>
                             <Li key="MB1" className={divLiClass}>
                                 <span>Cryptocurrencies :</span><span>{globalInfos.paprikaInfos.cryptocurrencies_number}</span>
                             </Li>
@@ -96,13 +100,13 @@ export default function MarketBannerMainPage(props) {
                             </Li>
                             <Li key="MB10">{Separator}</Li>
                             <Li key="MB11" className={divLiClass}>
-                                <span>BTC dom :</span><span>{globalInfos.paprikaInfos.bitcoin_dominance_percentage}</span>
+                                <span>BTC % dom :</span><span>{globalInfos.paprikaInfos.bitcoin_dominance_percentage}</span>
                             </Li>
-                            <Li key="MB11">{Separator}</Li>
-                            <Li key="MB12" className={divLiClass}>
+                            <Li key="MB12">{Separator}</Li>
+                            <Li key="MB13" className={divLiClass}>
                                 <span>Last update :</span><span>{Time.fromTimestamp(globalInfos.paprikaInfos.last_updated)}</span>
                             </Li>
-                        </ul>
+                        </Ul>
                     }
                 </BannerContent>
                 <BannerOption >

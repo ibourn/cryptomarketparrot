@@ -94,7 +94,6 @@ const CoinRow = (props) => {
     /**
      * chart data
      */
- //   console.log(props.priceSet, props.priceSet == undefined);
     const dataSet = props.priceSet == undefined ?
         [[0, 0], [0, 0]]
         : props.priceSet.map(set => {

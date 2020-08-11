@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route, useHistory, useParams, useLocation } from 'react-router-dom';
 import { DataContext } from '../../components/NavBars/DataContext';
 
-import RankingCoins from "./../../components/Rankings/RankingCoins";
+import RankingCoins from "./../../components/RankingList/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
 import CoinsPage from './CoinsPage';
 

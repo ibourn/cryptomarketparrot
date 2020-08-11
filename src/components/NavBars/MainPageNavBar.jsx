@@ -16,11 +16,32 @@ import Logo from "../../assets/Webpnet-livewebinar.png";
 const Nav = styled.nav`
   padding: 0;
   height: 4rem;
+  font-size: 0.9rem;
+
+  .navbar-brand{
+    font-weight: bold;
+  }
+  #brand{
+      margin-top: 0;
+  }
+  #navbarContent{
+      font-weight: bold;
+  }
+  input, button{
+      height: 1.5rem;
+  }
+
     `;
+
+    const SpanBrand = styled.span`
+    
+vertical-align: center;
+  `;
 
 const DivContainer = styled.div`
     min-height: 35px;/* 100vh;*/
-    min-width: 100%;    
+    min-width: 100%;   
+    background-color :red; 
   `;
 
 const ButtonLogIn = styled.button`
@@ -172,7 +193,7 @@ const MainPageNavBar = (props) => {
 
                     <img src={parrotLogo} width="45px" height="45px"
                         class="d-inline-block align-top" alt="" />
-                      CryptoMarketParrot
+                     <SpanBrand id="brand">CryptoMarketParrot</SpanBrand> 
                 </NavLink>
 
                 <button className={`${triggerClass}`} onClick={() => setOpen(!isOpen)}
@@ -216,7 +237,7 @@ const MainPageNavBar = (props) => {
                     </ul>
 
                     {/* <div className="navbar"> */}
-                    <div className="navbar-item">
+                    <div className="navbar-item button-wrapper">
 
                         <div className="buttons d-flex flex-row">
 

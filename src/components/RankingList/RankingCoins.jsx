@@ -1,16 +1,23 @@
 import React, { useState, useContext } from 'react';
 import {  withRouter } from "react-router-dom";
 
+import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { DataContext } from "../NavBars/DataContext";
-import CoinRow from "../../components/Rows/CoinRow";
+import CoinRow from "../RankingRow/CoinRow";
 import styled from 'styled-components';
+import { lightTheme, darkTheme } from '../../themes/Theme';
 
 
 const Table = styled.table`
     font-size: 0.7rem;
+
     `;
 const Th = styled.th`
     width: 5vw;
+    position: sticky;
+    top: var(--mainnav-height);
+    background-color: red;
+    opacity: 1;
     :hover{
       text-decoration: underline;
       cursor: pointer;
@@ -21,12 +28,17 @@ const Th = styled.th`
     }
     `;
 const RankingCoins = (props) => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
  const [sortSettings, setSortSettings] = useState({
    key: 'rank',
    order: 'asc'
  });
+
+
+ const themeColor = theme === 'light' ? 'black' : 'white';
+ const thStyle = theme === 'light' ? {backgroundColor: `${lightTheme.body}`} : {backgroundColor: `${darkTheme.body}`}
 
 
 /**
@@ -93,8 +105,8 @@ const thClass="";//"position-absolute sticky-top";
     <Table >
       <thead className="" >
         <tr className="">
-          <Th className={thClass} onClick={handleClickRank}>Rank</Th>
-          <Th className={thClass} onClick={handleClickName}>Name/ticker</Th>
+          <Th className={thClass} style={thStyle} onClick={handleClickRank}>Rank</Th>
+          <Th className={thClass} style={thStyle} onClick={handleClickName}>Name/ticker</Th>
           <Th className={thClass} onClick={handleClickPrice}>Price</Th>
           <Th className={thClass} onClick={handleClickChangeh1}>%(1h)</Th>
           <Th className={thClass} onClick={handleClickChangeh24}>%(24h)</Th>         
