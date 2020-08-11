@@ -212,6 +212,11 @@ export default function RankingsPage(props) {
   }
 
 
+
+/**
+ * Helpers to refresh data after filtering, sorting...
+ * @param {boolean} isFilterChanged 
+ */
 const refreshData = async (isFilterChanged) => {
    const dataFiltered = isFilterChanged ?
      Filter.byRange(DataSet.coinsData, filter) :
@@ -232,14 +237,18 @@ const refreshData = async (isFilterChanged) => {
      }
      return newSet;
    });
-
-
 }
 
 
+/**
+ * sorting function
+ * @param {Object} setToSort 
+ * @param {string} key 
+ * @param {string} order 
+ */
 const sortDataSet = (setToSort,key, order) => {
   const newSet = setToSort;
-  /*sort the data*/
+
   switch (key) {
     case 'rank':
     case 'name':
@@ -266,19 +275,6 @@ return newSet;
  * @param {string} order 
  */
   const handleClickSort = async (key, order) => {
-    //const response = sortDataSet(DataSet.coinsFiltered);
-    
-    /*sort the data*/
-    // switch (key) {
-    //   case 'rank':
-    //   case 'name':
-    //   case 'circulating_supply':
-    //     response.sort(Compare.byKey(key, order));
-    //     break;
-    //   default:
-    //     response.sort(Compare.quotesByKey(filter.devise, key, order));
-    //     break;
-    // }
     setSorting({
       key: key,
       order: order
@@ -291,11 +287,8 @@ return newSet;
       }
       return newPage;
     });
+
     const response = sortDataSet(DataSet.coinsFiltered, key, order);
-
-
-   // refreshData(false);
-
     /*get the snapshot to display*/
     const newCoinsData = response.slice(0, COIN_COUNT);
     const snapChange = getChangeInSnapshot(newCoinsData);
@@ -363,27 +356,6 @@ return newSet;
     });
 
     refreshData(true);
-
-    // /*filter data and get new snapshot and changes*/
-    // const dataFiltered = Filter.byRange(DataSet.coinsData, filter);
-
-    // const newCoinsData = dataFiltered.slice(0, COIN_COUNT);
-
-    // const snapChange = getChangeInSnapshot(newCoinsData);
-    // const newPriceSet = await fetchPriceSet(newCoinsData);
-
-
-    // /*update data states*/
-    // setDataSet((oldSet) => {
-    //   const newSet = {
-    //     coinsData: oldSet.coinsData,
-    //     coinsFiltered: dataFiltered,
-    //     snapshot: newCoinsData,
-    //     snapshotChange: snapChange,
-    //     priceSetData: newPriceSet
-    //   }
-    //   return newSet;
-    // });
   }
 
 
@@ -400,21 +372,6 @@ const toggleDevise = async (newdevise) => {
   })
 
   refreshData(false);
-  // const newCoinsData = DataSet.coinsFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
-  // const snapChange = getChangeInSnapshot(newCoinsData);
-  // const newPriceSet = await fetchPriceSet(newCoinsData);
-
-  // /*update data states*/
-  // setDataSet((oldSet) => {
-  //   const newSet = {
-  //     coinsData: oldSet.coinsData,
-  //     coinsFiltered: oldSet.coinsFiltered,
-  //     snapshot: newCoinsData,
-  //     snapshotChange: snapChange,
-  //     priceSetData: newPriceSet
-  //   }
-  //   return newSet;
-  // });
 }
 
 
@@ -433,65 +390,42 @@ const toggleDevise = async (newdevise) => {
     });
     
     refreshData(false);
-
-    //  /*get new snapshot and changes*/
-    //  const newCoinsData = DataSet.coinsFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
-    //  const snapChange = getChangeInSnapshot(newCoinsData);
-    //  const newPriceSet = await fetchPriceSet(newCoinsData);
-
-    //     /*update data states*/
-    // setDataSet((oldSet) => {
-    //   const newSet = {
-    //     coinsData: oldSet.coinsData,
-    //     coinsFiltered: oldSet.dataFiltered,
-    //     snapshot: newCoinsData,
-    //     snapshotChange: snapChange,
-    //     priceSetData: newPriceSet
-    //   }
-    //   return newSet;
-    // });
   }
 
-  //alert("pageavantaffichage : "+page.current);
   const { id, type } = useParams();
-  /*
-  const history = useHistory();
-      const { id, type} = useParams();
-  console.log(id, type, "DE RANKINGPAGE");
-  console.log(history.path);
-  let location = useLocation();
-  console.log(location.pathname);
-  
-  const {path} = props.location;
-  console.log(path);
-  */
+
   const { match, location, history } = props;
   console.log("Rankingpahe", match, location, history);
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
       <div className="tableContainer container">
 
-        <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
+        {/* <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
+        <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
+          devise={filter.devise} page={page} /> */}
+
+
+        {/* <Switch> */}
+
+          {/* <Route exact strict path="/"> */}
+
+          <h1>{`Top 100 cryptocurrencies by market capitalisation (in ${filter.devise})`}</h1>
         <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
           devise={filter.devise} page={page} />
 
-
-        <Switch>
-
-          <Route exact strict path="/">
             <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
               devise={filter.devise} snapshotChange={DataSet.snapshotChange}
               handleClickSort={handleClickSort} />
-          </Route>
-          <Route exact path="/coin/:id/:chart">
-            <CoinsPage coin={id} />
-          </Route>
+          {/* </Route>
+          <Route exact path="/coin/:id/:chart"> */}
+            {/* <CoinsPage coin={id} /> */}
+          {/* </Route>  */}
 
-        </Switch>
+        {/* </Switch> */}
 
       </div>
 
-    </BrowserRouter>
+    // </BrowserRouter>
 
 
   );

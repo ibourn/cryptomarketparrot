@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink, withRouter, useHistory, useParams } from "react-router-dom";
-
-import CoinsPage from '../../pages/mainpages/CoinsPage';
+import {  withRouter } from "react-router-dom";
 
 import { DataContext } from "../NavBars/DataContext";
 import CoinRow from "../../components/Rows/CoinRow";
@@ -25,83 +23,68 @@ const Th = styled.th`
 const RankingCoins = (props) => {
 
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+ const [sortSettings, setSortSettings] = useState({
+   key: 'rank',
+   order: 'asc'
+ });
 
 
- const [orderRank, setOrderRank] = useState('asc');
- const [orderName, setOrderName] = useState('asc');
- const [orderPrice, setOrderPrice] = useState('asc');
- const [orderMarketCap, setOrderMarketCap] = useState('asc');
- const [orderChangeh1, setOrderChangeh1] = useState('asc');
- const [orderChangeh24, setOrderChangeh24] = useState('asc');
- const [orderChanged7, setOrderChanged7] = useState('asc');
- const [orderChanged30, setOrderChanged30] = useState('asc');
- const [orderChangeAth, setOrderChangeAth] = useState('asc');
- const [orderVolumeh24, setOrderVolumeh24] = useState('asc');
- const [orderSupply, setOrderSupply] = useState('asc');
-
-
-
-
-
+/**
+ * sort click handlers
+ */
 const handleClickRank = () => {
-  const newOrder = orderRank === 'asc' ? 'desc' : 'asc';
-  setOrderRank(newOrder);
-  props.handleClickSort('rank', newOrder);
+  sortManager('rank');
 }
 const handleClickName = () => {
-  props.handleClickSort('name', orderName);
-  const newOrder = orderName === 'asc' ? 'desc' : 'asc';
-  setOrderName(newOrder);
+  sortManager('name');
 }
 const handleClickPrice = () => {
-  props.handleClickSort('price', orderPrice);
-  const newOrder = orderPrice === 'asc' ? 'desc' : 'asc';
-  setOrderPrice(newOrder);
+  sortManager('price');
 }
 const handleClickMarketCap = () => {
-  props.handleClickSort('market_cap', orderMarketCap);
-  const newOrder = orderMarketCap === 'asc' ? 'desc' : 'asc';
-  setOrderMarketCap(newOrder);
+  sortManager('market_cap');
 }
 const handleClickSupply = () => {
-  props.handleClickSort('circulating_supply', orderSupply);
-  const newOrder = orderSupply === 'asc' ? 'desc' : 'asc';
-  setOrderSupply(newOrder);
+  sortManager('circulating_supply');
 }
 const handleClickChangeh1 = () => {
-  props.handleClickSort('percent_change_1h', orderChangeh1);
-  const newOrder = orderChangeh1 === 'asc' ? 'desc' : 'asc';
-  setOrderChangeh1(newOrder);
+  sortManager('percent_change_1h');
 }
 const handleClickChangeh24 = () => {
-  props.handleClickSort('percent_change_24h', orderChangeh24);
-  const newOrder = orderChangeh24 === 'asc' ? 'desc' : 'asc';
-  setOrderChangeh24(newOrder);
+  sortManager('percent_change_24h');
 }
 const handleClickChanged7 = () => {
-  props.handleClickSort('percent_change_7d', orderChanged7);
-  const newOrder = orderChanged7 === 'asc' ? 'desc' : 'asc';
-  setOrderChanged7(newOrder);
+  sortManager('percent_change_7d');
 }
 const handleClickChanged30 = () => {
-  props.handleClickSort('percent_change_30d', orderChanged30);
-  const newOrder = orderChanged30 === 'asc' ? 'desc' : 'asc';
-  setOrderChanged30(newOrder);
+  sortManager('percent_change_30d');
 }
 const handleClickChangeAth = () => {
-  props.handleClickSort('percent_from_price_ath', orderChangeAth);
-  const newOrder = orderChangeAth === 'asc' ? 'desc' : 'asc';
-  setOrderChangeAth(newOrder);
+  sortManager('percent_from_price_ath');
 }
 const handleClickVolumeh24 = () => {
-  props.handleClickSort('circulating_supply', orderVolumeh24);
-  const newOrder = orderVolumeh24 === 'asc' ? 'desc' : 'asc';
-  setOrderVolumeh24(newOrder);
+  sortManager('volume_24h');
 }
 
-
+/**
+ * Manage the field and order to sort columns
+ * 
+ * @param {srting} key 
+ */
+const sortManager = (key) => {
+  let newOrder;
+  if (sortSettings.key == key) {
+    newOrder = sortSettings.order === 'asc' ? 'desc' : 'asc';
+  } else {
+    newOrder = 'asc';
+  }
+  setSortSettings({
+    key: key,
+    order: newOrder
+  });
+  props.handleClickSort(key, newOrder);
+}
   
-  //const { isAuth } = useContext(UserContext);
 const thClass="";//"position-absolute sticky-top";
 
 

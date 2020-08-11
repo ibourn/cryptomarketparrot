@@ -86,8 +86,11 @@ testHorsEffect(id_tview);
 },[id_tview]);
     
 function testHorsEffect(id_tview) {
-    if(coinInfo != undefined){
-    if(coinInfo.length == 0){
+    // if(coinInfo != undefined){
+
+    // }
+    const testData = (coinInfo != undefined) ? [] : coinInfo;
+    if(testData.length == 0){
         console.log("useeffect qd sis mount"); 
     
         let respInfos = DataProvider.getCoinInfoGecko(id_gecko);
@@ -116,7 +119,7 @@ function testHorsEffect(id_tview) {
 
         )
 
-    }
+  //  }
     }
 
 
@@ -124,7 +127,7 @@ function testHorsEffect(id_tview) {
 
 console.log("FROM coinpagE", coinInfo);
     return (<>
-     <BrowserRouter>
+     {/* <BrowserRouter> */}
      { coinInfo == undefined  ? <div className="container">
 
 <Loader/>
@@ -160,10 +163,10 @@ console.log("FROM coinpagE", coinInfo);
                <CoinMarkets coinMarkets={coinMarkets} />
                </Route>
 
-            </Switch>
+            </Switch> 
 </div>
 }
-</BrowserRouter>
+{/* </BrowserRouter> */}
    </>
     );
 

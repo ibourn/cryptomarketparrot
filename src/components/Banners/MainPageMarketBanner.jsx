@@ -52,12 +52,13 @@ export default function MarketBannerMainPage(props) {
         let respGeckoInfos = DataProvider.getGlobalInfosFromGecko();
 
         Promise.all([respPaprikaInfos, respGeckoInfos]).then((responses) => {
-            setLoading(false);
+            //setLoading(false);
             setGlobalInfos({
                 paprikaInfos: responses[0].data,
                 geckoInfos: responses[1].data
             })
         });
+        setLoading(false);
     }
 
     const divUlClass = "d-flex flex-row justify-content-between";
