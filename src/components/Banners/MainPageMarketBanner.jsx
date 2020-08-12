@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
 import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
+import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { useTheme } from '../ThemeToggler/useTheme';
+import { lightTheme, darkTheme } from '../../themes/Theme';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 
 import { Time } from "../../modules/Utilities";
@@ -48,13 +50,21 @@ font-size: 0.7rem;
  * 
  * ******************************** */
 export default function MarketBannerMainPage(props) {
-    const [theme, toggleTheme] = useTheme();
+    const { theme, toggleTheme } = useContext(ThemeContext);
+    //const [theme, toggleTheme] = useTheme();
     //const [showBanner, closeBanner] = useClose();
     const [globalInfos, setGlobalInfos] = useState({
-        geckoInfos: {},
-        paprikaInfos: {}
+        paprikaInfos: {},
+        geckoInfos: {}
     });
     const [loading, setLoading] = useState(true);
+
+  /**
+   * style and classes
+   */
+   const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+   color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
+   color: `${darkTheme.content}` }
 
     useEffect(() => {
         fetchGlobalInfos();
@@ -68,9 +78,10 @@ export default function MarketBannerMainPage(props) {
 
         Promise.all([respPaprikaInfos, respGeckoInfos]).then((responses) => {
             //setLoading(false);
+            console.log(responses[0].data, responses[1].data);
             setGlobalInfos({
                 paprikaInfos: responses[0].data,
-                geckoInfos: responses[1].data
+                geckoInfos: responses[1].data.data
             })
         });
         setLoading(false);
@@ -85,7 +96,7 @@ export default function MarketBannerMainPage(props) {
 
     return (
         <>
-            <Aside className={GlobalClasses.divBanner}>
+            <Aside className={GlobalClasses.divBanner} style={colorStyle}>
                 <BannerContent>
 
                     {loading ? loader :
@@ -98,7 +109,7 @@ export default function MarketBannerMainPage(props) {
                             <Li key="MB2">{Separator}</Li>
                             <Li key="MB3" className={divLiClass}>
                                 <span>Markets :</span><span className={content}>{" " + 
-                                globalInfos.paprikaInfos.cryptocurrencies_number}</span>
+                                globalInfos.geckoInfos.markets}</span>
                             </Li>
                             <Li key="MB4">{Separator}</Li>
                             <Li key="MB5" className={divLiClass}>

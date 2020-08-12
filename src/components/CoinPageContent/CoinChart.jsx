@@ -1,14 +1,17 @@
-import React from 'react';
-import TradingViewWidget from 'react-tradingview-widget';
+import React, { useContext } from 'react';
+import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import styled from 'styled-components';
+
+import { ThemeContext } from "../ThemeToggler/ThemeContext";
+import { lightTheme, darkTheme } from '../../themes/Theme';
 
 
 /**
  * Style
  */
-const Div = styled.div`
-width: 800px;
-height: 500px;
+const Section = styled.section`
+
+height: 80vh;
   `;
 const Div2 = styled.div`
   
@@ -19,15 +22,17 @@ const Div2 = styled.div`
 * 
 * ******************************** */
 export default function CoinChart(props) {
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
+  const colorTheme = theme == 'light' ? null : Themes.DARK;
 
   return (
-      <section className="row">
+      <Section className="row">
 
         <TradingViewWidget symbol={props.coin} hide_side_toolbar={false}
-          locale="fr" autosize/>
+          locale="fr" theme={colorTheme} autosize/>
 
-      </section>
+      </Section>
 )
 
 }

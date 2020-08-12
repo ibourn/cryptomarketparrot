@@ -21,6 +21,7 @@ height: 50px;
     height:40px; }
     `;
     const TdRank = styled(Td)`
+    padding-left: 0.2rem;
     font-weight: bold;
     text-align: left;
    `;
@@ -69,15 +70,17 @@ const TdG = styled.td`
     const TdRight = styled(Td)`
     text-align: right;
     `;
-
+    const TdSupply = styled(TdRight)`
+    padding-right: 0.2rem;
+    `;
 
     //  width: 150px;
 //    height: 20px;
 /**
  * colore set of mini chart
  */
-CanvasJS.addColorSet("lightThemeColor", [lightTheme.text]);
-CanvasJS.addColorSet("darkThemeColor", [darkTheme.text]);
+CanvasJS.addColorSet("lightThemeColor", [lightTheme.content]);
+CanvasJS.addColorSet("darkThemeColor", [darkTheme.content]);
 
 /************************************
 * 
@@ -101,7 +104,7 @@ const CoinRow = (props) => {
     const styleClassVarAth = "text-" + (props.percent_from_price_ath >= 0 ? "success" : "danger");
 
     const lineColor = theme == 'light' ? "lightThemeColor" : "darkThemeColor";
-    const bckgrndColor = theme == 'light' ? lightTheme.body : darkTheme.body;
+    const bckgrndColor = theme == 'light' ? lightTheme.container : darkTheme.container;
 
     const graphStyle = {
         margin: 0,
@@ -222,7 +225,7 @@ const marketcap = Format.toCurrency(props.market_cap,'USD');
     return (
         <>
             <tr>
-                <TdRank>{props.rank}</TdRank>
+                <TdRank className="ml-1">{props.rank}</TdRank>
                 <TdName>
                     <Link to={link} exact style={linkStyle} activeLink={activeLink}>
                         <span><img src={icon} alt={props.symbol} width={"15px"} /></span>
@@ -255,7 +258,7 @@ const marketcap = Format.toCurrency(props.market_cap,'USD');
                 <TdRight className={styleClassVarAth}>{props.percent_from_price_ath}</TdRight>
                 <TdRight>{volume}</TdRight>
                 <TdRight>{marketcap}</TdRight>
-                <TdRight>{props.circulating_supply.toLocaleString()}</TdRight>
+                <TdSupply >{props.circulating_supply.toLocaleString()}</TdSupply>
 
 
             </tr>

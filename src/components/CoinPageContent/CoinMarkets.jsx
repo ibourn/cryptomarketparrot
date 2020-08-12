@@ -1,6 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useParams, Link, NavLink } from "react-router-dom";
 
+import { Format } from '../../modules/Utilities';
+
+import { ThemeContext } from "../ThemeToggler/ThemeContext";
+import { lightTheme, darkTheme } from '../../themes/Theme';
+import styled from 'styled-components';
+
+const Table = styled.table`
+ text-align: left;
+ font-size: 0.9rem;
+`;
+
+const Th = styled.th`
+position: sticky;
+top: var(--navbar--main-height);
+min-height: 3rem;
+opacity: 1;
+:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+`;
+const TdName = styled.td`
+font-weight: bold;
+`
 
 /************************************
  * 
@@ -8,32 +32,42 @@ import { useHistory, useParams, Link, NavLink } from "react-router-dom";
  * 
  * ******************************** */
 export default function CoinMarkets(props) {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+
+    const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+    color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
+    color: `${darkTheme.content}` }
+    
+    const activeLink = theme == 'light' ?  {color: `${lightTheme.text}`} :
+    {color: `${darkTheme.text}`} ;
+    
+//<Table className="table table-primary table-bordered"></Table>
 
 
     return (
         <section className="row">
-
-            <table>
+            <Table className="table container p-0 m-0 table-light table-bordered"
+            style={colorStyle}>
                 <thead>
                     <tr>
-                        <th>
+                        <Th style={colorStyle}>
                             Exchange
-                       </th>
-                        <th>
+                       </Th>
+                        <Th style={colorStyle}>
                             Pair
-                       </th>
-                        <th>
+                       </Th>
+                        <Th style={colorStyle}>
                             Price
-                       </th>
-                        <th>
+                       </Th>
+                        <Th style={colorStyle}>
                             Confidence
-                       </th>
-                        <th>
+                       </Th>
+                        <Th style={colorStyle}>
                             Volume (24h)
-                       </th>
-                        <th>
+                       </Th>
+                        <Th style={colorStyle}>
                             Category
-                      </th>
+                      </Th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,22 +75,22 @@ export default function CoinMarkets(props) {
 
                         props.coinMarkets.map((data) => {
                             return (<tr>
-                                <td>
-                                    <Link to={data.market_url}>
+                                <TdName>
+                                    <Link to={data.market_url} style={colorStyle} activeLink={activeLink}>
                                         {data.exchange_name}
                                     </Link>
-                                </td>
+                                </TdName>
                                 <td>
                                     {data.pair}
                                 </td>
                                 <td>
-                                    {data.quotes["USD"].price}
+                                    {Format.toCurrencyNDigits(data.quotes["USD"].price,'USD',8)}
                                 </td>
                                 <td>
                                     {data.trust_score}
                                 </td>
                                 <td>
-                                    {data.quotes["USD"].volume_24h}
+                                    {Format.toCurrencyNDigits(data.quotes["USD"].volume_24h,'USD',5)}
                                 </td>
 
                                 <td>
@@ -69,7 +103,7 @@ export default function CoinMarkets(props) {
 
                     }
                 </tbody>
-            </table>
+            </Table>
 
         </section>
 

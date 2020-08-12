@@ -9,28 +9,47 @@ import { logDOM } from "@testing-library/react";
 
 /**
  * 
- * price formatters
+ * price and text formatters
  * 
  */
 export var Format = {
     /**
-     * 
-     * Price formatter :4 decimal digits
-     * 
-     * @param {*} price 
+     * price
      */
     price: price => { parseFloat(Number(price).toFixed(4));
      },
     toCurrency: (price, devise) => { 
+        if(price){
         const newFormat = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0, 
   minimumFractionDigits: 0,style: 'currency', currency: `${devise}` });
         return newFormat.format(price);
+        } else {
+            return "not yet..";
+        }
     },
     toCurrencyNDigits: (price, devise, n) => {
         const newFormat = new Intl.NumberFormat('en-US', { maximumFractionDigits: n, 
             minimumFractionDigits: 0,style: 'currency', currency: `${devise}` });
                   return newFormat.format(price);
 
+    },
+    toLocale: (price) => {
+        if(price){
+            return price.toLocaleString();
+            } else {
+                return "not yet..";
+            }
+    },
+    /**
+     * text
+     * 
+     * @todo use regex to filter \r\n 1 2... i ii ...
+     */
+    parseToHtml: (text) => {
+        for(let i=0; i < text.length; i++){
+            text=text.replace("\r\n\r\n","<br/><span style=\"padding-left: 0.5rem\"></span>");
+        }
+        return text;
     }
 }
 
@@ -114,7 +133,11 @@ export var Time = {
         const hr = dt.getHours().toString();
         const min = dt.getMinutes().toString();
         const s = dt.getSeconds().toString();
+        if(y && m && d && hr && min && s){
         return y + '/' + m.padStart(2, "0") + '/' + d.padStart(2, "0") + ' ' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
+        } else {
+            return "no data.."
+        }
     }
 }
 

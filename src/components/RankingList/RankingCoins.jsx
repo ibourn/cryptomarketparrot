@@ -117,16 +117,16 @@ const RankingCoins = (props) => {
  });
 
 
-
-
-
 /**
  * style and classes
  */
- const themeColor = theme === 'light' ? 'black' : 'white';
- const thColorStyle = theme === 'light' ? {backgroundColor: `${lightTheme.body}`} : {backgroundColor: `${darkTheme.body}`}
+ const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+ color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
+ color: `${darkTheme.content}` }
 
 
+
+ 
 /**
  * sort click handlers
  */
@@ -188,24 +188,24 @@ const thClass="";//"position-absolute sticky-top";
 
 //<Table className="table table-primary table-bordered"></Table>
   return (
-    <Table  className="container-fluid">
+    <Table  className="container-fluid" style={colorStyle}>
       <Thead className="" >
         <tr className="">
-          <ThRank className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
-          <ThName className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
-          <ThPrice className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
-          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
-          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
-          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent> 
+          <ThRank className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
+          <ThName className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
+          <ThPrice className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent> 
            { !props.priceSetData ? null:
-          <ThChart  style={thColorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
+          <ThChart  style={colorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
             </ThChart>     
 }     
-          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
-          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
-          <ThNum className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
-          <ThMarket className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>  
-          <ThSupply className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
+          <ThNum className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
+          <ThMarket className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>  
+          <ThSupply className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
                 
  
         </tr>

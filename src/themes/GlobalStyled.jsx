@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
 
-    border: 1px solid black;
+    border: 1px solid tansparent;
   }
 
   body {
@@ -42,7 +42,7 @@ export const GlobalStyle = createGlobalStyle`
   
 
   .colMainPage{
-    min-height: 1000vh;
+    min-height: 100vh;
   }
   .colPub{
     min-height: 100vh;
