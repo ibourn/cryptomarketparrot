@@ -10,6 +10,7 @@ import CoinsPage from './CoinsPage';
 import { Format, Compare, Filter, Copy } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 
+
 /*fix the number of coins per page : 50 due to api request limit*/
 const COIN_COUNT = 50;//100;
 
@@ -29,13 +30,15 @@ const Title = styled.h1`
  * 
  * main api calls here
  * 
+ * @todo manage last page for button Next
+ * 
  * ******************************** */
 export default function RankingsPage(props) {
   const { coinsInfos, setCoinsInfos } = useContext(DataContext);
 
   const [page, setPage] = useState({
     current: 0,
-    last: 0
+    last: 100
   });
 
   const [sorting, setSorting] = useState({
