@@ -59,7 +59,6 @@ export const GlobalStyle = createGlobalStyle`
    */
   export const BannerContentDiv = styled.div`
     min-width: 90%;
-    padding: 0.5rem;
   `;
 
  export  const BannerOptionDiv = styled.div`

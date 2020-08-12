@@ -8,7 +8,95 @@ import styled from 'styled-components';
 import { lightTheme, darkTheme } from '../../themes/Theme';
 
 
+/**
+ * style componenent
+ */
+const Table = styled.table`
+font-size: 0.7rem;
+`;
+const Thead = styled.thead`
+line-height: 2rem;
+@media (max-width: 1100px) {
+  line-height: 1rem; } 
+`;
+const Th = styled.th`
+position: sticky;
+top: var(--navbar--main-height);
+min-height: 3rem;
+opacity: 1;
+:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+`;
+/**
+ * set width of th following viewport et vertical pub
+ */
+const ThRank = styled(Th)`
+ text-align: left;
+ min-width: ${props => (props.pubIsOpen ? '3vw' : '3vw')};
+max-width: ${props => (props.pubIsOpen ? '5rem' : '15rem')};
+`;
+const ThName = styled(Th)`
+text-align: left;
+padding-left: 0.2rem
+min-width: ${props => (props.pubIsOpen ? '6vw' : '6vw')};
+max-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
+@media (max-width: 1100px) {
+  min-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};
+  max-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};  } 
+`;
 
+const ThChart = styled(Th)`
+// min-width: 130px;
+// max-width: 250px;
+text-align: center;
+z-index: 15;
+min-width: ${props => (props.pubIsOpen ? '10vw' : '15vw')};
+max-width: ${props => (props.pubIsOpen ? '15vw' : '15rem')};
+@media (max-width: 1100px) {
+  min-width: ${props => (props.pubIsOpen ? '8vw' : '14vw')};
+max-width: ${props => (props.pubIsOpen ? '10vw' : '15rem')};
+`;
+
+const ThData = styled(Th)`
+text-align: right;    
+`;
+const ThPercent = styled(ThData)`
+min-width: ${props => (props.pubIsOpen ? '3.5vw' : '3.5vw')};
+max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+@media (max-width: 1100px) {
+  min-width: ${props => (props.pubIsOpen ? '3vw' : '7vw')};
+max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+  } 
+`;
+const ThNum = styled(ThData)`
+min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
+max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+@media (max-width: 1100px) {
+min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
+max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+}  
+`;
+const ThPrice = styled(ThNum)`
+min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
+max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
+@media (max-width: 1100px) {
+  min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
+  max-width: ${props => (props.pubIsOpen ? '8vw' : '15rem')};
+   `;
+   const ThMarket = styled(ThNum)`
+min-width: ${props => (props.pubIsOpen ? '8vw' : '8vw')};
+max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
+   `;
+const ThSupply = styled(ThNum)`
+min-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
+max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
+@media (max-width: 1100px) {
+  min-width: ${props => (props.pubIsOpen ? '6vw' : '6.5vw')};
+max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+  }   
+   `;
 
        const DivVertPub = styled.div`
        //  @media (max-width: 1100px) {
@@ -28,67 +116,6 @@ const RankingCoins = (props) => {
    order: 'asc'
  });
 
- const Table = styled.table`
- font-size: 0.7rem;
- `;
-const Thead = styled.thead`
-line-height: 2rem;
-`;
-const Th = styled.th`
- position: sticky;
- top: var(--navbar--main-height);
- min-height: 3rem;
- opacity: 1;
- :hover{
-   text-decoration: underline;
-   cursor: pointer;
- }
- `;
- const ThRank = styled(Th)`
-  max-width: ${props.pubIsOpen ? '2rem' : '4rem'};
-  text-align: center;
- `;
- const ThName = styled(Th)`
- min-width: ${props.pubIsOpen ? '6rem' : '8rem'};
- text-align: left;
- padding-left: 0.2rem
- @media (max-width: 1100px) {
-   min-width: 4rem; 
-   } 
- `;
-
- const ThChart = styled(Th)`
- min-width: 130px;
- max-width: 250px;
- @media (max-width: 1100px) {
-   min-width: 80px; 
- `;
-
- const ThData = styled(Th)`
- text-align: right;    
- `;
- const ThPercent = styled(ThData)`
- min-width: 5rem;
- @media (max-width: 1100px) {
-   min-width: 2.5rem; 
-   } 
- `;
- const ThNum = styled(ThData)`
-min-width: 8rem; 
-@media (max-width: 1100px) {
-min-width: 5rem; 
-}  
- `;
- const ThPrice = styled(ThNum)`
- min-width: 5.5rem;  
-
-    `;
- const ThSupply = styled(ThNum)`
- min-width: 6.5rem; 
- @media (max-width: 1100px) {
-   min-width: 4.5rem; 
-   }   
-    `;
 
 
 
@@ -164,21 +191,21 @@ const thClass="";//"position-absolute sticky-top";
     <Table  className="container-fluid">
       <Thead className="" >
         <tr className="">
-          <ThRank className={thClass} style={thColorStyle} onClick={handleClickRank}>Rank</ThRank>
-          <ThName className={thClass} style={thColorStyle} onClick={handleClickName}>Name</ThName>
-          <ThPrice className={thClass} style={thColorStyle} onClick={handleClickPrice}>Price</ThPrice>
-          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeh1}>%(1h)</ThPercent>
-          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
-          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChanged7}>%(7d)</ThPercent> 
+          <ThRank className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
+          <ThName className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
+          <ThPrice className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
+          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
+          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
+          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent> 
            { !props.priceSetData ? null:
-          <ThChart  style={thColorStyle}> <span></span>
+          <ThChart  style={thColorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
             </ThChart>     
 }     
-          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChanged30}>%(30d)</ThPercent>
-          <ThPercent className={thClass} style={thColorStyle} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
-          <ThNum className={thClass} style={thColorStyle} onClick={handleClickVolumeh24}>Volume</ThNum>
-          <ThNum className={thClass} style={thColorStyle} onClick={handleClickMarketCap}>Market Cap</ThNum>  
-          <ThSupply className={thClass} style={thColorStyle} onClick={handleClickSupply}>Circulating Supply</ThSupply>
+          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
+          <ThPercent className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
+          <ThNum className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
+          <ThMarket className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>  
+          <ThSupply className={thClass} style={thColorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
                 
  
         </tr>

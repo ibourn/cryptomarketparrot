@@ -8,10 +8,8 @@ import styled from 'styled-components';
  */
 const Div = styled.div`{
   height: 100px;
+  margin-top: 50px;
  
-}`;
-const Span = styled.span`{
-margin-top: 50%;
 }`;
 /**
  * 
@@ -22,13 +20,13 @@ export default function Loader(props) {
   
   return (
     <>
-      <div className="row">
+      <Div className="row">
         <div id="loader">
           <div id="shadow"></div>
           <div id="box"></div>
         </div>
-      </div>
-      <Div className="row d-flex justify-content-end align-self-end">
+      </Div>
+      <Div className="row d-flex justify-content-end">
         <span>Waiting for birds and boats to bring back data ...</span>
       </Div>
     </>

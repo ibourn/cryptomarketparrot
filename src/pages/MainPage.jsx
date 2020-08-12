@@ -112,7 +112,6 @@ let a=false;
     const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
     const colPubClass =  (showBanner ? " col-2" : " col-0");
 
-
     //                                <Route exact strict path="/" component={RankingsPage} />
 
    // console.log(coinsInfos.dictionary, "dico from main page avant render");

@@ -5,7 +5,7 @@ import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
 import styled, { keyframes } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
-import { Maths } from '../../modules/Utilities';
+import { Maths, Format } from '../../modules/Utilities';
 import CoinsPage from '../../pages/mainpages/CoinsPage';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -16,8 +16,21 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  * Style
  */
 const Td = styled.td`
-    width: 2vw;
+height: 50px;
+@media (max-width: 1100px) {
+    height:40px; }
     `;
+    const TdRank = styled(Td)`
+    font-weight: bold;
+    text-align: left;
+   `;
+   const TdName = styled(Td)`
+   font-weight: bold;
+   text-align: left;
+   img{
+       margin-right: 0.3rem;
+   }
+  `;
 
 /*styling the prices*/
 const blinkingGreen = keyframes` 
@@ -36,30 +49,27 @@ const blinkingRed = keyframes`
 `;
 
 const TdUnchanged = styled.td`
-    width: 2vw;
     `;
-const TdUp = styled.td`
-    width: 2vw;
+const TdUp = styled(Td)`
+text-align: right;
      color: green;
      font-weight: bold;
     animation: ${blinkingGreen} ease-in-out 2s 5;
     `;
-const TdDown = styled.td`
-    width: 2vw;
+const TdDown = styled(Td)`
+text-align: right;
     color: red;
     font-weight: bold;
     animation: ${blinkingRed} ease-in-out 2s 5;
     `;
 const TdG = styled.td`
-
-
     margin: 0;
     padding: 0;
-
-    CanvasJSChart{
-        height: 40px;
-    }
     `;
+    const TdRight = styled(Td)`
+    text-align: right;
+    `;
+
 
     //  width: 150px;
 //    height: 20px;
@@ -98,7 +108,15 @@ const CoinRow = (props) => {
         padding: 0,
     };
 
-    var canvas = document.getElementsByClassName('chart');
+    const textLinkColor = theme === 'light' ? lightTheme.text : darkTheme.text;
+    const linkStyle = {
+        color: `${textLinkColor}`
+    }
+    const activeLink = {
+        color: `${textLinkColor}`
+    };
+
+  /*  var canvas = document.getElementsByClassName('chart');
 var heightRatio = 1;
 canvas.height = canvas.width * heightRatio;
 useEffect(() => {
@@ -109,18 +127,16 @@ useEffect(() => {
   return () => window.removeEventListener("resize", resizeWindow);
 }, []);
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(0);
-    let resizeWindow = () => {
-      setWindowWidth(window.innerWidth);
-      setWindowHeight(window.innerHeight);
-      if(window.innerWidth <= 920){
-       // props.closePub();
-
-      }
+   
+    l  const resizeWindow = () => {
+        setWindowWidth(window.innerWidth);
+        if (window.innerWidth <= 920 && isVertical) {
+         //   setIsOpened(false);
+        }
+    };
      // canvasWidth= Math.round(window.innerWidth/6);
     };
-    const canvasWidth= Math.max(130, Math.round(windowWidth/6));
+    const canvasWidth= Math.max(130, Math.round(windowWidth/6));*/
     /**
      * chart data
      */
@@ -145,7 +161,7 @@ useEffect(() => {
         title: {
             text: null
         },
-        width: canvasWidth,
+        //width: canvasWidth,
         height: 45,
         colorSet: lineColor,
         backgroundColor: bckgrndColor,
@@ -199,29 +215,30 @@ useEffect(() => {
     const icon = getAvailableIcon();
 
 
-
-
+const price = Format.toCurrencyNDigits(props.price,'USD',8);
+const volume = Format.toCurrencyNDigits(props.volume_24h,'USD',0);
+const marketcap = Format.toCurrency(props.market_cap,'USD');
 
     return (
         <>
             <tr>
-                <Td>{props.rank}</Td>
-                <Td>
-                    <Link to={link} exact>
+                <TdRank>{props.rank}</TdRank>
+                <TdName>
+                    <Link to={link} exact style={linkStyle} activeLink={activeLink}>
                         <span><img src={icon} alt={props.symbol} width={"15px"} /></span>
                         <span >{props.name}</span>
                     </Link>
-                </Td>
+                </TdName>
                 {
                     props.snapshotChange === 'unchanged' ?
-                        <TdUnchanged>{props.price}</TdUnchanged> :
+                        <TdUnchanged>{price}</TdUnchanged> :
                         props.snapshotChange === 'up' ?
-                            <TdUp>{props.price}</TdUp> :
-                            <TdDown>{props.price}</TdDown>
+                            <TdUp>{price}</TdUp> :
+                            <TdDown>{price}</TdDown>
                 }
-                <Td className={styleClassVarH1}>{props.percent_change_1h}</Td>
-                <Td className={styleClassVarH24}>{props.percent_change_24h}</Td>
-                <Td className={styleClassVarD7}>{props.percent_change_7d}</Td>
+                <TdRight className={styleClassVarH1}>{props.percent_change_1h}</TdRight>
+                <TdRight className={styleClassVarH24}>{props.percent_change_24h}</TdRight>
+                <TdRight className={styleClassVarD7}>{props.percent_change_7d}</TdRight>
                 {
                 props.priceSet == undefined ? 
                 <TdG>
@@ -233,12 +250,12 @@ useEffect(() => {
                         <CanvasJSChart className="chart" style={graphStyle} options={options} />
                         </TdG>
                 }
-                <Td className={styleClassVarD30}>{props.percent_change_30d}</Td>
+                <TdRight className={styleClassVarD30}>{props.percent_change_30d}</TdRight>
 
-                <Td className={styleClassVarAth}>{props.percent_from_price_ath}</Td>
-                <Td>{props.volume_24h}</Td>
-                <Td>{props.market_cap}</Td>
-                <Td>{props.circulating_supply}</Td>
+                <TdRight className={styleClassVarAth}>{props.percent_from_price_ath}</TdRight>
+                <TdRight>{volume}</TdRight>
+                <TdRight>{marketcap}</TdRight>
+                <TdRight>{props.circulating_supply.toLocaleString()}</TdRight>
 
 
             </tr>
