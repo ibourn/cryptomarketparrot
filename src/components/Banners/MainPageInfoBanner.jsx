@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { GlobalClasses } from "../../themes/GlobalClasses";
 import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
@@ -40,7 +40,7 @@ export default function InfoBannerMainPage(props) {
                 <aside className={GlobalClasses.divBanner + " bg-primary"} >
                     <BannerContent>
                         <SpanInfo>
-                            ☂️Catch this rare interview with the "Father of the Crypto Revolution," J. Christopher Giancarlo, who cautions against rushing into creating a digital dollar! Read it here.
+                           <span role="img" aria-label="umbrella">☂️</span>Catch this rare interview with the "Father of the Crypto Revolution," J. Christopher Giancarlo, who cautions against rushing into creating a digital dollar! Read it here.
                         </SpanInfo>
                     </BannerContent>
                     <BannerOption >

@@ -9,7 +9,7 @@ export const lightTheme = {
     text: '#252525',
     container: '#FBFBFB',
     content: '#151515',
-    border: '#ADADAD'
+    border: '#e6e6e6'
   }
   
   export const darkTheme = {
@@ -17,6 +17,6 @@ export const lightTheme = {
     text: '#E5E5E5',
     container: '#313131',
     content: '#F9F9F9',
-    color: '#4D4D4D'
+    border: '#4D4D4D'
   }
   

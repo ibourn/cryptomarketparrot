@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 /************************************
  * 
@@ -11,7 +11,7 @@ export const useClose = (isVertical = false) => {
 
     const [isOpened, setIsOpened] = useState(true);
     // const [isClosedbyUser, setIsClosedByUser] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(0);
+    //const [windowWidth, setWindowWidth] = useState(0);
 
     const closeElement = () => {
         setIsOpened(false);
@@ -24,11 +24,11 @@ export const useClose = (isVertical = false) => {
             window.addEventListener("resize", resizeWindow);
         }
         return () => window.removeEventListener("resize", resizeWindow);
-    }, []);
+    });
 
 
     const resizeWindow = () => {
-        setWindowWidth(window.innerWidth);
+        //setWindowWidth(window.innerWidth);
         if (window.innerWidth <= 920 && isVertical) {
             setIsOpened(false);
         }

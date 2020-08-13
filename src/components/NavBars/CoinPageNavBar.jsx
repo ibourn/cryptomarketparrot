@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { NavLink, withRouter } from "react-router-dom";
-import { useHistory, useParams } from "react-router-dom";
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
@@ -25,18 +24,15 @@ font-weight: bold;
  * 
  * ******************************** */
 const CoinPageNavBar = (props) => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-
-  const history = useHistory();
-  const { id, type } = useParams();
+  const { theme } = useContext(ThemeContext);
 
   const itemClass = "nav-item";
   const linkclassName = "nav-link";
 
-  const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.body}`,
+  const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}`,
   color: `${lightTheme.text}` } :{ backgroundColor: `${darkTheme.body}`,
   color: `${darkTheme.text}` }
-  const activeStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+  const activeStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
   color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
   color: `${darkTheme.content}` }
 

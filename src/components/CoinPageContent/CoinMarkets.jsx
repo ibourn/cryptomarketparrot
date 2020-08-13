@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { useHistory, useParams, Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Format } from '../../modules/Utilities';
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
 import styled from 'styled-components';
+
+
 
 const Table = styled.table`
  text-align: left;
@@ -32,17 +34,15 @@ font-weight: bold;
  * 
  * ******************************** */
 export default function CoinMarkets(props) {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+    const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
     color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
     color: `${darkTheme.content}` }
     
-    const activeLink = theme == 'light' ?  {color: `${lightTheme.text}`} :
+    const activeLink = theme === 'light' ?  {color: `${lightTheme.text}`} :
     {color: `${darkTheme.text}`} ;
     
-//<Table className="table table-primary table-bordered"></Table>
-
 
     return (
         <section className="row">

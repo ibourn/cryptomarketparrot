@@ -9,22 +9,18 @@ import { ThemeProvider } from 'styled-components';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all';
 import { useTheme } from './components/ThemeToggler/useTheme';
-import ThemeToggler from './components/ThemeToggler/ThemeToggler';
 import { lightTheme, darkTheme } from './themes/Theme';
 import { GlobalStyle } from './themes/GlobalStyled';
 
-import CoinsPage from "./pages/mainpages/CoinsPage";
 import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
 import HeadlinesPage from './pages/HeadlinesPage';
 import InterestPage from './pages/InterestPage';
 import SignUpPage from './pages/SignUpPage';
 import BlockchainExplorerPage from './pages/BlockchainExplorerPage';
+import MainFooter from './components/Footers/MainFooter';
 
 
-// const containerStyle = {
-//   width: 100vw
-// };
 
 function App() {
   /*
@@ -43,13 +39,6 @@ function App() {
   
 
 
-  const handleResize = () => {
-    console.log(viewportWidth);
-  const viewportWidth = document.documentElement.clientWidth;
-  if(viewportWidth<=1000){
-  //closePub();
-  }
-  }
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }} >
 
@@ -59,7 +48,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
 
-          <div className="globalContainer container-fluid" onResize={handleResize} >
+          <div className="globalContainer container-fluid" >
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
@@ -74,7 +63,7 @@ function App() {
               <Route path="*" component={NotFoundPage} />
             </Switch>
 
-            <footer>Footer</footer>
+            <MainFooter></MainFooter>
           </div>
         
       </BrowserRouter>

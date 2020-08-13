@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import { LoginContext } from "../AuthRoute/LoginContext";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
 
@@ -10,8 +9,6 @@ import styled from 'styled-components';
 /**
  * Styles
  */
-
-
 const LiTab = styled.li`
 font-size: 0.8rem;
 font-weight: bold;
@@ -29,43 +26,19 @@ min-width: 12vw;
 `;
 
 
-
-
-/**
- * 
- * CoinRanking navbar
- */
-const CoinRankingNavBar = (props) => {
-
-  /**
-   * States
-   */
-  const { theme, toggleTheme } = useContext(ThemeContext);
-
-  const [isDownCrypto, setIsDownCrypto] = useState(false);
-  const [isDownExchange, setIsDownExchanges] = useState(false);
-  const [isDownWatchlist, setIsDownWatchlist] = useState(false);
-  const [isDownDevise, setIsDownDevise] = useState(false);
-  const [isDownFilter, setIsDownFilter] = useState(false);
-
-
-
-/**
-   * style of the dropdown filter
-   */
-  const Nav = styled.nav`
+const Nav = styled.nav`
 .filter{
   * {
     padding:0;
   margin:0;
   }
-  background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+  background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
   div, input{
     font-size: 0.7rem;
-    background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+    background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
   }
   label{
-    color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+    color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
     padding-top: 0.5rem;
   }
   input{
@@ -86,20 +59,45 @@ const CoinRankingNavBar = (props) => {
 const Btn = styled.button`
  font-size: 0.7rem;
  height: 1.5rem;
- background-color: ${theme === 'light' ? lightTheme.body : darkTheme.body};
+ background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
 
 `;
 const BtnCur = styled(Btn)`
 min-width: 6vw;
-color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
 `;
 const BtnFilter = styled(Btn)`
 min-width: 8vw;
-color: ${theme === 'light' ? lightTheme.text : darkTheme.text};
+color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
 `;
 const BtnPage = styled(Btn)`
 min-width: 5.5vw;
 `;
+
+
+/**
+ * 
+ * CoinRanking navbar
+ */
+const CoinRankingNavBar = (props) => {
+
+  /**
+   * States
+   */
+  const { theme } = useContext(ThemeContext);
+
+  const [isDownCrypto, setIsDownCrypto] = useState(false);
+  const [isDownExchange, setIsDownExchanges] = useState(false);
+  const [isDownWatchlist, setIsDownWatchlist] = useState(false);
+  const [isDownDevise, setIsDownDevise] = useState(false);
+  const [isDownFilter, setIsDownFilter] = useState(false);
+
+
+
+/**
+   * style of the dropdown filter
+   */
+
 
   /**
    * Style classNames
@@ -115,16 +113,16 @@ min-width: 5.5vw;
 
   const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
   const triggerBtnMenu = "btn btn-secondary btn-outline-secondary dropdown-toggle"
-  const itemUSDClass = "dropdown-item" + (props.devise == "USD" ? " active" : "");
-  const itemBTCClass = "dropdown-item" + (props.devise == "BTC" ? " active" : "");
+  const itemUSDClass = "dropdown-item" + (props.devise === "USD" ? " active" : "");
+  const itemBTCClass = "dropdown-item" + (props.devise === "BTC" ? " active" : "");
 
   const menuFilterClass = "dropdown-menu" + (isDownFilter ? " show" : "");
   const triggerFilterMenu = "btn btn-secondary dropdown-toggle";
 
   const btnPagePrvClass = "btn btn-sm btn-light text-primary" +
-  (props.page.current == 0 ? " disabled" : "");
+  (props.page.current === 0 ? " disabled" : "");
   const btnPageNxtClass = "btn btn-sm btn-light text-primary" +
-  (props.page.current == props.page.last - 1 ? " disabled" : "");
+  (props.page.current === props.page.last - 1 ? " disabled" : "");
 
   const filterBckgrndColor =  {backgroundColor: `transparent`} ;
 
@@ -186,7 +184,7 @@ min-width: 5.5vw;
 
 
   return (
-    <Nav className="d-flex justify-content-between">
+    <Nav className="d-flex justify-content-between" them={theme}>
 
       <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
@@ -220,7 +218,7 @@ min-width: 5.5vw;
       <div className="d-flex justify-content-end filter">
 
         <div class="dropdown filter">
-          <BtnFilter class={triggerFilterMenu} onClick={toggleDropDownFilter}
+          <BtnFilter class={triggerFilterMenu} theme={theme} onClick={toggleDropDownFilter}
             onBlur={toggleDropDownFilter} type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-filter"></i>Filters
@@ -276,7 +274,7 @@ min-width: 5.5vw;
         </div>
 
         <div class="dropdown">
-          <BtnCur class={triggerBtnMenu} onClick={toggleDropDownDevise}
+          <BtnCur class={triggerBtnMenu} theme={theme} onClick={toggleDropDownDevise}
             onBlur={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             devises

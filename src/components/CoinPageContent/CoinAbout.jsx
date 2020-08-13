@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useHistory, useParams, Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
 
@@ -40,9 +40,9 @@ const Li = styled.li`
  * ******************************** */
 export default function CoinAbout(props) {
 
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme == 'light' ? {
+    const colorStyle = theme === 'light' ? {
         backgroundColor: `${lightTheme.container}`,
         color: `${lightTheme.content}`
     } : {
@@ -76,15 +76,15 @@ export default function CoinAbout(props) {
                         <article><SpanTitle>Links :</SpanTitle>
                             <ul><SpanLabel>Homepage :</SpanLabel>
                                 {props.coinInfo.links.homepage.map((link, index) => {
-                                    return link != "" ? <Li key={index}><Link>{link}</Link></Li> : null
+                                    return link !== "" ? <Li key={index}><Link>{link}</Link></Li> : null
                                 })}</ul>
                             <ul><SpanLabel>Sites :</SpanLabel>
                                 {props.coinInfo.links.blockchain_site.map((link, index) => {
-                                    return link != "" ? <Li key={index}><Link>{link}</Link></Li> : null
+                                    return link !== "" ? <Li key={index}><Link>{link}</Link></Li> : null
                                 })}</ul>
                             <ul><SpanLabel>Forum :</SpanLabel>
                                 {props.coinInfo.links.official_forum_url.map((link, index) => {
-                                    return link != "" ? <Li key={index}><Link>{link}</Link></Li> : null
+                                    return link !== "" ? <Li key={index}><Link>{link}</Link></Li> : null
                                 })}</ul>
 
 

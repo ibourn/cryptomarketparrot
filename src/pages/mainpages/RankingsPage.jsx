@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter, Switch, Route, useHistory, useParams, useLocation } from 'react-router-dom';
 import { DataContext } from '../../components/NavBars/DataContext';
-import { UpdateTimeContext } from '../../components/Banners/UpdateTimeContext';
 import styled from 'styled-components';
 
 import RankingCoins from "./../../components/RankingList/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
-import CoinsPage from './CoinsPage';
 
-import { Format, Compare, Filter, Copy, Time } from "../../modules/Utilities";
+import { Compare, Filter, Copy, Time } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 
 
@@ -36,7 +33,7 @@ const Title = styled.h1`
  * 
  * ******************************** */
 export default function RankingsPage(props) {
-  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+  const { coinsInfos } = useContext(DataContext);
 
   const [page, setPage] = useState({
     current: 0,
@@ -150,13 +147,13 @@ export default function RankingsPage(props) {
       }
       const geckoId = (coinsInfos.list.get(symbol)).gecko_id;
       /*the desired coin data exist by gecko and paprika so continue*/
-      if (geckoId != undefined) {
-        if (priceSetCopy[symbol] == undefined) {
+      if (geckoId !== undefined) {
+        if (priceSetCopy[symbol] === undefined) {
           priceSetCopy[symbol] = {};
         }
 
         /*there's no record yet in priceSetData so fetch*/
-        if (priceSetCopy[symbol][filter.devise] == undefined) {
+        if (priceSetCopy[symbol][filter.devise] === undefined) {
           const coinResponse = await DataProvider.getCoinsPriceSetGecko(geckoId, filter.devise);
           return {
             symb: symbol,
@@ -178,7 +175,7 @@ export default function RankingsPage(props) {
     const priceSetResponse = await Promise.all(priceSetPromise);
     /*transform the result to get a mapping object of coin => price set (update or create field)*/
     priceSetResponse.map((coinSet) => {
-      priceSetCopy[coinSet.symb][filter.devise] = coinSet.set;
+      return priceSetCopy[coinSet.symb][filter.devise] = coinSet.set;
     })
 
     return priceSetCopy;
@@ -199,7 +196,7 @@ export default function RankingsPage(props) {
   const getChangeInSnapshot = (newCoinsData) => {
 
     const snapChange = [];
-    if (DataSet.snapshot.length != 0) {
+    if (DataSet.snapshot.length !== 0) {
 
       for (let i = 0; i < newCoinsData.length; i++) {
         const newName = newCoinsData[i].name;
@@ -207,7 +204,7 @@ export default function RankingsPage(props) {
         let change = 'unchanged';
 
         for (let j = 0; j < DataSet.snapshot.length; j++) {
-          if (newName == DataSet.snapshot[j].name) {
+          if (newName === DataSet.snapshot[j].name) {
 
             if (DataSet.snapshot[j].quotes[filter.devise].price < newPrice) {
               change = 'up';
@@ -407,8 +404,6 @@ export default function RankingsPage(props) {
 
     refreshData(false);
   }
-
-  const { id, type } = useParams();
 
   const { match, location, history } = props;
   console.log("Rankingpahe", match, location, history);

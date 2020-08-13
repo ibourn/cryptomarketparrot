@@ -8,7 +8,6 @@ import ParrotGray from "../../assets/Parrot-Remix-Grayscale-Request-2014110544.s
 
 import { lightTheme, darkTheme } from '../../themes/Theme';
 import styled from 'styled-components';
-import Logo from "../../assets/Webpnet-livewebinar.png";
 
 
 /**
@@ -18,6 +17,10 @@ const Nav = styled.nav`
   padding: 0;
   height: var(--navbar--main-height);
   font-size: 0.9rem;
+
+border-style: solid none;
+border-width: 1px;
+border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkTheme.border)};
 
   .navbar-brand{
     font-weight: bold;
@@ -80,8 +83,8 @@ const MainPageNavBar = (props) => {
      */
     const history = useHistory();
 
-    const { theme, toggleTheme } = useContext(ThemeContext);
-    const { coinsInfos, setCoinsInfos } = useContext(DataContext);
+    const { theme } = useContext(ThemeContext);
+    const { coinsInfos } = useContext(DataContext);
     const { isAuth, setIsAuth } = useContext(LoginContext);
 
     const [optionsList, setOptionsList] = useState();
@@ -104,8 +107,6 @@ const MainPageNavBar = (props) => {
 
     const searchDropdown = "nav-item dropdown active ";
     const searchTriggerMenu = "nav-link dropdown-toggle  mr-sm-2";
-    const searchMenu = "dropdown-menu" + (isDownSearch ? " show active" : "");
-    const menuItemClass = "dropdown-item";
 
     /* trick to force text color of navlink*/
     const textLinkColor = theme === 'light' ? 'black' : 'white';
@@ -120,9 +121,8 @@ const MainPageNavBar = (props) => {
 
     const containerStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}` } : { backgroundColor: `${darkTheme.body}` }
 
-    const searchStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}` } : { backgroundColor: `${darkTheme.body}`, color: `${darkTheme.text}`}
-    const loginStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}` } : { backgroundColor: `${darkTheme.body}` }
-
+    const searchStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}` } : { backgroundColor: `${darkTheme.body}`, color: `${darkTheme.text}` }
+  
     /**
      * Set the login state
      */
@@ -186,7 +186,8 @@ const MainPageNavBar = (props) => {
 
     //<i class="fas fa-search"></i>
     return (
-        <Nav className={navClass} role="navigation" aria-label="main navigation">
+        <Nav className={navClass} theme={theme}
+            role="navigation" aria-label="main navigation">
 
             <DivContainer className="container" style={containerStyle}>
                 <NavLink to="/" exact className="navbar-brand" style={linkStyle}
@@ -246,7 +247,7 @@ const MainPageNavBar = (props) => {
                                 <input className={searchTriggerMenu} style={searchStyle} type="search" list="coinSuggest"
                                     placeholder="Search for names.." aria-label="Search"
                                     id="searchInput" onInput={HandleOnInput} onKeyUp={handleKeyUp}
-                                    onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Type in a name" />
+                                    onBlur={toggleSearchDropDown} data-toggle="dropdown" aria-haspopup="true" title="Type in a name" />
                                 <datalist id="coinSuggest">
                                     {
                                         optionsList ?

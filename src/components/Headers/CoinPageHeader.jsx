@@ -41,9 +41,9 @@ margin-right: 0.5rem;
  * 
  * ******************************** */
 export default function CoinPageHeader(props) {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+    const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
     color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
     color: `${darkTheme.content}` }
     
@@ -134,7 +134,7 @@ export default function CoinPageHeader(props) {
                             <P>
                                 <SpanLabel>Category :</SpanLabel>
                                 <SpanData>{props.coinInfo.categories.map((cat, index) => {
-                                    if (index > 0 && cat != "") {
+                                    if (index > 0 && cat !== "") {
                                         return ", " + cat;
                                     } else {
                                         return cat

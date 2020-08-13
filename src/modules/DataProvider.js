@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import { Time } from './Utilities';
 
@@ -15,15 +14,15 @@ import { Time } from './Utilities';
   * QTITY PARAMs
   * 
   * */
-const DISPLAY_COINS_PER_PAGE = 50;//100;
-const REQUESTED_COINS_PER_PAGE = 250;
-const REQUESTED_PAGE = 30;
+// const DISPLAY_COINS_PER_PAGE = 50;//100;
+// const REQUESTED_COINS_PER_PAGE = 250;
+// const REQUESTED_PAGE = 30;
 
 /**
  * STATUS
  */
-const HISTO_STATUS_GECKO = 200;
-const HISTO_STATUS_PAPRIKA = 200;
+// const HISTO_STATUS_GECKO = 200;
+// const HISTO_STATUS_PAPRIKA = 200;
  /**
   * 
   * URLS COINPAPRIKA // limits : 600req/min OR 10/sec
@@ -36,7 +35,7 @@ const PAPRIKA_ENDPOINT_COINS = '/coins';
 const PAPRIKA_ENDPOINT_TICKERS = '/tickers'; 
 const PAPRIKA_ENDPOINT_GLOBAL = '/global';
 
-const PAPRIKA_OPTION_OHLCV = '/ohlcv';
+// const PAPRIKA_OPTION_OHLCV = '/ohlcv';
 const PAPRIKA_OPTION_HISTO = '/historical'; 
 const PAPRIKA_OPTION_TWITTER = '/twitter'; 
 const PAPRIKA_OPTION_EVENTS = '/events'; 
@@ -61,21 +60,14 @@ const PAPRIKA_PARAM_QUOTE = 'quotes=';
  const GECKO_OPTION_MARKET_CHART = '/market_chart';
  const GECKO_PARAM_VSCUR = 'vs_currency=';
  const GECKO_PARAM_START = 'days=';
- const GECKO_PARAM_INFO = "localization=flase&tickers=false&market_data=false";
+//  const GECKO_PARAM_INFO = "localization=flase&tickers=false&market_data=false";
 
 
 /**
  * 
  * URL BUILDERS
  * 
- * /
- /** 
- * @param {string} base 
- * @param {string} endpoint 
  */
- function buildUrl(base, endpoint) {
-  return base + endpoint;
-}
 function buildCoinsListPaprikaUrl(){
   return PAPRIKA_BASEURL + PAPRIKA_ENDPOINT_COINS;
 }

@@ -1,11 +1,3 @@
-/**
- * 
- * Module for helper functions
- * 
- */
-
-import { logDOM } from "@testing-library/react";
-
 
 /**
  * 
@@ -62,14 +54,13 @@ export var Format = {
 export var Compare = {
     byKey: (key, order = 'asc') => {
         return function compare(a, b) {
-            let comparison = a[key] == b[key] ? 0 : a[key] > b[key] ? 1 : -1;
+            let comparison = a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1;
             return ((order === 'desc') ? (comparison * -1) : comparison);
         };
     },
     quotesByKey: (devise, key, order = 'asc') => {
         return function compare(a, b) {
-            console.log(a.quotes[devise][key]);
-            let comparison = a.quotes[devise][key] == b.quotes[devise][key] ? 0 : a.quotes[devise][key] > b.quotes[devise][key] ? 1 : -1;
+            let comparison = a.quotes[devise][key] === b.quotes[devise][key] ? 0 : a.quotes[devise][key] > b.quotes[devise][key] ? 1 : -1;
             return ((order === 'desc') ? (comparison * -1) : comparison);
         };
     }
@@ -90,8 +81,8 @@ export var Filter = {
                 value.circulating_supply <= filter.maxSup &&
                 value.quotes[filter.devise]["percent_change_24h"] >= filter.minVarD &&
                 value.quotes[filter.devise]["percent_change_24h"] <= filter.maxVarD &&
-                (filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth : true) &&
-                (filter.devise == "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth: true) &&
+                (filter.devise === "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth : true) &&
+                (filter.devise === "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth: true) &&
                 value.quotes[filter.devise]["price"] >= filter.minPrice &&
                 value.quotes[filter.devise]["price"] <= filter.maxPrice);
         }

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
 import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
 

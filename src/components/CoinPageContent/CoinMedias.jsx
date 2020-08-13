@@ -33,13 +33,13 @@ padding-left: 0.5rem;
  * 
  * ******************************** */
 export default function CoinMedias(props) {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+    const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
     color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
     color: `${darkTheme.content}` }
 
-    const activeLink = theme == 'light' ?  {color: `${lightTheme.text}`} :
+    const activeLink = theme === 'light' ?  {color: `${lightTheme.text}`} :
     {color: `${darkTheme.text}`} ;
 
     return (

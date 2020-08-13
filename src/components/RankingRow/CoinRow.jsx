@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter, Switch, Route, Link, NavLink, withRouter, useHistory, useParams } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Route, Link, withRouter } from "react-router-dom";
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
-import styled, { keyframes, withTheme } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
 import { Maths, Format } from '../../modules/Utilities';
 import CoinsPage from '../../pages/mainpages/CoinsPage';
@@ -20,15 +20,19 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  */
 const Td = styled.td`
 height: 50px;
+border-style: solid none solid none;
+border-width: 1px;
+border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkTheme.border)};
+
 @media (max-width: 1100px) {
     height:40px; }
     `;
-    const TdRank = styled(Td)`
+const TdRank = styled(Td)`
     padding-left: 0.2rem;
     font-weight: bold;
     text-align: left;
    `;
-   const TdName = styled(Td)`
+const TdName = styled(Td)`
    font-weight: bold;
    text-align: left;
    img{
@@ -69,18 +73,22 @@ padding-right: 0;
     animation: ${blinkingRed} ease-in-out 2s 5;
     `;
 const TdG = styled.td`
-    margin: 0;
-    padding: 0;
     `;
-    const TdRight = styled(Td)`
+const TdRight = styled(Td)`
     text-align: right;
     `;
-    const TdSupply = styled(TdRight)`
+const TdSupply = styled(TdRight)`
     padding-right: 0.2rem;
     `;
+// const TrickChartBorder = styled.div`
+// height: 1px;
+// z-index: 5;
+// border-width: 0 0 1px 0;
+// border-style: solid none;
+// border-color: ${props => (props.theme == 'light' ? lightTheme.border : darkTheme.border)};
+// padding-top:6px;
+// `;
 
-    //  width: 150px;
-//    height: 20px;
 /**
  * colore set of mini chart
  */
@@ -93,28 +101,27 @@ CanvasJS.addColorSet("darkThemeColor", [darkTheme.content]);
 * 
 * ******************************** */
 const CoinRow = (props) => {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
 
     const link = "/coin/" + props.symbol.toLowerCase() + "/chart";
     const trysymbol = props.symbol.toLowerCase();
     /**
      * Style classNames
      */
-    const styleClassPrice = "text-" + (props.percent_from_price_ath >= 0 ? "success" : "danger");
-
     const styleClassVarH1 = "text-" + (props.percent_change_1h >= 0 ? "success" : "danger");
     const styleClassVarH24 = "text-" + (props.percent_change_24h >= 0 ? "success" : "danger");
     const styleClassVarD7 = "text-" + (props.percent_change_7d >= 0 ? "success" : "danger");
     const styleClassVarD30 = "text-" + (props.percent_change_30d >= 0 ? "success" : "danger");
     const styleClassVarAth = "text-" + (props.percent_from_price_ath >= 0 ? "success" : "danger");
 
-    const lineColor = theme == 'light' ? "lightThemeColor" : "darkThemeColor";
-    const bckgrndColor = theme == 'light' ? lightTheme.container : darkTheme.container;
+    const lineColor = theme === 'light' ? "lightThemeColor" : "darkThemeColor";
+    const bckgrndColor = theme === 'light' ? lightTheme.container : darkTheme.container;
 
-    const graphStyle = {
-        margin: 0,
-        padding: 0,
-    };
+    // const graphStyle = {
+    //     margin: '0',
+    //     padding: '2rem 0',
+
+    // };
 
     const textLinkColor = theme === 'light' ? lightTheme.text : darkTheme.text;
     const linkStyle = {
@@ -124,58 +131,34 @@ const CoinRow = (props) => {
         color: `${textLinkColor}`
     };
 
-  /*  var canvas = document.getElementsByClassName('chart');
-var heightRatio = 1;
-canvas.height = canvas.width * heightRatio;
-useEffect(() => {
-    
-  resizeWindow();
-  window.addEventListener("resize", resizeWindow);
 
-  return () => window.removeEventListener("resize", resizeWindow);
-}, []);
-
-   
-    l  const resizeWindow = () => {
-        setWindowWidth(window.innerWidth);
-        if (window.innerWidth <= 920 && isVertical) {
-         //   setIsOpened(false);
-        }
-    };
-     // canvasWidth= Math.round(window.innerWidth/6);
-    };
-    const canvasWidth= Math.max(130, Math.round(windowWidth/6));*/
     /**
      * chart data
      */
-    const dataSet = props.priceSet == undefined ?
+    const dataSet = props.priceSet === undefined ?
         [[0, 0], [0, 0]]
         : props.priceSet.map(set => {
-        return {
-            /*paprika
-            x: set.timestamp,
-            y: set.price
-            */
-            //geko
-            x: set[0],
-            y: set[1]
-            //*/
-        }
-    })
+            return {
+                /*paprika
+                x: set.timestamp,
+                y: set.price
+                */
+                //geko
+                x: set[0],
+                y: set[1]
+                //*/
+            }
+        })
     /**
     * chart settings
     */
     const options = {
-       /* title: {
-            text: null
-        },*/
-        //width: canvasWidth,
         interactivityEnabled: false,
-        height: 45,
+        height: 40,
         colorSet: lineColor,
         backgroundColor: bckgrndColor,
         toolTip: {
-            enabled: false   //enable here
+            enabled: false
         },
         axisX: {
             lineColor: "transparent",
@@ -193,10 +176,9 @@ useEffect(() => {
             tickLength: 0,
             argin: 0,
             scaleBreaks: {
-                //autoCalculate: true //change it to false
                 customBreaks: [{
                     startValue: 0,
-                    endValue: Maths.getMinOfSerieInSet(dataSet,"y"), //dataSet[0].y,  
+                    endValue: Maths.getMinOfSerieInSet(dataSet, "y"), //dataSet[0].y,  
                     color: " ",
                     type: " "
                 }]
@@ -209,9 +191,9 @@ useEffect(() => {
             type: "spline",
             dataPoints: dataSet
         }],
-        dataSeries:{
-            cursor: " "  
-          }
+        dataSeries: {
+            cursor: " "
+        }
     }
 
     function getAvailableIcon() {
@@ -230,15 +212,15 @@ useEffect(() => {
     const icon = getAvailableIcon();
 
 
-const price = Format.toCurrencyNDigits(props.price,'USD',8);
-const volume = Format.toCurrencyNDigits(props.volume_24h,'USD',0);
-const marketcap = Format.toCurrency(props.market_cap,'USD');
+    const price = Format.toCurrencyNDigits(props.price, 'USD', 8);
+    const volume = Format.toCurrencyNDigits(props.volume_24h, 'USD', 0);
+    const marketcap = Format.toCurrency(props.market_cap, 'USD');
 
     return (
         <>
             <tr>
-                <TdRank className="ml-1">{props.rank}</TdRank>
-                <TdName>
+                <TdRank className="ml-1" theme={theme}>{props.rank}</TdRank>
+                <TdName theme={theme}>
                     <Link to={link} exact style={linkStyle} activeLink={activeLink}>
                         <span><img src={icon} alt={props.symbol} width={"15px"} /></span>
                         <span >{props.name}</span>
@@ -246,31 +228,32 @@ const marketcap = Format.toCurrency(props.market_cap,'USD');
                 </TdName>
                 {
                     props.snapshotChange === 'unchanged' ?
-                        <TdUnchanged>{price}</TdUnchanged> :
+                        <TdUnchanged theme={theme}>{price}</TdUnchanged> :
                         props.snapshotChange === 'up' ?
-                            <TdUp>{price}</TdUp> :
-                            <TdDown>{price}</TdDown>
+                            <TdUp theme={theme}>{price}</TdUp> :
+                            <TdDown theme={theme}>{price}</TdDown>
                 }
-                <TdRight className={styleClassVarH1}>{props.percent_change_1h}</TdRight>
-                <TdRight className={styleClassVarH24}>{props.percent_change_24h}</TdRight>
-                <TdRight className={styleClassVarD7}>{props.percent_change_7d}</TdRight>
+                <TdRight className={styleClassVarH1} theme={theme}>{props.percent_change_1h}</TdRight>
+                <TdRight className={styleClassVarH24} theme={theme}>{props.percent_change_24h}</TdRight>
+                <TdRight className={styleClassVarD7} theme={theme}>{props.percent_change_7d}</TdRight>
                 {
-                props.priceSet == undefined ? 
-                <TdG>
-                "...   .no data yet.  ..." {/* null */}
-                </TdG>
-                 :
-                    <TdG>
-                        <CanvasJSChart className="chart" style={graphStyle} options={options} />
+                    props.priceSet === undefined ?
+                        <TdG theme={theme}>
+                            "...   .no data yet.  ..." {/* null */}
                         </TdG>
-                        
-                }
-                <TdRight className={styleClassVarD30}>{props.percent_change_30d}</TdRight>
+                        :
+                        <TdG theme={theme}>
+                            <CanvasJSChart className="chart" theme={theme} options={options} />
+                            {/* <TrickChartBorder theme={theme}></TrickChartBorder> */}
+                        </TdG>
 
-                <TdRight className={styleClassVarAth}>{props.percent_from_price_ath}</TdRight>
-                <TdRight>{volume}</TdRight>
-                <TdRight>{marketcap}</TdRight>
-                <TdSupply >{props.circulating_supply.toLocaleString()}</TdSupply>
+                }
+                <TdRight className={styleClassVarD30} theme={theme}>{props.percent_change_30d}</TdRight>
+
+                <TdRight className={styleClassVarAth} theme={theme}>{props.percent_from_price_ath}</TdRight>
+                <TdRight theme={theme}>{volume}</TdRight>
+                <TdRight theme={theme}>{marketcap}</TdRight>
+                <TdSupply theme={theme} >{props.circulating_supply.toLocaleString()}</TdSupply>
 
 
             </tr>

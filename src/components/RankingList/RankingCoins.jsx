@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {  withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { DataContext } from "../NavBars/DataContext";
@@ -32,6 +32,11 @@ position: sticky;
 top: var(--navbar--main-height);
 min-height: 3rem;
 opacity: 1;
+
+border-style: solid none solid none;
+border-width: 1px;
+border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkTheme.border)};
+
 :hover{
   text-decoration: underline;
   cursor: pointer;
@@ -57,8 +62,6 @@ max-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
 `;
 
 const ThChart = styled(Th)`
-// min-width: 130px;
-// max-width: 250px;
 text-align: center;
 z-index: 15;
 min-width: ${props => (props.pubIsOpen ? '10vw' : '15vw')};
@@ -94,7 +97,7 @@ max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
   min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
   max-width: ${props => (props.pubIsOpen ? '8vw' : '15rem')};
    `;
-   const ThMarket = styled(ThNum)`
+const ThMarket = styled(ThNum)`
 min-width: ${props => (props.pubIsOpen ? '8vw' : '8vw')};
 max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
    `;
@@ -107,128 +110,128 @@ max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
   }   
    `;
 
-       const DivVertPub = styled.div`
-       //  @media (max-width: 1100px) {
-       //     transform: translateX(100px);
-       }
-        `;
-    /**
-     * Component loading the table
-     * @param {*} props 
-     */
+
+/**
+ * Component loading the table
+ * @param {*} props 
+ */
 const RankingCoins = (props) => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
-  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
- const [sortSettings, setSortSettings] = useState({
-   key: 'rank',
-   order: 'asc'
- });
-
-
-/**
- * style and classes
- */
- const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
- color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
- color: `${darkTheme.content}` }
-
-
-
- 
-/**
- * sort click handlers
- */
-const handleClickRank = () => {
-  sortManager('rank');
-}
-const handleClickName = () => {
-  sortManager('name');
-}
-const handleClickPrice = () => {
-  sortManager('price');
-}
-const handleClickMarketCap = () => {
-  sortManager('market_cap');
-}
-const handleClickSupply = () => {
-  sortManager('circulating_supply');
-}
-const handleClickChangeh1 = () => {
-  sortManager('percent_change_1h');
-}
-const handleClickChangeh24 = () => {
-  sortManager('percent_change_24h');
-}
-const handleClickChanged7 = () => {
-  sortManager('percent_change_7d');
-}
-const handleClickChanged30 = () => {
-  sortManager('percent_change_30d');
-}
-const handleClickChangeAth = () => {
-  sortManager('percent_from_price_ath');
-}
-const handleClickVolumeh24 = () => {
-  sortManager('volume_24h');
-}
-
-/**
- * Manage the field and order to sort columns
- * 
- * @param {srting} key 
- */
-const sortManager = (key) => {
-  let newOrder;
-  if (sortSettings.key == key) {
-    newOrder = sortSettings.order === 'asc' ? 'desc' : 'asc';
-  } else {
-    newOrder = 'asc';
-  }
-  setSortSettings({
-    key: key,
-    order: newOrder
+  const { coinsInfos } = useContext(DataContext);
+  const [sortSettings, setSortSettings] = useState({
+    key: 'rank',
+    order: 'asc'
   });
-  props.handleClickSort(key, newOrder);
-}
-  
-const thClass="";//"position-absolute sticky-top";
 
 
-//<Table className="table table-primary table-bordered"></Table>
+  /**
+   * style and classes
+   */
+  const colorStyle = theme === 'light' ? {
+    backgroundColor: `${lightTheme.container}`,
+    color: `${lightTheme.content}`
+  } : {
+    backgroundColor: `${darkTheme.container}`,
+      color: `${darkTheme.content}`
+    }
+
+
+
+
+  /**
+   * sort click handlers
+   */
+  const handleClickRank = () => {
+    sortManager('rank');
+  }
+  const handleClickName = () => {
+    sortManager('name');
+  }
+  const handleClickPrice = () => {
+    sortManager('price');
+  }
+  const handleClickMarketCap = () => {
+    sortManager('market_cap');
+  }
+  const handleClickSupply = () => {
+    sortManager('circulating_supply');
+  }
+  const handleClickChangeh1 = () => {
+    sortManager('percent_change_1h');
+  }
+  const handleClickChangeh24 = () => {
+    sortManager('percent_change_24h');
+  }
+  const handleClickChanged7 = () => {
+    sortManager('percent_change_7d');
+  }
+  const handleClickChanged30 = () => {
+    sortManager('percent_change_30d');
+  }
+  const handleClickChangeAth = () => {
+    sortManager('percent_from_price_ath');
+  }
+  const handleClickVolumeh24 = () => {
+    sortManager('volume_24h');
+  }
+
+  /**
+   * Manage the field and order to sort columns
+   * 
+   * @param {srting} key 
+   */
+  const sortManager = (key) => {
+    let newOrder;
+    if (sortSettings.key === key) {
+      newOrder = sortSettings.order === 'asc' ? 'desc' : 'asc';
+    } else {
+      newOrder = 'asc';
+    }
+    setSortSettings({
+      key: key,
+      order: newOrder
+    });
+    props.handleClickSort(key, newOrder);
+  }
+
+  const thClass = "";//"position-absolute sticky-top";
+
+
+  //<Table className="table table-primary table-bordered"></Table>
   return (
-    <Table  className="container-fluid" style={colorStyle}>
+    <Table className="container-fluid" style={colorStyle}>
       <Thead>
         <Tr >
           <ThRank className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
           <ThName className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
-          <ThPrice className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
+          <ThPrice className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
           <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>         
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent> 
-           { !props.priceSetData ? null:
-          <ThChart  style={colorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
-            </ThChart>     
-}     
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent>
+          {!props.priceSetData ? null :
+            <ThChart style={colorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
+            </ThChart>
+          }
           <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent> 
+          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent>
           <ThNum className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
-          <ThMarket className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>  
+          <ThMarket className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>
           <ThSupply className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
-                
- 
+
+
         </Tr>
       </Thead>
-      
+
       <tbody>
-    
-      {
-          props.coinsData.map(({rank, symbol, name, circulating_supply, quotes }, index) =>
-           <CoinRow
+
+        {
+          props.coinsData.map(({ rank, symbol, name, circulating_supply, quotes }, index) =>
+            <CoinRow
               key={symbol}
               rank={rank}
               symbol={symbol}
-              svg={ (coinsInfos.list.get(symbol.toLowerCase())) ?
+              svg={(coinsInfos.list.get(symbol.toLowerCase())) ?
                 coinsInfos.list.get(symbol.toLowerCase()).svg
                 : "generic.svg"
               }
@@ -237,16 +240,16 @@ const thClass="";//"position-absolute sticky-top";
               percent_change_1h={quotes[props.devise].percent_change_1h}
               percent_change_24h={quotes[props.devise].percent_change_24h}
               percent_change_7d={quotes[props.devise].percent_change_7d}
-              
-              percent_change_30d={quotes[props.devise].percent_change_30d} 
-  
+
+              percent_change_30d={quotes[props.devise].percent_change_30d}
+
               percent_from_price_ath={quotes[props.devise].percent_from_price_ath}
               volume_24h={quotes[props.devise].volume_24h}
-              market_cap={quotes[props.devise].market_cap}            
-              circulating_supply={circulating_supply} 
+              market_cap={quotes[props.devise].market_cap}
+              circulating_supply={circulating_supply}
               priceSet={props.priceSetData[symbol.toLowerCase()][props.devise]}
               snapshotChange={props.snapshotChange[index]}
- 
+
             />
           )
         }

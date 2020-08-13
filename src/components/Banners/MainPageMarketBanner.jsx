@@ -4,15 +4,11 @@ import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
 import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
-import { useTheme } from '../ThemeToggler/useTheme';
 import { lightTheme, darkTheme } from '../../themes/Theme';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 
-import { Time } from "../../modules/Utilities";
+import { Time, Format } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
-import { useClose } from "./useClose";
-
-import { Format } from "../../modules/Utilities";
 
 
 /**
@@ -64,7 +60,7 @@ export default function MarketBannerMainPage(props) {
   /**
    * style and classes
    */
-   const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
+   const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
    color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
    color: `${darkTheme.content}` }
    
@@ -79,8 +75,7 @@ export default function MarketBannerMainPage(props) {
         let respGeckoInfos = DataProvider.getGlobalInfosFromGecko();
 
         Promise.all([respPaprikaInfos, respGeckoInfos]).then((responses) => {
-            //setLoading(false);
-            console.log(responses[0].data, responses[1].data);
+  
             setGlobalInfos({
                 paprikaInfos: responses[0].data,
                 geckoInfos: responses[1].data.data

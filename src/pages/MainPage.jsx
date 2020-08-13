@@ -1,9 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { BrowserRouter, Switch, Route, useHistory, useParams } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useParams } from 'react-router-dom';
 import { DataContext } from "../components/NavBars/DataContext";
 import { DataProvider } from "../modules/DataProvider";
-
-import styled from 'styled-components';
 
 import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
@@ -15,14 +13,6 @@ import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
 import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
 import { useClose } from "../components/Banners/useClose";
-import { useUpdateTime } from '../components/Banners/useUpdateTime';
-
-
- const DivVertPub = styled.div`
-//  @media (max-width: 1000px) {
-//     transform: translateX(100px);
-}
- `;
 
 
 
@@ -33,24 +23,23 @@ import { useUpdateTime } from '../components/Banners/useUpdateTime';
  * ******************************** */
 export default function MainPage(props) {
    // const [isOpened, setIsOpened] = useState(true);
-    const { id, type } = useParams();
+    const { id } = useParams();
 
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
      const [showBanner, closeBanner] = useClose(true);
      const [lastUpdateTime, setLastUpdateTime] = useState();
 
-let a=false;
+     const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
+     const colPubClass =  (showBanner ? " col-2" : " col-0");
+
+     const loading = coinsInfos.list.length === 0 ?
+     <div className="container"> <Loader/> </div> : "";
+
 
     useEffect( () => {
-        if(coinsInfos.list.length == 0){
+        if(coinsInfos.list.length === 0){
          componentDidMount();
-        }
-        let intervalloading = null;
-
-      //  if(!isOpened){
-      //      (a =true);
-        //}
-     
+        }  
     })
 
 
@@ -59,28 +48,14 @@ let a=false;
     };
    
 
-
-
-
-    const essai = coinsInfos.list.length == 0 ?<div className="container">
-
-    <Loader/>
-    </div> : "";
     const componentDidMount = async () => {
-        //const response = await axios.get(coinsTickers);
-
-
-        ///ATTENTION LIMITER APPEL API => test state == []
-
         const dictionary =[];
 
         await DataProvider.getCoinList().then((datas)=>{
-          for (const [key,val] of datas) {
+          for (const val of datas.values()) {
           dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
         }
           
-          //props.loadCoinsInfos(dictionary,datas);
-
           setCoinsInfos(()=>{
             const infos = {
               dictionary: dictionary,
@@ -92,21 +67,7 @@ let a=false;
         });
     }
 
-    /*
-    * function passed to Pub compenent, thus the bannercloser can forward 
-    * the change to set the corresonpding col class
-    */
-    const closePub = () => {
-   //     setIsOpened(false);
-    }
-    const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
-    const colPubClass =  (showBanner ? " col-2" : " col-0");
 
-
-   
-    //                                <Route exact strict path="/" component={RankingsPage} />
-
-   // console.log(coinsInfos.dictionary, "dico from main page avant render");
     return (
         <BrowserRouter>
         <div className="globalContainer container-fluid">
@@ -117,7 +78,7 @@ let a=false;
                 <div className={colMainClass}>
                 <HorzPubBanner />
                     <div>
-                        {essai == "" ? 
+                        {loading === "" ? 
 
                             <Switch>
 
@@ -133,12 +94,12 @@ let a=false;
                                 </Route>
                             </Switch>
 
-                        : essai }
+                        : loading }
                     </div>
                 </div>
-                <DivVertPub className={colPubClass}>
+                <div className={colPubClass}>
                 <VertPubBanner closeBanner={closeBanner} showBanner={showBanner}/>
-                </DivVertPub>
+                </div>
 
             </div>
         </div>
