@@ -16,7 +16,7 @@ export default function ExchangeHeader(props) {
             <header>
                 <MainPagePubBanner/>
                 <MainPageInfoBanner/>
-                <MainPageMarketBanner/>
+                <MainPageMarketBanner refreshUpdateTime={props.refreshUpdateTime}/>
             </header>
         );
 }

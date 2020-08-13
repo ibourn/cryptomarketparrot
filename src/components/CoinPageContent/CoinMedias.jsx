@@ -43,7 +43,7 @@ export default function CoinMedias(props) {
     {color: `${darkTheme.text}`} ;
 
     return (
-        <section className="row mt-3" style={colorStyle}>
+        <section className="row pt-3" style={colorStyle}>
 
             <ul><SpanOrigin> Last From Twitter :</SpanOrigin>
 {

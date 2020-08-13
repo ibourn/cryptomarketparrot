@@ -13,6 +13,14 @@ import { lightTheme, darkTheme } from '../../themes/Theme';
  */
 const Table = styled.table`
 font-size: 0.7rem;
+@media (min-width: 1200px) {
+  font-size: 1rem;
+}
+@media (min-width: 1100px) {
+  font-size: ${props => (props.pubIsOpen ? '0.8rem' : '0.7rem')};
+}
+`;
+const Tr = styled.tr`
 `;
 const Thead = styled.thead`
 line-height: 2rem;
@@ -43,6 +51,7 @@ padding-left: 0.2rem
 min-width: ${props => (props.pubIsOpen ? '6vw' : '6vw')};
 max-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
 @media (max-width: 1100px) {
+  text-align: center;
   min-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};
   max-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};  } 
 `;
@@ -189,8 +198,8 @@ const thClass="";//"position-absolute sticky-top";
 //<Table className="table table-primary table-bordered"></Table>
   return (
     <Table  className="container-fluid" style={colorStyle}>
-      <Thead className="" >
-        <tr className="">
+      <Thead>
+        <Tr >
           <ThRank className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
           <ThName className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
           <ThPrice className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
@@ -208,7 +217,7 @@ const thClass="";//"position-absolute sticky-top";
           <ThSupply className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
                 
  
-        </tr>
+        </Tr>
       </Thead>
       
       <tbody>

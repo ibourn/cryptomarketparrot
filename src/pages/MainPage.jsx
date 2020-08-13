@@ -15,6 +15,7 @@ import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
 import VertPubBanner from "../components/Banners/VerticalPubBanner";
 
 import { useClose } from "../components/Banners/useClose";
+import { useUpdateTime } from '../components/Banners/useUpdateTime';
 
 
  const DivVertPub = styled.div`
@@ -22,6 +23,7 @@ import { useClose } from "../components/Banners/useClose";
 //     transform: translateX(100px);
 }
  `;
+
 
 
 /************************************
@@ -35,26 +37,7 @@ export default function MainPage(props) {
 
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
      const [showBanner, closeBanner] = useClose(true);
-
-  //  const { coinsInfos, setCoinsInfos } = useContext(DataContext);
-   /* const [coinsInfos, setCoinsInfos] = useState({
-        dictionary: [],
-        list:[]}
-        );*/
-
-   /* const loadCoinsInfos = (dico, list) => {
-        setCoinsInfos({
-            dictionary: dico, 
-            coinsList: list
-        });
-        console.log(dico, "dico from main page");
-
-
-
-    }*/
-
-    console.log("HEHO JE SUIS APPELE MAINAPAGE");
-
+     const [lastUpdateTime, setLastUpdateTime] = useState();
 
 let a=false;
 
@@ -69,6 +52,13 @@ let a=false;
         //}
      
     })
+
+
+    const refreshUpdateTime = (newUpdateTime) => {
+        setLastUpdateTime(newUpdateTime)
+    };
+   
+
 
 
 
@@ -112,6 +102,8 @@ let a=false;
     const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
     const colPubClass =  (showBanner ? " col-2" : " col-0");
 
+
+   
     //                                <Route exact strict path="/" component={RankingsPage} />
 
    // console.log(coinsInfos.dictionary, "dico from main page avant render");
@@ -119,8 +111,7 @@ let a=false;
         <BrowserRouter>
         <div className="globalContainer container-fluid">
 
-
-            <MainPageHeader />
+            <MainPageHeader  lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime}/>
             <MainPageNavBar />
             <div className="row no-gutters">
                 <div className={colMainClass}>
@@ -131,14 +122,14 @@ let a=false;
                             <Switch>
 
                                 <Route exact strict path="/" >
-                                <RankingsPage pubIsOpen={showBanner}/> 
+                                <RankingsPage pubIsOpen={showBanner}   lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime} /> 
                                 </Route>
                                 
                                 <Route   path="/coin/:id/:type" >
                                 <CoinsPage coin={id}  />
                                 </Route>
                                 <Route   path="/coin/:id/chart" >
-                                <CoinsPage coin={id}  />
+                                <CoinsPage coin={id} />
                                 </Route>
                             </Switch>
 

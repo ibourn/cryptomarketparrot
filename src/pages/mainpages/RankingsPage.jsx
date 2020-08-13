@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route, useHistory, useParams, useLocation } from 'react-router-dom';
 import { DataContext } from '../../components/NavBars/DataContext';
+import { UpdateTimeContext } from '../../components/Banners/UpdateTimeContext';
 import styled from 'styled-components';
 
 import RankingCoins from "./../../components/RankingList/RankingCoins";
 import CoinRankingNavbar from "../../components/NavBars/CoinRankingNavbar";
 import CoinsPage from './CoinsPage';
 
-import { Format, Compare, Filter, Copy } from "../../modules/Utilities";
+import { Format, Compare, Filter, Copy, Time } from "../../modules/Utilities";
 import { DataProvider } from "../../modules/DataProvider";
 
 
@@ -18,7 +19,8 @@ const Title = styled.h1`
  font-size: 1.5rem;
  text-align: center;
  height: 4rem;
- padding-top: 1rem;
+ margin-top: 1.5rem;
+ margin-bottom: 1.5rem;
  @media (max-width: 900px) {
   height: 5rem;
 }
@@ -114,8 +116,9 @@ export default function RankingsPage(props) {
       snapshot: Copy.nested(newCoinsData),
       snapshotChange: Copy.deep(snapChange),
       priceSetData: newPriceSet //Copy.nested(newPriceSet)
-    })
+    });
 
+    props.refreshUpdateTime(Time.fromTimestamp(Date.now()));
   }
 
   /**
@@ -410,7 +413,7 @@ export default function RankingsPage(props) {
   const { match, location, history } = props;
   console.log("Rankingpahe", match, location, history);
   return (
-    <div className="tableContainer container-fluid">
+    <div className="tableContainer container-fluid py-4">
 
       <Title>{`Top ${COIN_COUNT} cryptocurrencies by market capitalisation (in ${filter.devise})`}</Title>
       <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}

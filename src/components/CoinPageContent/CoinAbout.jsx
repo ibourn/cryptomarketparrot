@@ -56,9 +56,9 @@ export default function CoinAbout(props) {
 
 
     return (
-        <Section className="container">
-            <main className="row container">
-                <div className="row my-2 justify-content-between" style={colorStyle}>
+        <Section className="container-fluid">
+            <main className="row container-fluid">
+                <div className="row mb-2 pt-2 container justify-content-between" style={colorStyle}>
                     <div className="col-6">
                         <ul><SpanTitle>Next events :</SpanTitle>
                             {
@@ -120,13 +120,13 @@ export default function CoinAbout(props) {
                         </article>
                     </div>
                 </div>
-                <ArtDescription className="row  my-2 px-1" style={colorStyle}>
+                <ArtDescription className="row  my-2 pt-2 px-1" style={colorStyle}>
                     <SpanTitle>About :</SpanTitle>
 
                     <div dangerouslySetInnerHTML={descriptionMarkUp}></div>
 
                 </ArtDescription>
-                <div className="row my-2 container d-flex justify-content-between" style={colorStyle}>
+                <div className="row my-2 pt-2 container d-flex justify-content-between" style={colorStyle}>
                     <div className="col-4">
                         <article><SpanTitle>Rankings :</SpanTitle>
                             <p><SpanLabel>Genesis date :</SpanLabel><span>{props.coinInfo.genesis_date}</span></p>

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Link, NavLink, withRouter, useHistory, us
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, withTheme } from 'styled-components';
 import CanvasJSReact from '../../modules/canvasjs.react';
 import { Maths, Format } from '../../modules/Utilities';
 import CoinsPage from '../../pages/mainpages/CoinsPage';
@@ -11,6 +11,9 @@ import CoinsPage from '../../pages/mainpages/CoinsPage';
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+//test to hide the watermark
+//
+///////
 
 /**
  * Style
@@ -49,16 +52,18 @@ const blinkingRed = keyframes`
 100%{opacity: 1; } 
 `;
 
-const TdUnchanged = styled.td`
-    `;
-const TdUp = styled(Td)`
+const TdUnchanged = styled(Td)`
 text-align: right;
+padding-right: 0.1rem;
+    `;
+const TdUp = styled(TdUnchanged)`
+padding-right: 0;
      color: green;
      font-weight: bold;
     animation: ${blinkingGreen} ease-in-out 2s 5;
     `;
-const TdDown = styled(Td)`
-text-align: right;
+const TdDown = styled(TdUnchanged)`
+padding-right: 0;
     color: red;
     font-weight: bold;
     animation: ${blinkingRed} ease-in-out 2s 5;
@@ -161,10 +166,11 @@ useEffect(() => {
     * chart settings
     */
     const options = {
-        title: {
+       /* title: {
             text: null
-        },
+        },*/
         //width: canvasWidth,
+        interactivityEnabled: false,
         height: 45,
         colorSet: lineColor,
         backgroundColor: bckgrndColor,
@@ -172,6 +178,7 @@ useEffect(() => {
             enabled: false   //enable here
         },
         axisX: {
+            lineColor: "transparent",
             gridDashType: "dot",
             gridThickness: 0,
             valueFormatString: " ",
@@ -179,6 +186,7 @@ useEffect(() => {
             margin: 0,
         },
         axisY: {
+            lineColor: "transparent",
             gridDashType: "dot",
             gridThickness: 0,
             valueFormatString: " ",
@@ -195,11 +203,15 @@ useEffect(() => {
             }
         },
         data: [{
+            lineThickness: 1,
             yValueFormatString: " ",
             xValueFormatString: " ",
             type: "spline",
             dataPoints: dataSet
-        }]
+        }],
+        dataSeries:{
+            cursor: " "  
+          }
     }
 
     function getAvailableIcon() {
@@ -245,13 +257,13 @@ const marketcap = Format.toCurrency(props.market_cap,'USD');
                 {
                 props.priceSet == undefined ? 
                 <TdG>
-                "no data yet" {/* null */}
+                "...   .no data yet.  ..." {/* null */}
                 </TdG>
                  :
-
                     <TdG>
                         <CanvasJSChart className="chart" style={graphStyle} options={options} />
                         </TdG>
+                        
                 }
                 <TdRight className={styleClassVarD30}>{props.percent_change_30d}</TdRight>
 

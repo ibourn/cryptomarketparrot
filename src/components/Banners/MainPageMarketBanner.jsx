@@ -51,6 +51,8 @@ font-size: 0.7rem;
  * ******************************** */
 export default function MarketBannerMainPage(props) {
     const { theme, toggleTheme } = useContext(ThemeContext);
+  //  const { updateTime, refreshUpdateTime } = useContext(UpdateTimeContext);
+
     //const [theme, toggleTheme] = useTheme();
     //const [showBanner, closeBanner] = useClose();
     const [globalInfos, setGlobalInfos] = useState({
@@ -65,7 +67,7 @@ export default function MarketBannerMainPage(props) {
    const colorStyle = theme == 'light' ? { backgroundColor: `${lightTheme.container}`,
    color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
    color: `${darkTheme.content}` }
-
+   
     useEffect(() => {
         fetchGlobalInfos();
     });
@@ -85,6 +87,8 @@ export default function MarketBannerMainPage(props) {
             })
         });
         setLoading(false);
+        
+        props.refreshUpdateTime(Time.fromTimestamp(globalInfos.paprikaInfos.last_updated));
     }
 
     const divUlClass = "d-flex flex-row justify-content-between";
@@ -93,6 +97,9 @@ export default function MarketBannerMainPage(props) {
     const Separator = <i class="fas fa-circle text-muted"></i>;
 
     const loader = !loading ? "" : <span>Fecthing data ... </span>
+
+
+    const newUpdateTime = props.lastUpdateTime ? props.lastUpdateTime : Time.fromTimestamp(globalInfos.paprikaInfos.last_updated);
 
     return (
         <>
@@ -134,7 +141,7 @@ export default function MarketBannerMainPage(props) {
                             <Li key="MB12">{Separator}</Li>
                             <Li key="MB13" className={divLiClass}>
                                 <span>Last update :</span><span className={content}>{" " +  
-                                Time.fromTimestamp(globalInfos.paprikaInfos.last_updated)}</span>
+                                newUpdateTime}</span>
                             </Li>
                         </Ul>
                     }

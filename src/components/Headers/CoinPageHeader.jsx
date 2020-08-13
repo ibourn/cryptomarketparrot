@@ -76,7 +76,7 @@ export default function CoinPageHeader(props) {
                                     {props.coinInfo.symbol}</SpanSymbol>
                             </H1>
                         </div>
-                        <div className="row flex justify-content-between">
+                        <div className="row justify-content-between">
                             <P>
                                 <SpanLabel>High (24h)</SpanLabel>
                                 <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.high_24h.usd,'USD',2)}</SpanData>
@@ -87,7 +87,7 @@ export default function CoinPageHeader(props) {
                             </P>
 
                         </div>
-                        <div className="row flex flex-direction-column justify-content-between">
+                        <div className="row justify-content-between">
                             <P>
                                 <SpanLabel>Price (usd) :</SpanLabel>
                                 <SpanData>{props.coinInfo.market_data.current_price.usd}</SpanData>
@@ -103,8 +103,8 @@ export default function CoinPageHeader(props) {
 
                         </div>
                     </div>
-                    <div className="col-6">
-                        <div className="row my-1">
+                    <div className="col-5 ml-2">
+                        <div className="row my-3">
                             <P>
                                 <SpanLabel>Total supply :</SpanLabel>
                                 <SpanData>{Format.toLocale(props.coinInfo.market_data.total_supply)}</SpanData>
@@ -116,7 +116,7 @@ export default function CoinPageHeader(props) {
 
 
                         </div>
-                        <div className="row my-1">
+                        <div className="row mb-3">
                             <P>
                                 <SpanLabel>Block time(min) :</SpanLabel>
                                 <SpanData>{props.coinInfo.block_time_in_minutes}</SpanData>
