@@ -16,7 +16,7 @@ const Span = styled.span`
   font-style: italic;
     `;
     const Spanesp = styled(Span)`
-  padding: 0 1rem 0 1rem;
+  padding: 0 1rem;
     `;
     const Img = styled.img`
   margin-bottom: 1rem;

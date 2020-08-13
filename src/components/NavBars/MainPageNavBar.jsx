@@ -134,6 +134,10 @@ const MainPageNavBar = (props) => {
         setIsAuth(false);
     };
 
+    const signUpUser = () => {
+        history.push("/signup")
+    };
+
     /**
      * manage input text from user in search bar and compare to the dictionnary
      * to make propositions
@@ -213,27 +217,27 @@ const MainPageNavBar = (props) => {
                         </li>
                         <li className={liClass}>
                             <NavLink
-                                to="/about" exact
+                                to="/exchange" exact
                                 className={linkClass} style={linkStyle} activeStyle={activeLink}>
                                 Exchange
                            </NavLink>
                         </li>
                         <li className={liClass}>
-                            <NavLink to="/profile" exact
+                            <NavLink to="/products" exact
                                 className={linkClass} style={linkStyle} activeStyle={activeLink} >
                                 Products
                            </NavLink>
                         </li>
                         <li className={liClass}>
-                            <NavLink to="/signup" exact
+                            <NavLink to="/tools" exact
                                 className={linkClass} style={linkStyle} activeStyle={activeLink} >
                                 Tools
                             </NavLink>
                         </li>
                         <li className={liClass}>
-                            <NavLink to="/signup" exact
+                            <NavLink to="/about" exact
                                 className={linkClass} style={linkStyle} activeStyle={activeLink} >
-                                Learn
+                                About
                             </NavLink>
                         </li>
                     </ul>
@@ -268,7 +272,7 @@ const MainPageNavBar = (props) => {
                                         Log out
                                     </ButtonLogOut>
                                 )}
-                            <button className={btnSignUpClass} onClick={loginUser}>
+                            <button className={btnSignUpClass} onClick={signUpUser}>
                                 Sign Up
                            </button>
                         </div>

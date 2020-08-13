@@ -27,15 +27,22 @@ min-width: 12vw;
 
 
 const Nav = styled.nav`
+ul{
+  background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
+  div{
+    font-size: 0.7rem;
+   background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
+  }
+}
 .filter{
   * {
     padding:0;
   margin:0;
   }
   background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
-  div, input{
+  div{
     font-size: 0.7rem;
-    background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
+   background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
   }
   label{
     color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
@@ -49,11 +56,15 @@ const Nav = styled.nav`
      margin-left: -70%;
   }
   #btn-filter{
-    width: 6vw;
-    margin-top: 2rem;
-    margin-left: 10%;
+    width: 3.5vw;
+    margin-top: 0.9rem;
+    margin-left: 5%;
+  }
+  a{
+    color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
   }
 }
+
 `;
 
 const Btn = styled.button`
@@ -72,12 +83,15 @@ color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
 `;
 const BtnPage = styled(Btn)`
 min-width: 5.5vw;
+
 `;
 
 
 /**
  * 
  * CoinRanking navbar
+ * 
+ * @todo modify a to btn in menu 
  */
 const CoinRankingNavBar = (props) => {
 
@@ -106,25 +120,29 @@ const CoinRankingNavBar = (props) => {
    */
   const liDropdown = "nav-item dropdown";
   const triggerMenu = "nav-link dropdown-toggle";
-  const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show active" : "");
-  const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show active" : "");
-  const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show active" : "");
+  const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show" : "");
+  const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show" : "");
+  const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show" : "");
   const menuItemClass = "dropdown-item";
 
   const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
-  const triggerBtnMenu = "btn btn-secondary btn-outline-secondary dropdown-toggle"
+  const triggerBtnMenu = "btn btn-sm btn-outline-light dropdown-toggle"
   const itemUSDClass = "dropdown-item" + (props.devise === "USD" ? " active" : "");
   const itemBTCClass = "dropdown-item" + (props.devise === "BTC" ? " active" : "");
 
   const menuFilterClass = "dropdown-menu" + (isDownFilter ? " show" : "");
-  const triggerFilterMenu = "btn btn-secondary dropdown-toggle";
+  const triggerFilterMenu = "btn btn-sm btn-outline-light dropdown-toggle";
 
-  const btnPagePrvClass = "btn btn-sm btn-light text-primary" +
+  const btnPagePrvClass = "btn btn-sm btn-outline-light text-primary" +
   (props.page.current === 0 ? " disabled" : "");
-  const btnPageNxtClass = "btn btn-sm btn-light text-primary" +
+  const btnPageNxtClass = "btn btn-sm btn-outline-light text-primary" +
   (props.page.current === props.page.last - 1 ? " disabled" : "");
-
+/*to remove the original dropdown box*/
   const filterBckgrndColor =  {backgroundColor: `transparent`} ;
+
+  const pageStyle = (theme === 'light' ?
+   {backgroundColor: lightTheme.body, borderColor : lightTheme.border} : 
+   {backgroundColor: darkTheme.body , borderColor : darkTheme.border});
 
   /**
    * toggle functions
@@ -184,7 +202,7 @@ const CoinRankingNavBar = (props) => {
 
 
   return (
-    <Nav className="d-flex justify-content-between" them={theme}>
+    <Nav className="d-flex justify-content-between" theme={theme}>
 
       <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
@@ -192,7 +210,7 @@ const CoinRankingNavBar = (props) => {
             onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Cryptocurrencies</a>
           <div className={menuCryptoClass}>
-            <NavLink to="/" className={menuItemClass}>Top100</NavLink>
+            <NavLink to="/" className={menuItemClass}>Top50</NavLink>
             <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>
             <NavLink to="/" className={menuItemClass}>Defi</NavLink>
           </div>
@@ -215,16 +233,17 @@ const CoinRankingNavBar = (props) => {
         </LiWatchlist>
       </ul>
 
-      <div className="d-flex justify-content-end filter">
+      <div className="d-flex justify-content-end filter" style={pageStyle}>
 
         <div class="dropdown filter">
-          <BtnFilter class={triggerFilterMenu} theme={theme} onClick={toggleDropDownFilter}
-            onBlur={toggleDropDownFilter} type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
+          <BtnFilter class={triggerFilterMenu} theme={theme}
+          style={pageStyle} onClick={toggleDropDownFilter}
+             type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-filter"></i>Filters
            </BtnFilter>
-          <div class={menuFilterClass} style={filterBckgrndColor} aria-labelledby="dropdownFilterButton">
-            <div className="container row" >
+          <div class={menuFilterClass}  theme={theme} style={filterBckgrndColor} aria-labelledby="dropdownFilterButton">
+            <div className="container row d-flex justify-content-around" >
               <div className="col-2">
                 <label for="minCapInput">Min Cap:</label>
                 <input id="minCapInput" type="number" placeholder={0}
@@ -274,21 +293,23 @@ const CoinRankingNavBar = (props) => {
         </div>
 
         <div class="dropdown">
-          <BtnCur class={triggerBtnMenu} theme={theme} onClick={toggleDropDownDevise}
-            onBlur={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
+          <BtnCur class={triggerBtnMenu} theme={theme} style={pageStyle}
+          onClick={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             devises
          </BtnCur>
           <div className={menuDeviseClass} aria-labelledby="dropdownCurButton">
-            <a className={itemUSDClass} onClick={toggleDeviseUSD} href="#">USD</a>
-            <a className={itemBTCClass} onClick={toggleDeviseBTC} href="#">BTC</a>
+            <a className={itemUSDClass} theme={theme} onClick={toggleDeviseUSD} href="">USD</a>
+            <a className={itemBTCClass} theme={theme} onClick={toggleDeviseBTC} href="">BTC</a>
           </div>
         </div>
 
-        <BtnPage className={btnPagePrvClass} onClick={handleClickPagePrv}>
+        <BtnPage className={btnPagePrvClass} style={pageStyle}
+        onClick={handleClickPagePrv}>
           prev100
       </BtnPage>
-        <BtnPage className={btnPageNxtClass} onClick={handleClickPageNxt}>
+        <BtnPage className={btnPageNxtClass} style={pageStyle}
+         onClick={handleClickPageNxt}>
           next100
         </BtnPage>
       </div>

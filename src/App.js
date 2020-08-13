@@ -13,13 +13,9 @@ import { lightTheme, darkTheme } from './themes/Theme';
 import { GlobalStyle } from './themes/GlobalStyled';
 
 import MainPage from './pages/MainPage';
-import NotFoundPage from './pages/NotFoundPage';
-import HeadlinesPage from './pages/HeadlinesPage';
-import InterestPage from './pages/InterestPage';
-import SignUpPage from './pages/SignUpPage';
-import BlockchainExplorerPage from './pages/BlockchainExplorerPage';
+import NotFoundPage from './pages/otherpages/NotFoundPage';
+import ComingSoonPage from './pages/otherpages/ComingSoonPage';
 import MainFooter from './components/Footers/MainFooter';
-
 
 
 function App() {
@@ -52,13 +48,12 @@ function App() {
             <Switch>
               
               <Route exact strict path="/" component={MainPage} />
-              <Route  path="/coin/:id/:type" component={MainPage}  />
+              <Route  exact path="/coin/:id/:type" component={MainPage}  />
 
-              <Route exact path="/headlines" component={HeadlinesPage} />
-              <Route exact path="/interest" component={InterestPage} />
-              <Route exact path="/signup" component={SignUpPage} />
-              <Route exact path="/blockchainexplorer" component={BlockchainExplorerPage} />
-  
+              <Route path="/about" component={MainPage} />
+
+              <Route path="/(exchange||products||tools||signup)" 
+              component={ComingSoonPage}/>
 
               <Route path="*" component={NotFoundPage} />
             </Switch>

@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { BrowserRouter, Switch, Route, useParams } from 'react-router-dom';
+import { Switch, Route, useParams } from 'react-router-dom';
 import { DataContext } from "../components/NavBars/DataContext";
 import { DataProvider } from "../modules/DataProvider";
 
@@ -7,6 +7,7 @@ import MainPageHeader from "../components/Headers/MainPageHeader"
 import MainPageNavBar from "../components/NavBars/MainPageNavBar"
 import RankingsPage from "./mainpages/RankingsPage";
 import CoinsPage from "./mainpages/CoinsPage";
+import About from './About';
 import Loader from "../components/Loader/Loader";
 
 import HorzPubBanner from "../components/Banners/HorizontalPubBanner";
@@ -69,7 +70,6 @@ export default function MainPage(props) {
 
 
     return (
-        <BrowserRouter>
         <div className="globalContainer container-fluid">
 
             <MainPageHeader  lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime}/>
@@ -92,6 +92,7 @@ export default function MainPage(props) {
                                 <Route   path="/coin/:id/chart" >
                                 <CoinsPage coin={id} />
                                 </Route>
+                                <Route path="/about" component={About} />
                             </Switch>
 
                         : loading }
@@ -103,7 +104,6 @@ export default function MainPage(props) {
 
             </div>
         </div>
-        </BrowserRouter>
 
     );
 
