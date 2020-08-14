@@ -43,10 +43,14 @@ margin-right: 0.5rem;
 export default function CoinPageHeader(props) {
     const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
-    color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
-    color: `${darkTheme.content}` }
-    
+    const colorStyle = theme === 'light' ? {
+        backgroundColor: `${lightTheme.container}`,
+        color: `${lightTheme.content}`
+    } : {
+        backgroundColor: `${darkTheme.container}`,
+            color: `${darkTheme.content}`
+        }
+
     return (
         <header className="row mt-3 mb-3" style={colorStyle}>
             <div className="col-3">
@@ -57,13 +61,13 @@ export default function CoinPageHeader(props) {
                 </P>
 
                 <P>
-                                <SpanLabel>Change % (24h)</SpanLabel>
-                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.price_change_percentage_24h,'USD',5)}</SpanData>
-                            </P>
-                            <P>
-                                <SpanLabel>Total volume :</SpanLabel>
-                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.total_volume.usd,'USD',0)}</SpanData>
-                            </P>
+                    <SpanLabel>Change % (24h)</SpanLabel>
+                    <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.price_change_percentage_24h, 'USD', 5)}</SpanData>
+                </P>
+                <P>
+                    <SpanLabel>Total volume :</SpanLabel>
+                    <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.total_volume.usd, 'USD', 0)}</SpanData>
+                </P>
             </div>
 
             <div className="col-9">
@@ -79,11 +83,11 @@ export default function CoinPageHeader(props) {
                         <div className="row justify-content-between">
                             <P>
                                 <SpanLabel>High (24h)</SpanLabel>
-                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.high_24h.usd,'USD',2)}</SpanData>
+                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.high_24h.usd, 'USD', 2)}</SpanData>
                             </P>
                             <P>
                                 <SpanLabel>Low (24h)</SpanLabel>
-                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.low_24h.usd,'USD',2)}</SpanData>
+                                <SpanData>{Format.toCurrencyNDigits(props.coinInfo.market_data.low_24h.usd, 'USD', 2)}</SpanData>
                             </P>
 
                         </div>

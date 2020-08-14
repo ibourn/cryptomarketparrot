@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
 
 import { Format } from '../../modules/Utilities';
 
@@ -40,9 +39,6 @@ export default function CoinMarkets(props) {
     color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
     color: `${darkTheme.content}` }
     
-    const activeLink = theme === 'light' ?  {color: `${lightTheme.text}`} :
-    {color: `${darkTheme.text}`} ;
-    
 
     return (
         <section className="row">
@@ -73,12 +69,13 @@ export default function CoinMarkets(props) {
                 <tbody>
                     {
 
-                        props.coinMarkets.map((data) => {
-                            return (<tr>
+                        props.coinMarkets.map((data, index) => {
+                            return (<tr key={index}>
                                 <TdName>
-                                    <Link to={data.market_url} style={colorStyle} activeLink={activeLink}>
+                                    <a href={data.market_url ? data.market_url : ""} 
+                                    style={colorStyle}>
                                         {data.exchange_name}
-                                    </Link>
+                                    </a>
                                 </TdName>
                                 <td>
                                     {data.pair}

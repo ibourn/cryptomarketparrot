@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom";
 
 import styled from 'styled-components';
 
@@ -21,9 +20,6 @@ margin-left: 1rem;
     font-weight: bold;
     font-size: 1.1rem;
 `;
-const StyledLink = styled(Link)`
-padding-left: 0.5rem;
-`;
 
 /************************************
  * 
@@ -35,12 +31,9 @@ padding-left: 0.5rem;
 export default function CoinMedias(props) {
     const { theme } = useContext(ThemeContext);
 
-    const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
-    color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
+    const colorStyle = theme === 'light' ? { paddingLeft: '0.5rem', backgroundColor: `${lightTheme.container}`,
+    color: `${lightTheme.content}` } :{ paddingLeft: '0.5rem',backgroundColor: `${darkTheme.container}`,
     color: `${darkTheme.content}` }
-
-    const activeLink = theme === 'light' ?  {color: `${lightTheme.text}`} :
-    {color: `${darkTheme.text}`} ;
 
     return (
         <section className="row pt-3" style={colorStyle}>
@@ -50,10 +43,9 @@ export default function CoinMedias(props) {
                     props.coinTwitter.map(res => {
                         return (
                             <Li key={res.status_id}>
-                                <StyledLink to={res.status_link} style={colorStyle}
-                                 activeLink={activeLink}>
+                                <a href={res.status_link} style={colorStyle}>
                                     {res.status}
-                                </StyledLink>
+                                </a>
                             </Li>
                         )
                     })

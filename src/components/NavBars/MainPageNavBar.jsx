@@ -20,16 +20,13 @@ const Nav = styled.nav`
 
 border-style: solid none;
 border-width: 1px;
-border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkTheme.border)};
+border-color: ${({ theme }) => theme.border};
 
-  .navbar-brand{
+  .navbar-brand, #navbarContent{
     font-weight: bold;
   }
   #brand{
       line-height: 3rem;
-  }
-  #navbarContent{
-      font-weight: bold;
   }
   input, button{
       height: 1.5rem;
@@ -44,32 +41,26 @@ input{
 
     `;
 
-const SpanBrand = styled.span`
-    
+const SpanBrand = styled.span`   
 vertical-align: center;
   `;
-
 const DivContainer = styled.div`
-    min-height: 35px;/* 100vh;*/
+    min-height: 35px;
     min-width: 100%;   
   `;
-
 const ButtonLogIn = styled.button`
     :hover {
       font-weight: bold;
     }
   `;
-
 const ButtonLogOut = styled.button`
- 
 :hover {
     font-weight: bold;
   }
 `;
-
 const SpanToggler = styled.span`
-  
 `;
+
 
 /**
  * 
@@ -190,7 +181,7 @@ const MainPageNavBar = (props) => {
 
     //<i class="fas fa-search"></i>
     return (
-        <Nav className={navClass} theme={theme}
+        <Nav className={navClass} 
             role="navigation" aria-label="main navigation">
 
             <DivContainer className="container" style={containerStyle}>
@@ -198,7 +189,7 @@ const MainPageNavBar = (props) => {
                     activeStyle={activeLink} >
 
                     <img src={parrotLogo} width="45px" height="45px" style={imgStyle}
-                        class="d-inline-block align-top" alt="" />
+                        className="d-inline-block align-top" alt="" />
                     <SpanBrand id="brand">CryptoMarketParrot</SpanBrand>
                 </NavLink>
 

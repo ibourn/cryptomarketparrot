@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Time } from './Utilities';
 
-//TODO GERER LES 404 429 50.. et cross origin
 
 /**
  * 
@@ -177,8 +176,12 @@ return url;
 
 
 
-
-
+/**
+ * Module to manage api calls
+ * 
+ * @todo restructure it to manage 429... with timers to not call if we know the call will be rejected
+ * handle errors 50.. and cors
+ */
  export var DataProvider =  {
 
     /**

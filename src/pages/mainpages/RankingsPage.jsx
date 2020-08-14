@@ -79,10 +79,10 @@ export default function RankingsPage(props) {
     let interval = null;
     interval = setInterval(() => {
       fetchAllData();
-      console.log(DataSet.priceSetData);
     }, 35000);
 
-
+    //component will unmount // dependencies array empty => effect call only once when did mount
+    //react warning with ...}, []) => })
     return () => clearInterval(interval);
   });
 
@@ -106,7 +106,6 @@ export default function RankingsPage(props) {
     const snapChange = getChangeInSnapshot(newCoinsData);
 
 
-    console.log("NEWDEVISE", filter.devise, "QD UPDATE EPRES CHGT EN BTC", response.data, dataFiltered, newCoinsData, newPriceSet);
     setDataSet({
       coinsData: Copy.nested(sortedResponse),
       coinsFiltered: Copy.nested(dataFiltered),
@@ -115,7 +114,7 @@ export default function RankingsPage(props) {
       priceSetData: newPriceSet //Copy.nested(newPriceSet)
     });
 
-    props.refreshUpdateTime(Time.fromTimestamp(Date.now()));
+    props.refreshUpdateTime(Time.fromTimestamp(Date.now()/1000));
   }
 
   /**
@@ -238,6 +237,7 @@ export default function RankingsPage(props) {
     const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
     const snapChange = getChangeInSnapshot(newCoinsData);
     const newPriceSet = await fetchPriceSet(newCoinsData);
+
 
     /*update data states*/
     setDataSet((oldSet) => {
@@ -405,8 +405,6 @@ export default function RankingsPage(props) {
     refreshData(false);
   }
 
-  const { match, location, history } = props;
-  console.log("Rankingpahe", match, location, history);
   return (
     <div className="tableContainer container-fluid py-4">
 

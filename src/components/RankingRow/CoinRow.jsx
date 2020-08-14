@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Route, Link, withRouter } from "react-router-dom";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
 import { ThemeContext } from "../ThemeToggler/ThemeContext";
 import { lightTheme, darkTheme } from '../../themes/Theme';
@@ -10,6 +10,15 @@ import CoinsPage from '../../pages/mainpages/CoinsPage';
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+/**
+ * INFOS :
+ * canvasjs throw (in verbose mode)
+ * [Violation] Added non-passive event listener to a scroll-blocking 'touchstart' event. 
+ * Consider marking event handler as 'passive' to make the page more responsive.
+ */
+
+
 
 //test to hide the watermark
 //
@@ -221,10 +230,10 @@ const CoinRow = (props) => {
             <tr>
                 <TdRank className="ml-1" theme={theme}>{props.rank}</TdRank>
                 <TdName theme={theme}>
-                    <Link to={link} exact style={linkStyle} activeLink={activeLink}>
+                    <NavLink to={link} exact style={linkStyle} activeStyle={activeLink}>
                         <span><img src={icon} alt={props.symbol} width={"15px"} /></span>
                         <span >{props.name}</span>
-                    </Link>
+                    </NavLink>
                 </TdName>
                 {
                     props.snapshotChange === 'unchanged' ?
@@ -239,7 +248,7 @@ const CoinRow = (props) => {
                 {
                     props.priceSet === undefined ?
                         <TdG theme={theme}>
-                            "...   .no data yet.  ..." {/* null */}
+                            ...   .no data yet.  ... {/* null */}
                         </TdG>
                         :
                         <TdG theme={theme}>

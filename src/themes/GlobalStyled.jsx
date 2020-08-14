@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
 
+    //for dev
     border: 1px solid tansparent;
   }
 
@@ -27,31 +28,22 @@ export const GlobalStyle = createGlobalStyle`
 
     // global variables :
     --navbar--main-height : 4rem;
+    --bgColor: ${({ theme }) => theme.body};
+    --txtColor:  ${({ theme }) => theme.text};
   }
- .chart{
-   width: 100px;
-   height: 20px;
- }
+
   .globalContainer{
     padding: 0;
     margin: 0;
 
     min-heigth: 100vh;
-    //background: red; 
   }
-  
-
   .colMainPage{
     min-height: 100vh;
   }
   .colPub{
     min-height: 100vh;
   }
-
-  // .rowPub{
-  //   max-height: 20vh;
-  // }
- 
   `;
 
   /**

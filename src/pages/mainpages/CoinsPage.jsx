@@ -19,12 +19,13 @@ import Loader from "../../components/Loader/Loader";
  * 
  * ******************************** */
 
-const CoinsPage = (props) => {
+const CoinsPage = () => {
     const { id } = useParams()
     const [coinInfo, setCoinInfo] = useState([]);
     const [coinTwitter, setCoinTwitter] = useState([]);
     const [coinEvents, setCoinEvents] = useState([]);
     const [coinMarkets, setCoinMarkets] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { coinsInfos } = useContext(DataContext);
 
     const id_tview = id.toUpperCase() + "USD";
@@ -34,16 +35,15 @@ const CoinsPage = (props) => {
 
 
     useEffect(() => {
-
+        if(loading){
         fetchCoinData();
-
+       }
     });
 
     function fetchCoinData() {
 
         const testData = (coinInfo !== undefined) ? [] : coinInfo;
         if (testData.length === 0) {
-            console.log("useeffect qd sis mount");
 
             let respInfos = DataProvider.getCoinInfoGecko(id_gecko);
             let respTwitter = DataProvider.getCoinTwitterPaprika(id_paprika);
@@ -55,12 +55,9 @@ const CoinsPage = (props) => {
                 setCoinTwitter(responses[1].data);
                 setCoinEvents(responses[2].data);
                 setCoinMarkets(responses[3].data);
-                console.log(responses[1].data, "DEPROMISEALL");
             });
-
+            setLoading(false);
         }
-
-
     }
 
     return (

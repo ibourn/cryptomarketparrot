@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 
 function ComingSoonPage() {
-const { pathname } = useLocation();
+//const { pathname } = useLocation();
 
         return (
             <section>

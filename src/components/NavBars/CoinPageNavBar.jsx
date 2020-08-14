@@ -9,14 +9,13 @@ import styled from 'styled-components';
 /**
  * style
  * 
- * @todo fix bug opacity of the sticky tab
+ * @todo fix bug opacity or position of the sticky tab to implement it
  */
 const Nav = styled.nav`
 font-size: 0.9rem;
 font-weight: bold;
-// opacity: 1;
-// position: sticky;
-// top: var(--navbar--main-height);
+backgroundColor: ${ theme  => theme.body};
+  color: ${theme  => theme.text};
   `;
 /************************************
  * 
@@ -29,16 +28,13 @@ const CoinPageNavBar = (props) => {
   const itemClass = "nav-item";
   const linkclassName = "nav-link";
 
-  const colorStyle = theme === 'light' ? { backgroundColor: `${lightTheme.body}`,
-  color: `${lightTheme.text}` } :{ backgroundColor: `${darkTheme.body}`,
-  color: `${darkTheme.text}` }
   const activeStyle = theme === 'light' ? { backgroundColor: `${lightTheme.container}`,
   color: `${lightTheme.content}` } :{ backgroundColor: `${darkTheme.container}`,
   color: `${darkTheme.content}` }
 
   return (
-    <Nav className="row" style={colorStyle}>
-      <ul class="nav nav-tabs" >
+    <Nav className="row" >
+      <ul className="nav nav-tabs" >
         <li className={itemClass}>
           <NavLink to={`/coin/${props.coin}/chart`} activeStyle={activeStyle} className={linkclassName}>
             Chart</NavLink>

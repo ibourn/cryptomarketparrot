@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Loader.css';
 
 import styled from 'styled-components';
@@ -16,8 +16,21 @@ const Div = styled.div`{
  * Loader component waiting for api responses
  */
 export default function Loader(props) {
+  const [msg, setMsg] = useState("Waiting for birds and boats to bring back data ...")
 
-  
+  useEffect(() => {
+    let interval = null;
+    interval = setInterval(() => {
+      updateMsg();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  })
+
+  const updateMsg = () => {
+    setMsg("There are still not there.. they may be blocked in a tempest of requests. Just try to refresh");
+  }
+
   return (
     <>
       <Div className="row">
@@ -27,7 +40,7 @@ export default function Loader(props) {
         </div>
       </Div>
       <Div className="row d-flex justify-content-end">
-        <span>Waiting for birds and boats to bring back data ...</span>
+        <span>{msg}</span>
       </Div>
     </>
   )

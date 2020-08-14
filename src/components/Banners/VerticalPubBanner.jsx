@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { GlobalClasses } from "../../themes/GlobalClasses";
 //import { BannerOptionDiv, BannerContentDiv } from "../../themes/GlobalStyled";
-
 //import { useClose } from "./useClose";
 import BannerCloser from "./BannerCloser";
 import livewebinar from "../../assets/Webpnet-livewebinar.png";

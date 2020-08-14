@@ -27,25 +27,22 @@ min-width: 12vw;
 
 
 const Nav = styled.nav`
-ul{
-  background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
-  div{
-    font-size: 0.7rem;
-   background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
-  }
+// --bgColor: ${ theme => theme.body};
+// --txtColor:  ${ theme => theme.text};
+
+.filter, .filter div, ul, ul div{
+  background-color: var(--bgColor);
+}
+.filter div, ul div{
+  font-size: 0.7rem;
 }
 .filter{
   * {
     padding:0;
   margin:0;
   }
-  background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
-  div{
-    font-size: 0.7rem;
-   background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
-  }
   label{
-    color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
+    color: var(--txtColor);
     padding-top: 0.5rem;
   }
   input{
@@ -61,25 +58,33 @@ ul{
     margin-left: 5%;
   }
   a{
-    color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
+    color: var(--txtColor);
   }
 }
 
 `;
-
+const BtnMenu = styled.button`
+  border: none;
+  font-weight: bold;
+  background-color: var(--bgColor);
+`;
+const BtnCurMenu = styled.button`
+border: none;
+background-color: var(--bgColor);
+`;
 const Btn = styled.button`
  font-size: 0.7rem;
  height: 1.5rem;
- background-color: ${props => (props.theme === 'light' ? lightTheme.body : darkTheme.body)};
+ background-color: var(--bgColor);
 
 `;
 const BtnCur = styled(Btn)`
 min-width: 6vw;
-color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
+color: var(--txtColor);
 `;
 const BtnFilter = styled(Btn)`
 min-width: 8vw;
-color: ${props => (props.theme === 'light' ? lightTheme.text : darkTheme.text)};
+color: var(--txtColor);
 `;
 const BtnPage = styled(Btn)`
 min-width: 5.5vw;
@@ -119,7 +124,7 @@ const CoinRankingNavBar = (props) => {
    * @todo BUG button market and watchlist => dropdown not opening
    */
   const liDropdown = "nav-item dropdown";
-  const triggerMenu = "nav-link dropdown-toggle";
+  const triggerMenu = "nav-link dropdown-toggle text-primary";
   const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show" : "");
   const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show" : "");
   const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show" : "");
@@ -206,28 +211,28 @@ const CoinRankingNavBar = (props) => {
 
       <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
-          <a className={triggerMenu} onClick={toggleDropDownCrypto}
-            onBlur={toggleDropDownCrypto} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">Cryptocurrencies</a>
+          <BtnMenu className={triggerMenu} onClick={toggleDropDownCrypto}
+            onBlur={toggleDropDownCrypto} data-toggle="dropdown"  aria-haspopup="true"
+            aria-expanded="false">Cryptocurrencies</BtnMenu>
           <div className={menuCryptoClass}>
             <NavLink to="/" className={menuItemClass}>Top50</NavLink>
             <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>
             <NavLink to="/" className={menuItemClass}>Defi</NavLink>
           </div>
         </LiCrypto>
-        <LiMarkets class={liDropdown}>
-          <a class={triggerMenu} onClick={toggleDropDownExchange}
+        <LiMarkets className={liDropdown}>
+          <BtnMenu className={triggerMenu} onClick={toggleDropDownExchange}
             onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">Markets</a>
-          <div class={menuExchangeClass}>
+            aria-expanded="false">Markets</BtnMenu>
+          <div className={menuExchangeClass}>
             coming soon...
       </div>
         </LiMarkets>
-        <LiWatchlist class={liDropdown}>
-          <a class={triggerMenu} onClick={toggleDropDownWatchlist}
+        <LiWatchlist className={liDropdown}>
+          <BtnMenu className={triggerMenu} onClick={toggleDropDownWatchlist}
             onBlur={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false">Watchlist</a>
-          <div class={menuWatchlistClass}>
+            aria-expanded="false">Watchlist</BtnMenu>
+          <div className={menuWatchlistClass}>
             coming soon...
       </div>
         </LiWatchlist>
@@ -235,72 +240,72 @@ const CoinRankingNavBar = (props) => {
 
       <div className="d-flex justify-content-end filter" style={pageStyle}>
 
-        <div class="dropdown filter">
-          <BtnFilter class={triggerFilterMenu} theme={theme}
+        <div className="dropdown filter">
+          <BtnFilter className={triggerFilterMenu}
           style={pageStyle} onClick={toggleDropDownFilter}
              type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-            <i class="fas fa-filter"></i>Filters
+            <i className="fas fa-filter"></i>Filters
            </BtnFilter>
-          <div class={menuFilterClass}  theme={theme} style={filterBckgrndColor} aria-labelledby="dropdownFilterButton">
+          <div className={menuFilterClass} style={filterBckgrndColor} aria-labelledby="dropdownFilterButton">
             <div className="container row d-flex justify-content-around" >
               <div className="col-2">
-                <label for="minCapInput">Min Cap:</label>
+                <label htmlFor="minCapInput">Min Cap:</label>
                 <input id="minCapInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minCapInput" />
-                <label for="maxCapInput">Max Cap:</label>
+                <label htmlFor="maxCapInput">Max Cap:</label>
                 <input id="maxCapInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxCapInput" />
               </div>
               <div className="col-2">
-                <label for="minSupInput">Min Supply:</label>
+                <label htmlFor="minSupInput">Min Supply:</label>
                 <input id="minSupInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minSupInput" />
-                <label for="maxSupInput">Max Supply:</label>
+                <label htmlFor="maxSupInput">Max Supply:</label>
                 <input id="maxSupInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxSupInput" />
               </div>
               <div className="col-2">
-                <label for="minVarDayInput">Min Var(h24):</label>
+                <label htmlFor="minVarDayInput">Min Var(h24):</label>
                 <input id="minVarDayInput" type="number" placeholder={-100}
                   min={-100} max={1000000} name="minVarDayInput" />
-                <label for="maxVarDayInput">Max Var(h24):</label>
+                <label htmlFor="maxVarDayInput">Max Var(h24):</label>
                 <input id="maxVarDayInput" type="number" placeholder={10000}
                   min={-100} max={1000000} name="maxVarDayInput" />
               </div>
               <div className="col-2">
-                <label for="minVarAthInput">Min Var(ath):</label>
+                <label htmlFor="minVarAthInput">Min Var(ath):</label>
                 <input id="minVarAthInput" type="number" placeholder={-100}
                   min={-100} max={1000000} name="minVarAthInput" />
-                <label for="maxVarAthInput">Max Var(ath):</label>
+                <label htmlFor="maxVarAthInput">Max Var(ath):</label>
                 <input id="maxVarAthInput" type="number" placeholder={10000}
                   min={-100} max={1000000} name="maxVarAthInput" />
               </div>
               <div className="col-2">
-                <label for="minPriceInput">Min price:</label>
+                <label htmlFor="minPriceInput">Min price:</label>
                 <input id="minPriceInput" type="number" placeholder={0}
                   min={0} max={999999999999} name="minPriceInput" />
-                <label for="maxPriceInput">Max price:</label>
+                <label htmlFor="maxPriceInput">Max price:</label>
                 <input id="maxPriceInput" type="number" placeholder={999999999999}
                   min={0} max={999999999999} name="maxPriceInput" />
               </div>
               <div className="col-1">
-                <button class="btn btn-secondary" id="btn-filter" onClick={changeFilter}
+                <button className="btn btn-secondary" id="btn-filter" onClick={changeFilter}
                   type="button" >Filter</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="dropdown">
-          <BtnCur class={triggerBtnMenu} theme={theme} style={pageStyle}
+        <div className="dropdown">
+          <BtnCur className={triggerBtnMenu} style={pageStyle}
           onClick={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             devises
          </BtnCur>
           <div className={menuDeviseClass} aria-labelledby="dropdownCurButton">
-            <a className={itemUSDClass} theme={theme} onClick={toggleDeviseUSD} href="">USD</a>
-            <a className={itemBTCClass} theme={theme} onClick={toggleDeviseBTC} href="">BTC</a>
+            <BtnCurMenu className={itemUSDClass} onClick={toggleDeviseUSD} >USD</BtnCurMenu>
+            <BtnCurMenu className={itemBTCClass} onClick={toggleDeviseBTC} >BTC</BtnCurMenu>
           </div>
         </div>
 

@@ -30,12 +30,11 @@ line-height: 2rem;
 const Th = styled.th`
 position: sticky;
 top: var(--navbar--main-height);
-min-height: 3rem;
+height: 3rem;
 opacity: 1;
 
 border-style: solid none solid none;
 border-width: 1px;
-border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkTheme.border)};
 
 :hover{
   text-decoration: underline;
@@ -47,66 +46,57 @@ border-color: ${props => (props.theme === 'light' ? lightTheme.border : darkThem
  */
 const ThRank = styled(Th)`
  text-align: left;
- min-width: ${props => (props.pubIsOpen ? '3vw' : '3vw')};
-max-width: ${props => (props.pubIsOpen ? '5rem' : '15rem')};
+ min-width: 3vw;
+max-width: 5vw;
 `;
 const ThName = styled(Th)`
 text-align: left;
 padding-left: 0.2rem
-min-width: ${props => (props.pubIsOpen ? '6vw' : '6vw')};
-max-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
+min-width: 6vw;
+max-width: 9vw;
 @media (max-width: 1100px) {
   text-align: center;
-  min-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};
-  max-width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};  } 
+  width: ${props => (props.pubIsOpen ? '6vw' : '5vw')};  
+} 
 `;
-
 const ThChart = styled(Th)`
 text-align: center;
 z-index: 15;
 min-width: ${props => (props.pubIsOpen ? '10vw' : '15vw')};
-max-width: ${props => (props.pubIsOpen ? '15vw' : '15rem')};
+max-width: 15vw;
 @media (max-width: 1100px) {
   min-width: ${props => (props.pubIsOpen ? '8vw' : '14vw')};
-max-width: ${props => (props.pubIsOpen ? '10vw' : '15rem')};
+max-width: 10vw;
+}
 `;
-
 const ThData = styled(Th)`
 text-align: right;    
 `;
 const ThPercent = styled(ThData)`
-min-width: ${props => (props.pubIsOpen ? '3.5vw' : '3.5vw')};
-max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
+min-width: 3.5vw;
 @media (max-width: 1100px) {
   min-width: ${props => (props.pubIsOpen ? '3vw' : '7vw')};
-max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
   } 
 `;
 const ThNum = styled(ThData)`
 min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
-max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
 @media (max-width: 1100px) {
 min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
-max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
 }  
 `;
 const ThPrice = styled(ThNum)`
 min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
-max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
 @media (max-width: 1100px) {
   min-width: ${props => (props.pubIsOpen ? '6.5vw' : '8vw')};
-  max-width: ${props => (props.pubIsOpen ? '8vw' : '15rem')};
+  max-width: 8vw;
    `;
 const ThMarket = styled(ThNum)`
-min-width: ${props => (props.pubIsOpen ? '8vw' : '8vw')};
-max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
+min-width: 8vw;
    `;
 const ThSupply = styled(ThNum)`
-min-width: ${props => (props.pubIsOpen ? '9vw' : '9vw')};
-max-width: ${props => (props.pubIsOpen ? '100rem' : '15rem')};
+min-width: 9vw;
 @media (max-width: 1100px) {
   min-width: ${props => (props.pubIsOpen ? '6vw' : '6.5vw')};
-max-width: ${props => (props.pubIsOpen ? '10rem' : '15rem')};
   }   
    `;
 
@@ -126,7 +116,7 @@ const RankingCoins = (props) => {
 
 
   /**
-   * style and classes
+   * style and classes // color in class and dimensions in styledcomponent
    */
   const colorStyle = theme === 'light' ? {
     backgroundColor: `${lightTheme.container}`,
@@ -135,8 +125,13 @@ const RankingCoins = (props) => {
     backgroundColor: `${darkTheme.container}`,
       color: `${darkTheme.content}`
     }
-
-
+    const thStyle = theme === 'light' ? {
+      backgroundColor: `${lightTheme.container}`,
+      color: `${lightTheme.content}`, borderColor: `${lightTheme.border}`
+    } : {
+      backgroundColor: `${darkTheme.container}`,
+        color: `${darkTheme.content}`, borderColor: `${darkTheme.border}`
+      }
 
 
   /**
@@ -203,21 +198,21 @@ const RankingCoins = (props) => {
     <Table className="container-fluid" style={colorStyle}>
       <Thead>
         <Tr >
-          <ThRank className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
-          <ThName className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
-          <ThPrice className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent>
+          <ThRank className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickRank}>Rank</ThRank>
+          <ThName className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickName}>Name</ThName>
+          <ThPrice className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickPrice}>Price</ThPrice>
+          <ThPercent className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh1}>%(1h)</ThPercent>
+          <ThPercent className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeh24}>%(24h)</ThPercent>
+          <ThPercent className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged7}>%(7d)</ThPercent>
           {!props.priceSetData ? null :
-            <ThChart style={colorStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
+            <ThChart style={thStyle} pubIsOpen={props.pubIsOpen}>Price (7d)
             </ThChart>
           }
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
-          <ThPercent className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent>
-          <ThNum className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
-          <ThMarket className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>
-          <ThSupply className={thClass} style={colorStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
+          <ThPercent className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChanged30}>%(30d)</ThPercent>
+          <ThPercent className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickChangeAth}>%(Ath)</ThPercent>
+          <ThNum className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickVolumeh24}>Volume</ThNum>
+          <ThMarket className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickMarketCap}>Market Cap</ThMarket>
+          <ThSupply className={thClass} style={thStyle} pubIsOpen={props.pubIsOpen} onClick={handleClickSupply}>Circulating Supply</ThSupply>
 
 
         </Tr>

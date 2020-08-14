@@ -65,7 +65,9 @@ export default function MarketBannerMainPage(props) {
    color: `${darkTheme.content}` }
    
     useEffect(() => {
+        if(loading){
         fetchGlobalInfos();
+        }
     });
 
 
@@ -89,7 +91,7 @@ export default function MarketBannerMainPage(props) {
     const divUlClass = "d-flex flex-row justify-content-between";
     const divLiClass = "mx-1 justify-content-center";
     const content="text-primary";
-    const Separator = <i class="fas fa-circle text-muted"></i>;
+    const Separator = <i className="fas fa-circle text-muted"></i>;
 
     const loader = !loading ? "" : <span>Fecthing data ... </span>
 
@@ -121,7 +123,7 @@ export default function MarketBannerMainPage(props) {
                             <Li key="MB6">{Separator}</Li>
                             <Li key="MB7" className={divLiClass}>
                                 <span>Market Cap %(24h):</span><span className={content}>{" " + 
-                                Format.toCurrency(globalInfos.geckoInfos.market_cap_change_percentage_24h_usd, 'USD')}</span>
+                                globalInfos.geckoInfos.market_cap_change_percentage_24h_usd}</span>
                             </Li>
                             <Li key="MB8">{Separator}</Li>
                             <Li key="MB9" className={divLiClass}>

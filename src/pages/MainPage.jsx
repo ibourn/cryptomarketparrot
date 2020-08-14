@@ -30,26 +30,27 @@ export default function MainPage(props) {
      const [showBanner, closeBanner] = useClose(true);
      const [lastUpdateTime, setLastUpdateTime] = useState();
 
+     /*class used to resize the content if vetical pub banner is closed*/
      const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
      const colPubClass =  (showBanner ? " col-2" : " col-0");
-
+  /*waiting while fetching data*/
      const loading = coinsInfos.list.length === 0 ?
      <div className="container"> <Loader/> </div> : "";
 
 
     useEffect( () => {
         if(coinsInfos.list.length === 0){
-         componentDidMount();
-        }  
+            fetchCoinsList();
+        }           
     })
 
-
+    /*Called from MainPageInfoBanner and RankingCoins */
     const refreshUpdateTime = (newUpdateTime) => {
         setLastUpdateTime(newUpdateTime)
     };
    
 
-    const componentDidMount = async () => {
+    const fetchCoinsList = async () => {
         const dictionary =[];
 
         await DataProvider.getCoinList().then((datas)=>{

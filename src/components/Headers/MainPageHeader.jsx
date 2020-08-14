@@ -1,5 +1,4 @@
 import React from 'react';
-//import styled from 'styled-components';
 
 import MainPagePubBanner from "../Banners/HorizontalPubBanner";
 import MainPageInfoBanner from "../Banners/MainPageInfoBanner";
@@ -16,7 +15,7 @@ export default function ExchangeHeader(props) {
             <header>
                 <MainPagePubBanner/>
                 <MainPageInfoBanner/>
-                <MainPageMarketBanner refreshUpdateTime={props.refreshUpdateTime}/>
+                <MainPageMarketBanner lastUpdateTime={props.lastUpdateTime} refreshUpdateTime={props.refreshUpdateTime}/>
             </header>
         );
 }
