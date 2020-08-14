@@ -30,6 +30,7 @@ export const GlobalStyle = createGlobalStyle`
     --navbar--main-height : 4rem;
     --bgColor: ${({ theme }) => theme.body};
     --txtColor:  ${({ theme }) => theme.text};
+    --containerColor:  ${({ theme }) => theme.container};
   }
 
   .globalContainer{

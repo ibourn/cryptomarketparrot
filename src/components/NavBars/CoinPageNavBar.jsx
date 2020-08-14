@@ -50,7 +50,7 @@ const CoinPageNavBar = (props) => {
         </li>
         <li className={itemClass}>
           <NavLink to={`/coin/${props.coin}/medias`} activeStyle={activeStyle} className={linkclassName}>
-            Medias</NavLink>
+            Media</NavLink>
         </li>
       </ul>
     </Nav>

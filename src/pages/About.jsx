@@ -75,7 +75,7 @@ function ComingSoonPage() {
                 <P>
                     <I className="fas fa-circle text-muted"></I>For this reason I only use free api from <a href="https://coinpaprika.com/">coinprapika</a>
                  and <a href="https://www.coingecko.com/en">coingecko</a>. Therefore the application is subject to a limitation in number of requests.
-                    A backend in this direction would have provided more data (such as on-chain data via glassnode..., blockchair.com, news data via cryptonpanic... )
+                    A backend in this direction would have provided more data (such as on-chain data via glassnode..., blockchair.com, news data via cryptonpanic... ).
                     It would have allow also to manage more request by switching api services.
                     Thus i did a top 50 instead of a top 100 coins in order to circumvent the request limits because i chose to reproduce the mini chart in the ranking
                     with prices updating automatically.
@@ -89,15 +89,19 @@ function ComingSoonPage() {
                     Concerning the theming :
 </PSubtitle>
                 <P>
-                    You can switch from light/dark mode via the button on the top right
-                    Prices are blinking when up or down.
-                    You can close the pubs banner with the clode button or by resizing the screen.
+                <I className="fas fa-circle text-muted"></I>You can switch from light/dark mode via the button on the top right.
+                    </P>
+                <P>
+                <I className="fas fa-circle text-muted"></I>Prices are blinking when up or down.
+                           </P>
+                <P>
+                <I className="fas fa-circle text-muted"></I> You can close the pubs banner with the clode button or by resizing the screen.
 </P>
                 <PSubtitle>
                     About the use of the APIs :
 </PSubtitle>
                 <P>
-                    <I className="fas fa-circle text-muted"></I>All information are updated 2 times a minute (apart statci info about a specific coin such as its description,
+                    <I className="fas fa-circle text-muted"></I>All information are updated 2 times a minute (apart static info about a specific coin such as its description,
                  links...).
 </P>
                 <P>
@@ -155,7 +159,7 @@ function ComingSoonPage() {
                 <P>
                     The development with react is the part that took the most time. It's the reason why i implemented only these functionalities at the moment.
                     I'd like to do more (exchanges, on-chain data, filter defi coins, a converter...). There are so many things to add,
-                    but I need to pause this development for to complete my assignement and continue the bootcamp.
+                    but I need to pause this development to complete my assignement and continue the bootcamp.
 </P>
             </Article>
         </Section>

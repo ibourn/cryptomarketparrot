@@ -50,9 +50,8 @@ const Nav = styled.nav`
      margin-left: -70%;
   }
   #btn-filter{
-    width: 3.5vw;
+    //width: 5vw;
     margin-top: 0.9rem;
-    margin-left: 5%;
   }
   a{
     color: var(--txtColor);
@@ -67,25 +66,39 @@ const BtnMenu = styled.button`
 `;
 const BtnCurMenu = styled.button`
 border: none;
-background-color: var(--bgColor);
+color: var(--txtColor);
+background-color: var(--containerColor);
+:hover{
+  background-color: var(--containerColor);
+  color: var(--txtColor);
+  font-weight: bold;
+}
 `;
 const Btn = styled.button`
  font-size: 0.7rem;
  height: 1.5rem;
  background-color: var(--bgColor);
+ :hover{
+  font-weight: bold;
+}
 
 `;
 const BtnCur = styled(Btn)`
-min-width: 6vw;
+min-width: 8vw;
 color: var(--txtColor);
+:hover{
+  color: var(--txtColor);
+}
 `;
 const BtnFilter = styled(Btn)`
 min-width: 8vw;
 color: var(--txtColor);
+:hover{
+  color: var(--txtColor);
+}
 `;
 const BtnPage = styled(Btn)`
 min-width: 5.5vw;
-
 `;
 
 
@@ -125,7 +138,7 @@ const CoinRankingNavBar = (props) => {
   const menuCryptoClass = "dropdown-menu" + (isDownCrypto ? " show" : "");
   const menuExchangeClass = "dropdown-menu" + (isDownExchange ? " show" : "");
   const menuWatchlistClass = "dropdown-menu" + (isDownWatchlist ? " show" : "");
-  const menuItemClass = "dropdown-item";
+  const menuItemClass = "nav-link dropdown-item";
 
   const menuDeviseClass = "dropdown-menu" + (isDownDevise ? " show" : "");
   const triggerBtnMenu = "btn btn-sm btn-outline-light dropdown-toggle"
@@ -140,11 +153,15 @@ const CoinRankingNavBar = (props) => {
   const btnPageNxtClass = "btn btn-sm btn-outline-light text-primary" +
   (props.page.current === props.page.last - 1 ? " disabled" : "");
 /*to remove the original dropdown box*/
-  const filterBckgrndColor =  {backgroundColor: `transparent`} ;
+  const filterBckgrndColor =  {backgroundColor: `transparent`, border: 'none'} ;
 
   const pageStyle = (theme === 'light' ?
    {backgroundColor: lightTheme.body, borderColor : lightTheme.border} : 
    {backgroundColor: darkTheme.body , borderColor : darkTheme.border});
+   const cryptoMenuStyle = (theme === 'light' ?
+   {backgroundColor: lightTheme.body, color : lightTheme.text} : 
+   {backgroundColor: darkTheme.body , color : darkTheme.text});
+   const cryptoMenuActiveStyle = {backgroundColor: 'dodgerblue'};
 
   /**
    * toggle functions
@@ -192,6 +209,12 @@ const CoinRankingNavBar = (props) => {
     );
   }
 
+  const resetFilter = () => {
+    props.changeFilter(
+       0, 999999999999, 0, 999999999999, -100, 10000, -100, 10000, 0, 999999999999
+    );
+  }
+
   /**
    * get page change to pass to parent
    */
@@ -212,16 +235,17 @@ const CoinRankingNavBar = (props) => {
             onBlur={toggleDropDownCrypto} data-toggle="dropdown"  aria-haspopup="true"
             aria-expanded="false">Cryptocurrencies</BtnMenu>
           <div className={menuCryptoClass}>
-            <NavLink to="/" className={menuItemClass}>Top50</NavLink>
-            <NavLink to="/" className={menuItemClass}>Deritatives</NavLink>
-            <NavLink to="/" className={menuItemClass}>Defi</NavLink>
+            <NavLink to="/" className={menuItemClass + " active"} style={cryptoMenuStyle} 
+            activeStyle={cryptoMenuActiveStyle}>Top50</NavLink>
+            <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Deritatives</NavLink>
+            <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Defi</NavLink>
           </div>
         </LiCrypto>
         <LiMarkets className={liDropdown}>
           <BtnMenu className={triggerMenu} onClick={toggleDropDownExchange}
             onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Markets</BtnMenu>
-          <div className={menuExchangeClass}>
+          <div className={menuExchangeClass} style={cryptoMenuStyle}>
             coming soon...
       </div>
         </LiMarkets>
@@ -229,7 +253,7 @@ const CoinRankingNavBar = (props) => {
           <BtnMenu className={triggerMenu} onClick={toggleDropDownWatchlist}
             onBlur={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Watchlist</BtnMenu>
-          <div className={menuWatchlistClass}>
+          <div className={menuWatchlistClass} style={cryptoMenuStyle}>
             coming soon...
       </div>
         </LiWatchlist>
@@ -287,8 +311,10 @@ const CoinRankingNavBar = (props) => {
                   min={0} max={999999999999} name="maxPriceInput" />
               </div>
               <div className="col-1">
-                <button className="btn btn-secondary" id="btn-filter" onClick={changeFilter}
+                <button className="btn btn-secondary btn-sm mt-3" id="btn-filter" onClick={changeFilter}
                   type="button" >Filter</button>
+                  <button className="btn btn-secondary btn-sm mt-4" id="btn-reset" onClick={resetFilter}
+                  type="button" >Reset</button>
               </div>
             </div>
           </div>
@@ -298,7 +324,7 @@ const CoinRankingNavBar = (props) => {
           <BtnCur className={triggerBtnMenu} style={pageStyle}
           onClick={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-            devises
+            Currencies
          </BtnCur>
           <div className={menuDeviseClass} aria-labelledby="dropdownCurButton">
             <BtnCurMenu className={itemUSDClass} onClick={toggleDeviseUSD} >USD</BtnCurMenu>

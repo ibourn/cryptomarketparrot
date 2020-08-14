@@ -408,7 +408,7 @@ export default function RankingsPage(props) {
   return (
     <div className="tableContainer container-fluid py-4">
 
-      <Title>{`Top ${COIN_COUNT} cryptocurrencies by market capitalisation (in ${filter.devise})`}</Title>
+      <Title>{`Top ${COIN_COUNT} Cryptocurrencies by Market Capitalisation (in ${filter.devise})`}</Title>
       <CoinRankingNavbar toggleDevise={toggleDevise} changeFilter={changeFilter} handleClickPage={handleClickPage}
         devise={filter.devise} page={page} />
 

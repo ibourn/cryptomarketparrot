@@ -14,9 +14,9 @@ import { lightTheme, darkTheme } from '../../themes/Theme';
 const Table = styled.table`
 font-size: 0.7rem;
 @media (min-width: 1200px) {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
-@media (min-width: 1100px) {
+@media (max-width: 1100px) {
   font-size: ${props => (props.pubIsOpen ? '0.8rem' : '0.7rem')};
 }
 `;
@@ -46,8 +46,12 @@ border-width: 1px;
  */
 const ThRank = styled(Th)`
  text-align: left;
+ padding-left: 0.4rem;
  min-width: 3vw;
 max-width: 5vw;
+@media (max-width: 1100px) {
+  padding-left: 0.2rem;
+}
 `;
 const ThName = styled(Th)`
 text-align: left;
@@ -94,8 +98,10 @@ const ThMarket = styled(ThNum)`
 min-width: 8vw;
    `;
 const ThSupply = styled(ThNum)`
+padding-right: 0.2rem;
 min-width: 9vw;
 @media (max-width: 1100px) {
+  padding-right: 0;
   min-width: ${props => (props.pubIsOpen ? '6vw' : '6.5vw')};
   }   
    `;
