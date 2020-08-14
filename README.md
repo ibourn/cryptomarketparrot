@@ -13,9 +13,9 @@ As I have been following the courses on reactjs from <a href="https://academy.iv
 I have tried to carry out this duty in using reactjs.
 
 ## Screenshots :
-<img src="./src/assets/screenshots/cryptomarketparrot_1.png"/>&nbsp  <img src="./src/assets/screenshots/cryptomarketparrot_2.png"/>
+<img src="./src/assets/screenshots/cryptomarketparrot_1.png"/>&nbsp;  <img src="./src/assets/screenshots/cryptomarketparrot_2.png"/>
 
-<img src="./src/assets/screenshots/cryptomarketparrot_3.png"/>&nbsp  <img src="./src/assets/screenshots/cryptomarketparrot_4.png"/>
+<img src="./src/assets/screenshots/cryptomarketparrot_3.png"/>&nbsp;  <img src="./src/assets/screenshots/cryptomarketparrot_4.png"/>
 
 <img src="./src/assets/screenshots/cryptomarketparrot_5.png"/>
    
