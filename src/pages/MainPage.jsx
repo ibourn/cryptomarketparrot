@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Switch, Route, useParams } from 'react-router-dom';
 import { DataContext } from "../components/NavBars/DataContext";
 import { DataProvider } from "../modules/DataProvider";
@@ -23,48 +23,48 @@ import { useClose } from "../components/Banners/useClose";
  * 
  * ******************************** */
 export default function MainPage(props) {
-   // const [isOpened, setIsOpened] = useState(true);
+    // const [isOpened, setIsOpened] = useState(true);
     const { id } = useParams();
 
     const { coinsInfos, setCoinsInfos } = useContext(DataContext);
-     const [showBanner, closeBanner] = useClose(true);
-     const [lastUpdateTime, setLastUpdateTime] = useState();
+    const [showBanner, closeBanner] = useClose(true);
+    const [lastUpdateTime, setLastUpdateTime] = useState();
 
-     /*class used to resize the content if vetical pub banner is closed*/
-     const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
-     const colPubClass =  (showBanner ? " col-2" : " col-0");
-  /*waiting while fetching data*/
-     const loading = coinsInfos.list.length === 0 ?
-     <div className="container"> <Loader/> </div> : "";
+    /*class used to resize the content if vetical pub banner is closed*/
+    const colMainClass = "colMainPage" + (showBanner ? " col-10" : " col-12");
+    const colPubClass = (showBanner ? " col-2" : " col-0");
+    /*waiting while fetching data*/
+    const loading = coinsInfos.list.length === 0 ?
+        <div className="container"> <Loader /> </div> : "";
 
 
-    useEffect( () => {
-        if(coinsInfos.list.length === 0){
+    useEffect(() => {
+        if (coinsInfos.list.length === 0) {
             fetchCoinsList();
-        }           
+        }
     })
 
     /*Called from MainPageInfoBanner and RankingCoins */
     const refreshUpdateTime = (newUpdateTime) => {
         setLastUpdateTime(newUpdateTime)
     };
-   
+
 
     const fetchCoinsList = async () => {
-        const dictionary =[];
+        const dictionary = [];
 
-        await DataProvider.getCoinList().then((datas)=>{
-          for (const val of datas.values()) {
-          dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
-        }
-          
-          setCoinsInfos(()=>{
-            const infos = {
-              dictionary: dictionary,
-            list: datas
+        await DataProvider.getCoinList().then((datas) => {
+            for (const val of datas.values()) {
+                dictionary.push(val.name.toLowerCase() + " " + val.symbol.toLowerCase());
             }
-            return infos;
-          });
+
+            setCoinsInfos(() => {
+                const infos = {
+                    dictionary: dictionary,
+                    list: datas
+                }
+                return infos;
+            });
 
         });
     }
@@ -73,34 +73,34 @@ export default function MainPage(props) {
     return (
         <div className="globalContainer container-fluid">
 
-            <MainPageHeader  lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime}/>
+            <MainPageHeader lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime} />
             <MainPageNavBar />
             <div className="row no-gutters">
                 <div className={colMainClass}>
-                <HorzPubBanner />
+                    <HorzPubBanner />
                     <div>
-                        {loading === "" ? 
+                        {loading === "" ?
 
                             <Switch>
 
                                 <Route exact strict path="/" >
-                                <RankingsPage pubIsOpen={showBanner}   lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime} /> 
+                                    <RankingsPage pubIsOpen={showBanner} lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime} />
                                 </Route>
-                                
-                                <Route   path="/coin/:id/:type" >
-                                <CoinsPage coin={id}  />
+
+                                <Route path="/coin/:id/:type" >
+                                    <CoinsPage coin={id} />
                                 </Route>
-                                <Route   path="/coin/:id/chart" >
-                                <CoinsPage coin={id} />
+                                <Route path="/coin/:id/chart" >
+                                    <CoinsPage coin={id} />
                                 </Route>
                                 <Route path="/about" component={About} />
                             </Switch>
 
-                        : loading }
+                            : loading}
                     </div>
                 </div>
                 <div className={colPubClass}>
-                <VertPubBanner closeBanner={closeBanner} showBanner={showBanner}/>
+                    <VertPubBanner closeBanner={closeBanner} showBanner={showBanner} />
                 </div>
 
             </div>

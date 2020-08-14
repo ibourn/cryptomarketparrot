@@ -58,6 +58,7 @@ const CoinsPage = () => {
             });
             setLoading(false);
         }
+
     }
 
     return (

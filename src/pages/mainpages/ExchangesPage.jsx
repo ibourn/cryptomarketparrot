@@ -9,7 +9,7 @@ import React from 'react';
 export default function ExchangesPage(props) {
     return (
         <div>
-            The ExchangesPage
+            The Exchanges Page
         </div>
     );
 

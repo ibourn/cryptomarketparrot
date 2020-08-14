@@ -27,9 +27,6 @@ min-width: 12vw;
 
 
 const Nav = styled.nav`
-// --bgColor: ${ theme => theme.body};
-// --txtColor:  ${ theme => theme.text};
-
 .filter, .filter div, ul, ul div{
   background-color: var(--bgColor);
 }

@@ -19,7 +19,6 @@
     grid-row: 3 / 4;
     grid-column: 3 / 7;
 }
-
 .soon {
     font-size: 48px;
     color: #89da59;
@@ -39,7 +38,6 @@
     .app {
         grid-template-columns: 10% 1fr 10%;
     }
-
     .title, .subtitle, .soon {
         grid-column: 2 / 3;
     }
@@ -49,11 +47,9 @@
     .title {
         font-size: 40px;
     }
-
     .subtitle {
         font-size: 24px;
     }
-
     .soon {
         font-size: 32px;
     }
