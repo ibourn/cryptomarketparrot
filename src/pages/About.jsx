@@ -77,7 +77,7 @@ function ComingSoonPage() {
                  and <a href="https://www.coingecko.com/en">coingecko</a>. Therefore the application is subject to a limitation in number of requests.
                     A backend in this direction would have provided more data (such as on-chain data via glassnode..., blockchair.com, news data via cryptonpanic... ).
                     It would have allow also to manage more request by switching api services.
-                    Thus i did a top 50 instead of a top 100 coins in order to circumvent the request limits because i chose to reproduce the mini chart in the ranking
+                    Thus i did a top 50 instead of a top 100 coins in order to circumvent the request limits because i chose to reproduce the mini chart in the rankings page
                     with prices updating automatically.
 </P>
             </Article>
