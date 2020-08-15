@@ -69,8 +69,7 @@ export default function RankingsPage(props) {
 
   const [needRefresh, setNeedRefresh] = useState({
     needed: false,
-    filterDidChanged: false,
-    sortDidChanged: false
+    filterDidChanged: false
   })
 
   //asynchrone
@@ -100,13 +99,8 @@ export default function RankingsPage(props) {
 
   //synchrone (changes must be rendered!)
   useLayoutEffect(() => {
-    if(needRefresh.needed) {
-      refreshData(needRefresh.filterDidChanged, needRefresh.sortingDidChanged);
-      // setNeedRefresh({
-      //   needed: false,
-      //   filterDidChanged: false,
-      //   sortDidChanged: false
-      // });
+    if (needRefresh.needed) {
+      refreshData(needRefresh.filterDidChanged);
     }
   });
 
@@ -137,7 +131,7 @@ export default function RankingsPage(props) {
       priceSetData: newPriceSet //Copy.nested(newPriceSet)
     });
 
-    props.refreshUpdateTime(Time.fromTimestamp(Date.now()/1000));
+    props.refreshUpdateTime(Time.fromTimestamp(Date.now() / 1000));
   }
 
   /**
@@ -253,21 +247,14 @@ export default function RankingsPage(props) {
    * @param {boolean} isFilterChanged 
    * @param {boolean} isSortingChanged 
    */
-  const refreshData = async (isFilterChanged, isSortingChanged) => {
+  const refreshData = async (isFilterChanged) => {
 
-    const dataFiltered = isSortingChanged ?
-    Filter.byRange(
-      sortDataSet(DataSet.coinsData, sorting.key, sorting.order),
-      filter) 
-      : isFilterChanged ?
-      Filter.byRange(DataSet.coinsData, filter) :
+    const dataFiltered = isFilterChanged ? Filter.byRange(DataSet.coinsData, filter) :
       DataSet.coinsFiltered;
-
 
     const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
     const snapChange = getChangeInSnapshot(newCoinsData);
     const newPriceSet = await fetchPriceSet(newCoinsData);
-
 
     /*update data states*/
     setDataSet((oldSet) => {
@@ -283,8 +270,7 @@ export default function RankingsPage(props) {
 
     setNeedRefresh({
       needed: false,
-      filterDidChanged: false,
-      sortDidChanged: false
+      filterDidChanged: false
     });
   }
 
@@ -337,12 +323,24 @@ export default function RankingsPage(props) {
       return newPage;
     });
 
-   // refreshData(false, true);
-    setNeedRefresh({
-      needed: true,
-      filterDidChanged: false,
-      sortDidChanged: true
+    const sortedData = sortDataSet(DataSet.coinsFiltered, key, order);
+    /*get the snapshot to display*/
+    const newCoinsData = sortedData.slice(0, COIN_COUNT);
+    const snapChange = getChangeInSnapshot(newCoinsData);
+    const newPriceSet = await fetchPriceSet(newCoinsData);
+
+    /*update the data states*/
+    setDataSet((oldSet) => {
+      const newSet = {
+        coinsData: oldSet.coinsData,
+        coinsFiltered: sortedData,
+        snapshot: newCoinsData,
+        snapshotChange: snapChange,
+        priceSetData: newPriceSet
+      }
+      return newSet;
     })
+
   }
 
 
@@ -395,8 +393,7 @@ export default function RankingsPage(props) {
 
     setNeedRefresh({
       needed: true,
-      filterDidChanged: true,
-      sortDidChanged: false
+      filterDidChanged: true
     })
   }
 
@@ -430,12 +427,11 @@ export default function RankingsPage(props) {
       };
       return newCurrent;
     });
-   // refreshData(false, false);
-   setNeedRefresh({
-    needed: true,
-    filterDidChanged: false,
-    sortDidChanged: false
-  })
+    // refreshData(false, false);
+    setNeedRefresh({
+      needed: true,
+      filterDidChanged: false
+    })
   }
 
   return (
@@ -447,7 +443,7 @@ export default function RankingsPage(props) {
 
       <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
         devise={filter.devise} snapshotChange={DataSet.snapshotChange}
-        handleClickSort={handleClickSort} pubIsOpen={props.pubIsOpen}/>
+        handleClickSort={handleClickSort} pubIsOpen={props.pubIsOpen} />
 
     </div>
   );
