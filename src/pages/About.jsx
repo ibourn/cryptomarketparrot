@@ -69,8 +69,8 @@ function ComingSoonPage() {
                     <I className="fas fa-circle text-muted"></I>The login function is fake.
 </P>
                 <P>
-                    <I className="fas fa-circle text-muted"></I>There is no intermediary between the customer and the data providers to pre-structure.
-                 the processed data and hide Api keys from third services .
+                    <I className="fas fa-circle text-muted"></I>There is no intermediary between the customer and data providers for pre-construction 
+                    of processed data and hide third-party service API keys.
 </P>
                 <P>
                     <I className="fas fa-circle text-muted"></I>For this reason I only use free api from <a href="https://coinpaprika.com/">coinprapika</a>
@@ -95,7 +95,7 @@ function ComingSoonPage() {
                 <I className="fas fa-circle text-muted"></I>Prices are blinking when up or down.
                            </P>
                 <P>
-                <I className="fas fa-circle text-muted"></I> You can close the pubs banner with the clode button or by resizing the screen.
+                <I className="fas fa-circle text-muted"></I> You can close the pubs banner with the close button or by resizing the window.
 </P>
                 <PSubtitle>
                     About the use of the APIs :

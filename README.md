@@ -23,8 +23,8 @@ I have tried to carry out this duty in using reactjs.
 
 ### As there is no back-end, there are 2 restrictions:
 *The login function is fake.
-*There is no intermediary between the customer and the data providers to pre-structure.
-the processed data and hide Api keys from third services.
+
+*There is no intermediary between the customer and data providers for pre-construction of processed data and hide third-party service API keys.
 
 For this reason I only use free api from <a href="https://coinpaprika.com/">coinprapika</a>
 and <a href="https://www.coingecko.com/en">coingecko</a>. Therefore the application is subject to a limitation in number of requests.
@@ -46,7 +46,7 @@ You can close the pubs banner with the clode button or by resizing the screen.
 
 ### About the use of the APIs :
 All information are updated 2 times a minute (apart static info about a specific coin such as its description, links...).
-In the top banner : global infos of the market are displayed with the time of the last update
+In the top banner : global info of the market are displayed with the time of the last update
 (every 30 seconds or so).
 
 In the ranking page (main page) 50 of all of the coins are displayed with

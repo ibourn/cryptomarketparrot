@@ -123,9 +123,9 @@ const CoinRankingNavBar = (props) => {
 
 
 
-/**
-   * style of the dropdown filter
-   */
+  /**
+     * style of the dropdown filter
+     */
 
 
   /**
@@ -149,19 +149,19 @@ const CoinRankingNavBar = (props) => {
   const triggerFilterMenu = "btn btn-sm btn-outline-light dropdown-toggle";
 
   const btnPagePrvClass = "btn btn-sm btn-outline-light text-primary" +
-  (props.page.current === 0 ? " disabled" : "");
+    (props.page.current === 0 ? " disabled" : "");
   const btnPageNxtClass = "btn btn-sm btn-outline-light text-primary" +
-  (props.page.current === props.page.last - 1 ? " disabled" : "");
-/*to remove the original dropdown box*/
-  const filterBckgrndColor =  {backgroundColor: `transparent`, border: 'none'} ;
+    (props.page.current === props.page.last - 1 ? " disabled" : "");
+  /*to remove the original dropdown box*/
+  const filterBckgrndColor = { backgroundColor: `transparent`, border: 'none' };
 
   const pageStyle = (theme === 'light' ?
-   {backgroundColor: lightTheme.body, borderColor : lightTheme.border} : 
-   {backgroundColor: darkTheme.body , borderColor : darkTheme.border});
-   const cryptoMenuStyle = (theme === 'light' ?
-   {backgroundColor: lightTheme.body, color : lightTheme.text} : 
-   {backgroundColor: darkTheme.body , color : darkTheme.text});
-   const cryptoMenuActiveStyle = {backgroundColor: 'dodgerblue'};
+    { backgroundColor: lightTheme.body, borderColor: lightTheme.border } :
+    { backgroundColor: darkTheme.body, borderColor: darkTheme.border });
+  const cryptoMenuStyle = (theme === 'light' ?
+    { backgroundColor: lightTheme.body, color: lightTheme.text } :
+    { backgroundColor: darkTheme.body, color: darkTheme.text });
+  const cryptoMenuActiveStyle = { backgroundColor: 'dodgerblue' };
 
   /**
    * toggle functions
@@ -210,8 +210,19 @@ const CoinRankingNavBar = (props) => {
   }
 
   const resetFilter = () => {
+    document.getElementById("minCapInput").value = null;
+    document.getElementById("maxCapInput").value = null;
+    document.getElementById("minSupInput").value = null;
+    document.getElementById("maxSupInput").value = null;
+    document.getElementById("minVarDayInput").value = null;
+    document.getElementById("maxVarDayInput").value = null;
+    document.getElementById("minVarAthInput").value = null;
+    document.getElementById("maxVarAthInput").value = null;
+    document.getElementById("minPriceInput").value = null;
+    document.getElementById("maxPriceInput").value = null;
+
     props.changeFilter(
-       0, 999999999999, 0, 999999999999, -100, 10000, -100, 10000, 0, 999999999999
+      0, 999999999999, 0, 999999999999, -100, 10000, -100, 10000, 0, 999999999999
     );
   }
 
@@ -232,11 +243,11 @@ const CoinRankingNavBar = (props) => {
       <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
           <BtnMenu className={triggerMenu} onClick={toggleDropDownCrypto}
-            onBlur={toggleDropDownCrypto} data-toggle="dropdown"  aria-haspopup="true"
+            onBlur={toggleDropDownCrypto} data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Cryptocurrencies</BtnMenu>
           <div className={menuCryptoClass}>
-            <NavLink to="/" className={menuItemClass + " active"} style={cryptoMenuStyle} 
-            activeStyle={cryptoMenuActiveStyle}>Top50</NavLink>
+            <NavLink to="/" className={menuItemClass + " active"} style={cryptoMenuStyle}
+              activeStyle={cryptoMenuActiveStyle}>Top50</NavLink>
             <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Deritatives</NavLink>
             <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Defi</NavLink>
           </div>
@@ -263,8 +274,8 @@ const CoinRankingNavBar = (props) => {
 
         <div className="dropdown filter">
           <BtnFilter className={triggerFilterMenu}
-          style={pageStyle} onClick={toggleDropDownFilter}
-             type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
+            style={pageStyle} onClick={toggleDropDownFilter}
+            type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i className="fas fa-filter"></i>Filters
            </BtnFilter>
@@ -313,7 +324,7 @@ const CoinRankingNavBar = (props) => {
               <div className="col-1">
                 <button className="btn btn-secondary btn-sm mt-3" id="btn-filter" onClick={changeFilter}
                   type="button" >Filter</button>
-                  <button className="btn btn-secondary btn-sm mt-4" id="btn-reset" onClick={resetFilter}
+                <button className="btn btn-secondary btn-sm mt-4" id="btn-reset" onClick={resetFilter}
                   type="button" >Reset</button>
               </div>
             </div>
@@ -322,7 +333,7 @@ const CoinRankingNavBar = (props) => {
 
         <div className="dropdown">
           <BtnCur className={triggerBtnMenu} style={pageStyle}
-          onClick={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
+            onClick={toggleDropDownDevise} type="button" id="dropdownCurButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             Currencies
          </BtnCur>
@@ -333,11 +344,11 @@ const CoinRankingNavBar = (props) => {
         </div>
 
         <BtnPage className={btnPagePrvClass} style={pageStyle}
-        onClick={handleClickPagePrv}>
+          onClick={handleClickPagePrv}>
           prev100
       </BtnPage>
         <BtnPage className={btnPageNxtClass} style={pageStyle}
-         onClick={handleClickPageNxt}>
+          onClick={handleClickPageNxt}>
           next100
         </BtnPage>
       </div>

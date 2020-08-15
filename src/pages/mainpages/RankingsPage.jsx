@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { DataContext } from '../../components/NavBars/DataContext';
 import styled from 'styled-components';
 
@@ -67,7 +67,13 @@ export default function RankingsPage(props) {
     priceSetData: []                  //7days prices {symbol, [[time, price]]}
   })
 
+  const [needRefresh, setNeedRefresh] = useState({
+    needed: false,
+    filterDidChanged: false,
+    sortDidChanged: false
+  })
 
+  //asynchrone
   useEffect(function () {
     if (DataSet.coinsData.length === 0) {
       // component did mount
@@ -86,6 +92,23 @@ export default function RankingsPage(props) {
     return () => clearInterval(interval);
   });
 
+  /**
+   * PERSO MEMO : 
+   * useEffect : setState => render => state updated useEffect play
+   * useLayoutEffect: play BEFORE render with the next value of state
+   */
+
+  //synchrone (changes must be rendered!)
+  useLayoutEffect(() => {
+    if(needRefresh.needed) {
+      refreshData(needRefresh.filterDidChanged, needRefresh.sortingDidChanged);
+      // setNeedRefresh({
+      //   needed: false,
+      //   filterDidChanged: false,
+      //   sortDidChanged: false
+      // });
+    }
+  });
 
   /**
    * Fetch all data (intialize the data)
@@ -228,11 +251,18 @@ export default function RankingsPage(props) {
   /**
    * Helpers to refresh data after filtering, sorting...
    * @param {boolean} isFilterChanged 
+   * @param {boolean} isSortingChanged 
    */
-  const refreshData = async (isFilterChanged) => {
-    const dataFiltered = isFilterChanged ?
+  const refreshData = async (isFilterChanged, isSortingChanged) => {
+
+    const dataFiltered = isSortingChanged ?
+    Filter.byRange(
+      sortDataSet(DataSet.coinsData, sorting.key, sorting.order),
+      filter) 
+      : isFilterChanged ?
       Filter.byRange(DataSet.coinsData, filter) :
       DataSet.coinsFiltered;
+
 
     const newCoinsData = dataFiltered.slice((page.current * COIN_COUNT), ((page.current * COIN_COUNT) + COIN_COUNT));
     const snapChange = getChangeInSnapshot(newCoinsData);
@@ -249,6 +279,12 @@ export default function RankingsPage(props) {
         priceSetData: newPriceSet
       }
       return newSet;
+    });
+
+    setNeedRefresh({
+      needed: false,
+      filterDidChanged: false,
+      sortDidChanged: false
     });
   }
 
@@ -301,22 +337,11 @@ export default function RankingsPage(props) {
       return newPage;
     });
 
-    const response = sortDataSet(DataSet.coinsFiltered, key, order);
-    /*get the snapshot to display*/
-    const newCoinsData = response.slice(0, COIN_COUNT);
-    const snapChange = getChangeInSnapshot(newCoinsData);
-    const newPriceSet = await fetchPriceSet(newCoinsData);
-
-    /*update the data states*/
-    setDataSet((oldSet) => {
-      const newSet = {
-        coinsData: oldSet.coinsData,
-        coinsFiltered: oldSet.coinsFiltered,
-        snapshot: newCoinsData,
-        snapshotChange: snapChange,
-        priceSetData: newPriceSet
-      }
-      return newSet;
+   // refreshData(false, true);
+    setNeedRefresh({
+      needed: true,
+      filterDidChanged: false,
+      sortDidChanged: true
     })
   }
 
@@ -368,7 +393,11 @@ export default function RankingsPage(props) {
       return newPage;
     });
 
-    refreshData(true);
+    setNeedRefresh({
+      needed: true,
+      filterDidChanged: true,
+      sortDidChanged: false
+    })
   }
 
 
@@ -401,8 +430,12 @@ export default function RankingsPage(props) {
       };
       return newCurrent;
     });
-
-    refreshData(false);
+   // refreshData(false, false);
+   setNeedRefresh({
+    needed: true,
+    filterDidChanged: false,
+    sortDidChanged: false
+  })
   }
 
   return (

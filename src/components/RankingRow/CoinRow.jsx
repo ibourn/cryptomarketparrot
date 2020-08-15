@@ -86,6 +86,9 @@ const TdG = styled.td`
 const TdRight = styled(Td)`
     text-align: right;
     `;
+const TdRightAth = styled(TdRight)`
+    padding-right: 0.2rem;
+    `;
 const TdSupply = styled(TdRight)`
     padding-right: 0.2rem;
     `;
@@ -259,7 +262,7 @@ const CoinRow = (props) => {
                 }
                 <TdRight className={styleClassVarD30} theme={theme}>{props.percent_change_30d}</TdRight>
 
-                <TdRight className={styleClassVarAth} theme={theme}>{props.percent_from_price_ath}</TdRight>
+                <TdRightAth className={styleClassVarAth} theme={theme}>{props.percent_from_price_ath}</TdRightAth>
                 <TdRight theme={theme}>{volume}</TdRight>
                 <TdRight theme={theme}>{marketcap}</TdRight>
                 <TdSupply theme={theme} >{props.circulating_supply.toLocaleString()}</TdSupply>

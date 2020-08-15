@@ -55,7 +55,7 @@ max-width: 5vw;
 `;
 const ThName = styled(Th)`
 text-align: left;
-padding-left: 0.2rem
+padding-left: 0.4rem;
 min-width: 6vw;
 max-width: 9vw;
 @media (max-width: 1100px) {
@@ -77,7 +77,7 @@ const ThData = styled(Th)`
 text-align: right;    
 `;
 const ThPercent = styled(ThData)`
-min-width: 3.5vw;
+min-width: 5vw;
 @media (max-width: 1100px) {
   min-width: ${props => (props.pubIsOpen ? '3vw' : '7vw')};
   } 
@@ -99,7 +99,7 @@ min-width: 8vw;
    `;
 const ThSupply = styled(ThNum)`
 padding-right: 0.2rem;
-min-width: 9vw;
+min-width: 9.5vw;
 @media (max-width: 1100px) {
   padding-right: 0;
   min-width: ${props => (props.pubIsOpen ? '6vw' : '6.5vw')};
