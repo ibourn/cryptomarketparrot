@@ -243,10 +243,11 @@ const CoinRankingNavBar = (props) => {
       <ul className="nav nav-tabs">
         <LiCrypto className={liDropdown}>
           <BtnMenu className={triggerMenu} onClick={toggleDropDownCrypto}
-            onBlur={toggleDropDownCrypto} data-toggle="dropdown" aria-haspopup="true"
+             data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Cryptocurrencies</BtnMenu>
           <div className={menuCryptoClass}>
-            <NavLink to="/" className={menuItemClass + " active"} style={cryptoMenuStyle}
+            <NavLink to="/" className={menuItemClass + " active"} onClick={toggleDropDownCrypto}
+            style={cryptoMenuStyle}
               activeStyle={cryptoMenuActiveStyle}>Top50</NavLink>
             <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Deritatives</NavLink>
             <NavLink to="/" className={menuItemClass} style={cryptoMenuStyle}>Defi</NavLink>
@@ -254,17 +255,17 @@ const CoinRankingNavBar = (props) => {
         </LiCrypto>
         <LiMarkets className={liDropdown}>
           <BtnMenu className={triggerMenu} onClick={toggleDropDownExchange}
-            onBlur={toggleDropDownExchange} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+             data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Markets</BtnMenu>
-          <div className={menuExchangeClass} style={cryptoMenuStyle}>
+          <div className={menuExchangeClass} style={cryptoMenuStyle} onClick={toggleDropDownExchange}>
             coming soon...
       </div>
         </LiMarkets>
         <LiWatchlist className={liDropdown}>
           <BtnMenu className={triggerMenu} onClick={toggleDropDownWatchlist}
-            onBlur={toggleDropDownWatchlist} data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+             data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Watchlist</BtnMenu>
-          <div className={menuWatchlistClass} style={cryptoMenuStyle}>
+          <div className={menuWatchlistClass} style={cryptoMenuStyle} onClick={toggleDropDownWatchlist}>
             coming soon...
       </div>
         </LiWatchlist>
