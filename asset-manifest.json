@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/cryptomarketparrot/static/css/main.4a9a6bf1.chunk.css",
-    "main.js": "/cryptomarketparrot/static/js/main.12b5b8b7.chunk.js",
-    "main.js.map": "/cryptomarketparrot/static/js/main.12b5b8b7.chunk.js.map",
+    "main.js": "/cryptomarketparrot/static/js/main.f9fffa37.chunk.js",
+    "main.js.map": "/cryptomarketparrot/static/js/main.f9fffa37.chunk.js.map",
     "runtime-main.js": "/cryptomarketparrot/static/js/runtime-main.eb4ff973.js",
     "runtime-main.js.map": "/cryptomarketparrot/static/js/runtime-main.eb4ff973.js.map",
     "static/css/2.43079d8c.chunk.css": "/cryptomarketparrot/static/css/2.43079d8c.chunk.css",
     "static/js/2.f8357c0d.chunk.js": "/cryptomarketparrot/static/js/2.f8357c0d.chunk.js",
     "static/js/2.f8357c0d.chunk.js.map": "/cryptomarketparrot/static/js/2.f8357c0d.chunk.js.map",
     "index.html": "/cryptomarketparrot/index.html",
-    "precache-manifest.7bc2a4fb8ac0541c339ac2da68c5ec90.js": "/cryptomarketparrot/precache-manifest.7bc2a4fb8ac0541c339ac2da68c5ec90.js",
+    "precache-manifest.24420628e6b83c2df742eba947b526a2.js": "/cryptomarketparrot/precache-manifest.24420628e6b83c2df742eba947b526a2.js",
     "service-worker.js": "/cryptomarketparrot/service-worker.js",
     "static/css/2.43079d8c.chunk.css.map": "/cryptomarketparrot/static/css/2.43079d8c.chunk.css.map",
     "static/css/main.4a9a6bf1.chunk.css.map": "/cryptomarketparrot/static/css/main.4a9a6bf1.chunk.css.map",
@@ -452,6 +452,6 @@
     "static/css/2.43079d8c.chunk.css",
     "static/js/2.f8357c0d.chunk.js",
     "static/css/main.4a9a6bf1.chunk.css",
-    "static/js/main.12b5b8b7.chunk.js"
+    "static/js/main.f9fffa37.chunk.js"
   ]
 }
