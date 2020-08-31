@@ -47,7 +47,7 @@ function App() {
           <div className="globalContainer container-fluid" >
             <Switch>
               
-              <Route exact strict path="/" component={MainPage} />
+              <Route exact strict path="(/|/cryptomarketparrot)(/|)" component={MainPage} />
               <Route  exact path="/coin/:id/:type" component={MainPage}  />
 
               <Route path="/about" component={MainPage} />

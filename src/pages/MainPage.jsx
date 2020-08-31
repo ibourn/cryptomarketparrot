@@ -83,7 +83,7 @@ export default function MainPage(props) {
 
                             <Switch>
 
-                                <Route exact strict path="/" >
+                                <Route exact strict path="(/|/cryptomarketparrot)(/|)" >
                                     <RankingsPage pubIsOpen={showBanner} lastUpdateTime={lastUpdateTime} refreshUpdateTime={refreshUpdateTime} />
                                 </Route>
 
