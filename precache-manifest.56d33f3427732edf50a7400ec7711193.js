@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "642f5820851d062a38ae68d73add147b",
+    "revision": "53f166386cca311953b55f1848515247",
     "url": "/cryptomarketparrot/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cryptomarketparrot/static/css/2.43079d8c.chunk.css"
   },
   {
-    "revision": "c2a99765bf1914295f6b",
+    "revision": "a16507a48c08e2259d68",
     "url": "/cryptomarketparrot/static/css/main.4a9a6bf1.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cryptomarketparrot/static/js/2.f8357c0d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c2a99765bf1914295f6b",
-    "url": "/cryptomarketparrot/static/js/main.dbb8756e.chunk.js"
+    "revision": "a16507a48c08e2259d68",
+    "url": "/cryptomarketparrot/static/js/main.12b5b8b7.chunk.js"
   },
   {
     "revision": "a2e4038fe903824af508",
