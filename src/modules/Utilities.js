@@ -8,29 +8,44 @@ export var Format = {
     /**
      * price
      */
-    price: price => { parseFloat(Number(price).toFixed(4));
-     },
-    toCurrency: (price, devise) => { 
-        if(price){
-        const newFormat = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0, 
-  minimumFractionDigits: 0,style: 'currency', currency: `${devise}` });
-        return newFormat.format(price);
+    price: price => {
+        parseFloat(Number(price).toFixed(4));
+    },
+    toCurrency: (price, devise) => {
+        if (price) {
+            const newFormat = new Intl.NumberFormat('en-US', {
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0, style: 'currency', currency: `${devise}`
+            });
+            if (devise !== 'BTC') {
+                return newFormat.format(price);
+            }
+            else {
+                return (newFormat.format(price)).replace('BTC', '\u0E3F');
+            }
         } else {
             return "not yet..";
         }
     },
     toCurrencyNDigits: (price, devise, n) => {
-        const newFormat = new Intl.NumberFormat('en-US', { maximumFractionDigits: n, 
-            minimumFractionDigits: 0,style: 'currency', currency: `${devise}` });
-                  return newFormat.format(price);
+        const newFormat = new Intl.NumberFormat('en-US', {
+            maximumFractionDigits: n,
+            minimumFractionDigits: 0, style: 'currency', currency: `${devise}`
+        });
+        if (devise !== 'BTC') {
+            return newFormat.format(price);
+        }
+        else {
+            return (newFormat.format(price)).replace('BTC', '\u0E3F');
+        }
 
     },
     toLocale: (price) => {
-        if(price){
+        if (price) {
             return price.toLocaleString();
-            } else {
-                return "not yet..";
-            }
+        } else {
+            return "not yet..";
+        }
     },
     /**
      * text
@@ -38,8 +53,8 @@ export var Format = {
      * @todo use regex to filter \r\n 1 2... i ii ...
      */
     parseToHtml: (text) => {
-        for(let i=0; i < text.length; i++){
-            text=text.replace("\r\n\r\n","<br/><span style=\"padding-left: 0.5rem\"></span>");
+        for (let i = 0; i < text.length; i++) {
+            text = text.replace("\r\n\r\n", "<br/><span style=\"padding-left: 0.5rem\"></span>");
         }
         return text;
     }
@@ -82,11 +97,11 @@ export var Filter = {
                 value.quotes[filter.devise]["percent_change_24h"] >= filter.minVarD &&
                 value.quotes[filter.devise]["percent_change_24h"] <= filter.maxVarD &&
                 (filter.devise === "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] >= filter.minVarAth : true) &&
-                (filter.devise === "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth: true) &&
+                (filter.devise === "USD" ? value.quotes[filter.devise]["percent_from_price_ath"] <= filter.maxVarAth : true) &&
                 value.quotes[filter.devise]["price"] >= filter.minPrice &&
                 value.quotes[filter.devise]["price"] <= filter.maxPrice);
         }
-      
+
         return data.filter(isInRange)
 
     }
@@ -124,8 +139,8 @@ export var Time = {
         const hr = dt.getHours().toString();
         const min = dt.getMinutes().toString();
         const s = dt.getSeconds().toString();
-        if(y && m && d && hr && min && s){
-        return y + '/' + m.padStart(2, "0") + '/' + d.padStart(2, "0") + ' ' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
+        if (y && m && d && hr && min && s) {
+            return y + '/' + m.padStart(2, "0") + '/' + d.padStart(2, "0") + ' ' + hr.padStart(2, "0") + ':' + min.padStart(2, "0") + ':' + s.padStart(2, "0");
         } else {
             return "no data.."
         }
@@ -138,16 +153,16 @@ export var Time = {
  */
 export var Copy = {
     shallow: (element) => {
-        if(typeof element == "object") {
-            return {...element};
+        if (typeof element == "object") {
+            return { ...element };
         } else {
             return element;
         }
     },
     deep: (element) => {
-        if(Array.isArray(element)) {
+        if (Array.isArray(element)) {
             return [...element];
-        } else if(typeof element == "object") {
+        } else if (typeof element == "object") {
             return JSON.parse(JSON.stringify(element));
         } else {
             return element;
@@ -157,19 +172,19 @@ export var Copy = {
         let deepCopy = (element) => {
             //If not a object then return
             if (!element) {
-              return element;
+                return element;
             }
-            
+
             let item;
             let copy = Array.isArray(element) ? [] : {};
- 
+
             for (const i in element) {
                 item = element[i];
-              copy[i] = (typeof item === "object") ? deepCopy(item) : item;
-            }  
+                copy[i] = (typeof item === "object") ? deepCopy(item) : item;
+            }
             return copy;
-          }
-          return deepCopy(element);
+        }
+        return deepCopy(element);
     }
 
 }
@@ -179,21 +194,21 @@ export var Copy = {
  */
 export var Maths = {
 
-    getMinOfSerieInSet: (set, item) => {       
-        let min = +1e19;         
-        for(let i in set) {        
-            if(set[i][item] < min)
-                min = set[i][item]; 
+    getMinOfSerieInSet: (set, item) => {
+        let min = +1e19;
+        for (let i in set) {
+            if (set[i][item] < min)
+                min = set[i][item];
         }
-        return min; 
+        return min;
     },
     getMaxOfSerieInSet: (set, item) => {
-        let max = -1e19;         
-        for(let i in set) {      
-            if(set[i][item] > max)
-                max = set[i][item];  
-            }
-            return max; 
+        let max = -1e19;
+        for (let i in set) {
+            if (set[i][item] > max)
+                max = set[i][item];
+        }
+        return max;
     }
 
 }
