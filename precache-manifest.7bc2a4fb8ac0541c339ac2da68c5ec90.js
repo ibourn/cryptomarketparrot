@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "53f166386cca311953b55f1848515247",
+    "revision": "a47ca73f71812c6465f9224a4b5419e6",
     "url": "/cryptomarketparrot/index.html"
   },
   {
