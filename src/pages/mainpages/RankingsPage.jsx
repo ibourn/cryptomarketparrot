@@ -443,7 +443,7 @@ export default function RankingsPage(props) {
 
       <RankingCoins coinsData={DataSet.snapshot} coinsList={coinsInfos.list} priceSetData={DataSet.priceSetData}
         devise={filter.devise} snapshotChange={DataSet.snapshotChange}
-        handleClickSort={handleClickSort} pubIsOpen={props.pubIsOpen} />
+        handleClickSort={handleClickSort} pubIsOpen={props.pubIsOpen}/>
 
     </div>
   );

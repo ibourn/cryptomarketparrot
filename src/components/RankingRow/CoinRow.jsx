@@ -224,9 +224,9 @@ const CoinRow = (props) => {
     const icon = getAvailableIcon();
 
 
-    const price = Format.toCurrencyNDigits(props.price, 'USD', 8);
-    const volume = Format.toCurrencyNDigits(props.volume_24h, 'USD', 0);
-    const marketcap = Format.toCurrency(props.market_cap, 'USD');
+    const price = Format.toCurrencyNDigits(props.price, props.devise, 8);
+    const volume = Format.toCurrencyNDigits(props.volume_24h, props.devise, 0);
+    const marketcap = Format.toCurrency(props.market_cap, props.devise);
 
     return (
         <>

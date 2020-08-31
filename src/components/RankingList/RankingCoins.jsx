@@ -251,6 +251,7 @@ const RankingCoins = (props) => {
               priceSet={props.priceSetData[symbol.toLowerCase()][props.devise]}
               snapshotChange={props.snapshotChange[index]}
 
+              devise={props.devise}
             />
           )
         }
